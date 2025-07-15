@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart Moving Lyrics</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            text-align: center;
+            color: #4a4a4a;
+            margin-bottom: 40px;
+            font-size: 2.5em;
+            font-weight: 700;
+            width: 100%;
+        }
+
+        .lyrics-grid {
+            display: grid;
+            grid-template-columns: minmax(300px, 1fr) minmax(300px, 1fr);
+            gap: 0 40px;
+            width: 100%;
+            overflow-x: auto;
+            padding-bottom: 10px;
+            -webkit-overflow-scrolling: touch;
+            align-items: end;
+        }
+
+        .grid-header {
+            color: #6a6a6a;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 10px;
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 1.8em;
+            font-weight: 600;
+        }
+
+        .japanese-line,
+        .translation-line {
+            padding: 0;
+            margin-bottom: 5px;
+        }
+
+        .japanese-line {
+            font-size: 1.4em;
+            line-height: 1.5;
+        }
+
+        .word-tooltip {
+            position: relative;
+            display: inline-block;
+            padding: 2px 0;
+            border-radius: 3px;
+            margin: 0 1px;
+            -webkit-tap-highlight-color: transparent;
+            cursor: pointer;
+        }
+
+        .word-group {
+            padding: 2px 4px;
+            border-radius: 4px;
+            transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+            cursor: pointer;
+        }
+
+        .translation-phrase {
+            border-radius: 4px;
+            transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+            cursor: pointer;
+        }
+
+        rt {
+            font-size: 0.5em;
+            color: #888;
+            user-select: none;
+        }
+
+        h1 rt {
+            font-size: 0.4em;
+        }
+
+        .tooltip-box {
+            position: absolute;
+            background-color: #333;
+            color: #fff;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 0.85em;
+            white-space: normal;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
+            min-width: 200px;
+            max-width: 300px;
+            text-align: left;
+            line-height: 1.4;
+            pointer-events: none;
+        }
+
+        .tooltip-box h4 {
+            margin-top: 0;
+            margin-bottom: 5px;
+            color: #ffcc00;
+            font-size: 1.1em;
+        }
+
+        .tooltip-box h4 .kanji-color {
+            color: #63e2b7;
+        }
+
+        .tooltip-box p {
+            margin: 0;
+            padding: 2px 0;
+        }
+
+        .tooltip-box strong {
+            color: #aaffaa;
+        }
+
+        .tooltip-box .kana-romaji {
+            font-size: 0.9em;
+            color: #ccc;
+            margin-top: 5px;
+            padding-top: 5px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .tooltip-box .kana-display {
+            color: #e0e0e0;
+        }
+
+        .tooltip-box .lyric-note {
+            font-style: italic;
+            color: #ffaa77;
+            margin-top: 8px;
+            font-size: 0.85em;
+        }
+
+        .translation-line {
+            font-size: 1em;
+            font-weight: 600;
+            color: #2a2a2a;
+        }
+
+        .highlight-jp-group,
+        .highlight-en-phrase {
+            background-color: rgba(173, 216, 230, 0.7);
+            color: #1a202c;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 2em;
+                margin-bottom: 30px;
+            }
+
+            .grid-header {
+                font-size: 1.5em;
+                margin-bottom: 10px;
+            }
+
+            .japanese-line {
+                font-size: 1.2em;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>
+            HEART MOVING
+        </h1>
+        <video id="video" controls crossorigin="anonymous" width="640">
+            <source src="heart-moving.mp4" type="video/mp4">
+            <track label="Japanese" kind="subtitles" srclang="ja" src="heart-moving.srt" default>
+            Your browser does not support the video tag.
+        </video>
+        <div class="lyrics-grid">
+            <h2 class="grid-header">Japanese</h2>
+            <h2 class="grid-header">English</h2>
+            <p class="japanese-line">
+                <span class="word-group" data-group-id="31-1"><span class="word-tooltip" data-kanji="夢" data-meaning="dream" data-grammar="Noun" data-kana="ゆめ" data-romaji="yume"><ruby>夢<rt>ゆめ</rt></ruby></span>の<ruby>中<rt>なか</rt></ruby></span>
+                <span class="word-group" data-group-id="31-2"><span class="word-tooltip" data-meaning="two people" data-grammar="Noun" data-kana="ふたり" data-romaji="futari"><ruby>二人<rt>ふたり</rt></ruby></span>で</span>
+                <span class="word-group" data-group-id="31-3"><span class="word-tooltip" data-meaning="were" data-grammar="Verb" data-kana="いた" data-romaji="ita">いた</span>よね</span>
+            </p>
+            <p class="translation-line">
+                <span class="translation-phrase" data-group-id="31-1">In a dream,</span>
+                <span class="translation-phrase" data-group-id="31-2">the two of us</span>
+                <span class="translation-phrase" data-group-id="31-3">were together, right?</span>
+            </p>
+            <p class="japanese-line">
+                <span class="word-group" data-group-id="32-1"><span class="word-tooltip" data-kanji="星" data-meaning="stars" data-grammar="Noun" data-kana="ほし" data-romaji="hoshi"><ruby>星<rt>ほし</rt></ruby></span>たちに</span>
+                <span class="word-group" data-group-id="32-2"><span class="word-tooltip" data-meaning="being protected" data-grammar="Verb, passive form" data-kana="まもられて" data-romaji="mamorarete"><ruby>守<rt>まも</rt></ruby>られて</span></span>
+            </p>
+            <p class="translation-line">
+                <span class="translation-phrase" data-group-id="32-2">Protected</span>
+                <span class="translation-phrase" data-group-id="32-1">by the stars</span>
+            </p>
+            <p class="japanese-line">
+                <span class="word-group" data-group-id="33-1"><span class="word-tooltip" data-kanji="友達" data-meaning="friends" data-grammar="Noun" data-kana="ともだち" data-romaji="tomodachi"><ruby>友達<rt>ともだち</rt></ruby></span>の<ruby>時<rt>とき</rt></ruby>には</span>
+                <span class="word-group" data-group-id="33-2"><span class="word-tooltip" data-meaning="without minding" data-grammar="Phrase" data-kana="きにせず" data-romaji="ki ni sezu"><ruby>気<rt>き</rt></ruby>にせず</span></span>
+            </p>
+            <p class="translation-line">
+                <span class="translation-phrase" data-group-id="33-1">When we were friends,</span>
+                <span class="translation-phrase" data-group-id="33-2">I didn't mind</span>
+            </p>
+            <p class="japanese-line">
+                <span class="word-group" data-group-id="34-1"><span class="word-tooltip" data-meaning="casually" data-grammar="Adverb" data-kana="なにげなく" data-romaji="nanigenaku"><ruby>何気<rt>なにげ</rt></ruby>なく</span></span>
+                <span class="word-group" data-group-id="34-2"><span class="word-tooltip" data-meaning="we talked, but" data-grammar="Verb + Conjunction" data-kana="はなしていたけど" data-romaji="hanashite ita kedo"><ruby>話<rt>はな</rt></ruby>していたけど</span></span>
+            </p>
+            <p class="translation-line">
+                <span class="translation-phrase" data-group-id="34-1">We talked</span>
+                <span class="translation-phrase" data-group-id="34-2">casually, but</span>
+            </p>
+            <p class="japanese-line">
+                <span class="word-group" data-group-id="35-1"><span class="word-tooltip" data-meaning="only you" data-grammar="Pronoun + Particle" data-kana="あなただけ" data-romaji="anata dake">あなただけ</span></span>
+                <span class="word-group" data-group-id="35-2"><span class="word-tooltip" data-meaning="to come to mind" data-grammar="Phrase" data-kana="きになる" data-romaji="ki ni naru"><ruby>気<rt>き</rt></ruby>になる</span></span>
+                <span class="word-group" data-group-id="35-3"><span class="word-tooltip" data-meaning="there was a moment" data-grammar="Phrase" data-kana="しゅんかんがあったの" data-romaji="shunkan ga atta no"><ruby>瞬間<rt>しゅんかん</rt></ruby>があったの</span></span>
+            </p>
+            <p class="translation-line">
+                <span class="translation-phrase" data-group-id="35-3">There was a moment</span>
+                <span class="translation-phrase" data-group-id="35-1">when only you</span>
+                <span class="translation-phrase" data-group-id="35-2">came to mind</span>
+            </p>
+            <p class="japanese-line">
+                <span class="word-group" data-group-id="36-1"><span class="word-tooltip" data-meaning="more beautiful" data-grammar="Adverb + Adjective" data-kana="もっときれい" data-romaji="motto kirei ni">もっと<ruby>きれい<rt>きれい</rt></ruby>に</span></span>
+                <span class="word-group" data-group-id="36-2"><span class="word-tooltip" data-meaning="right now" data-grammar="Adverb" data-kana="いますぐ" data-romaji="ima sugu"><ruby>今<rt>いま</rt></ruby>すぐ</span></span>
+                <span class="word-group" data-group-id="36-3"><span class="word-tooltip" data-meaning="want to become" data-grammar="Verb" data-kana="なりたい" data-romaji="naritai">なりたい</span></span>
+            </p>
+            <p class="translation-line">
+                <span class="translation-phrase" data-group-id="36-2">Right now,</span>
+                <span class="translation-phrase" data-group-id="36-3">I want to become</span>
+                <span class="translation-phrase" data-group-id="36-1">more beautiful</span>
+            </p>
+            <p class="japanese-line">
+                <span class="word-group" data-group-id="37-1"><span class="word-tooltip" data-meaning="when you fall in love" data-grammar="Phrase" data-kana="こいすると" data-romaji="koi suru to"><ruby>恋<rt>こい</rt></ruby>すると</span></span>
+                <span class="word-group" data-group-id="37-2"><span class="word-tooltip" data-meaning="something" data-grammar="Pronoun" data-kana="なにか" data-romaji="nanika"><ruby>何<rt>なに</rt></ruby>かが</span></span>
+                <span class="word-group" data-group-id="37-3"><span class="word-tooltip" data-meaning="changes, right?" data-grammar="Verb + Particle" data-kana="かわるね" data-romaji="kawaru ne"><ruby>変<rt>か</rt></ruby>わるね</span></span>
+            </p>
+            <p class="translation-line">
+                <span class="translation-phrase" data-group-id="37-1">When you fall in love,</span>
+                <span class="translation-phrase" data-group-id="37-2">something</span>
+                <span class="translation-phrase" data-group-id="37-3">changes, doesn't it?</span>
+            </p>
+            <p class="japanese-line">
+                <span class="word-group" data-group-id="38-1"><span class="word-tooltip" data-meaning="close your eyes" data-grammar="Verb" data-kana="めをとじて" data-romaji="me wo tojite"><ruby>目<rt>め</rt></ruby>を<ruby>閉<rt>と</rt></ruby>じて</span></span>
+                <span class="word-group" data-group-id="38-2"><span class="word-tooltip" data-meaning="and make sure" data-grammar="Verb" data-kana="たしかめて" data-romaji="tashikamete">たしかめて</span></span>
+            </p>
+            <p class="translation-line">
+                <span class="translation-phrase" data-group-id="38-1">Close your eyes</span>
+                <span class="translation-phrase" data-group-id="38-2">and make sure</span>
+            </p>
+            <p class="japanese-line">
+                <span class="word-group" data-group-id="39-1"><span class="word-tooltip" data-meaning="the thrill of your embrace" data-grammar="Phrase" data-kana="だきしめたときめき" data-romaji="dakishimeta tokimeki"><ruby>抱<rt>だ</rt></ruby>きしめたときめき</span></span>
+                <span class="word-group" data-group-id="39-2"><span class="word-tooltip" data-meaning="just as it is" data-grammar="Adverb" data-kana="そのまま" data-romaji="sono mama">そのまま</span></span>
+            </p>
+            <p class="translation-line">
+                <span class="translation-phrase" data-group-id="39-1">The thrill of your embrace,</span>
+                <span class="translation-phrase" data-group-id="39-2">just as it is</span>
+            </p>
+            <p class="japanese-line">
+                <span class="word-group" data-group-id="40-1"><span class="word-tooltip" data-meaning="these feelings" data-grammar="Phrase" data-kana="このおもい" data-romaji="kono omoi">この<ruby>思<rt>おも</rt></ruby>い</span></span>
+                <span class="word-group" data-group-id="40-2"><span class="word-tooltip" data-meaning="I want to tell you" data-grammar="Verb" data-kana="つたえたい" data-romaji="tsutaetai"><ruby>伝<rt>つた</rt></ruby>えたい</span></span>
+            </p>
+            <p class="translation-line">
+                <span class="translation-phrase" data-group-id="40-1">These feelings,</span>
+                <span class="translation-phrase" data-group-id="40-2">I want to tell you</span>
+            </p>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tooltips = document.querySelectorAll('.word-tooltip');
+            let currentTooltipElement = null;
+            function showTooltip(wordSpan) {
+                if (currentTooltipElement) hideTooltip();
+                const meaning = wordSpan.dataset.meaning;
+                const grammar = wordSpan.dataset.grammar;
+                const kana = wordSpan.dataset.kana;
+                const romaji = wordSpan.dataset.romaji;
+                const kanji = wordSpan.dataset.kanji;
+                const lyricNote = wordSpan.dataset.lyricNote;
+                let h4Text = kanji ? `<span class="kanji-color">${kanji}</span>` : wordSpan.textContent.trim();
+                const newTooltipElement = document.createElement('div');
+                newTooltipElement.classList.add('tooltip-box');
+                let content = `<h4>${h4Text}</h4>`;
+                if (kana || romaji) {
+                    content += `<div class="kana-romaji">`;
+                    if (kanji && kana) content += `<p class="kana-display">${kana}</p>`;
+                    if (romaji) content += `<p>${romaji}</p>`;
+                    content += `</div>`;
+                }
+                if (meaning) content += `<p><strong>Meaning:</strong> ${meaning}</p>`;
+                if (grammar) content += `<p><strong>Grammar:</strong> ${grammar}</p>`;
+                if (lyricNote) content += `<p class="lyric-note">${lyricNote}</p>`;
+                newTooltipElement.innerHTML = content;
+                document.body.appendChild(newTooltipElement);
+                currentTooltipElement = newTooltipElement;
+                const rect = wordSpan.getBoundingClientRect();
+                let left = rect.left + (rect.width / 2) - (currentTooltipElement.offsetWidth / 2);
+                let top = rect.top - currentTooltipElement.offsetHeight - 10;
+                if (left < 10) left = 10;
+                if (left + currentTooltipElement.offsetWidth > window.innerWidth - 10) {
+                    left = window.innerWidth - currentTooltipElement.offsetWidth - 10;
+                }
+                if (top < 10) top = rect.bottom + 10;
+                currentTooltipElement.style.left = `${left + window.scrollX}px`;
+                currentTooltipElement.style.top = `${top + window.scrollY}px`;
+                currentTooltipElement.style.opacity = '1';
+                currentTooltipElement.style.visibility = 'visible';
+            }
+            function hideTooltip() {
+                if (currentTooltipElement) {
+                    currentTooltipElement.remove();
+                    currentTooltipElement = null;
+                }
+            }
+            function addHighlight(groupId) {
+                const jpGroup = document.querySelector(`.word-group[data-group-id="${groupId}"]`);
+                const enPhrase = document.querySelector(`.translation-phrase[data-group-id="${groupId}"]`);
+                if (jpGroup) jpGroup.classList.add('highlight-jp-group');
+                if (enPhrase) enPhrase.classList.add('highlight-en-phrase');
+            }
+            function removeHighlight(groupId) {
+                const jpGroup = document.querySelector(`.word-group[data-group-id="${groupId}"]`);
+                const enPhrase = document.querySelector(`.translation-phrase[data-group-id="${groupId}"]`);
+                if (jpGroup) jpGroup.classList.remove('highlight-jp-group');
+                if (enPhrase) enPhrase.classList.remove('highlight-en-phrase');
+            }
+            document.querySelectorAll('.word-group').forEach(group => {
+                group.addEventListener('mouseenter', () => addHighlight(group.dataset.groupId));
+                group.addEventListener('mouseleave', () => removeHighlight(group.dataset.groupId));
+            });
+            document.querySelectorAll('.translation-phrase').forEach(phrase => {
+                phrase.addEventListener('mouseenter', () => addHighlight(phrase.dataset.groupId));
+                phrase.addEventListener('mouseleave', () => removeHighlight(phrase.dataset.groupId));
+            });
+            tooltips.forEach(wordSpan => {
+                wordSpan.addEventListener('mouseenter', () => {
+                    showTooltip(wordSpan);
+                });
+                wordSpan.addEventListener('mouseleave', () => {
+                    hideTooltip();
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
