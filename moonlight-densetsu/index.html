@@ -590,6 +590,8 @@
 
             // --- Video and Subtitle Sync Logic ---
             function updateTime() {
+                document.title = `(${Math.floor(video.currentTime / 60)}:${String(Math.floor(video.currentTime % 60)).padStart(2, '0')}) - ${document.querySelector('h1').textContent.trim()}`;
+
                 const currentTime = video.currentTime;
                 let activeRow = null;
 
@@ -649,6 +651,21 @@
             updateMuteIcon();
             loopBtn.innerHTML = icons.loop;
 
+            document.addEventListener('keydown', (event) => {
+                if (event.code === 'Space') {
+                    event.preventDefault(); // Prevents the page from scrolling
+                    if (video.paused) {
+                        video.play();
+                        // Unmute if starting from the beginning
+                        if (video.muted) {
+                            video.muted = false;
+                            updateMuteIcon();
+                        }
+                    } else {
+                        video.pause();
+                    }
+                }
+            });
 
             // --- Tooltip and Hover Logic ---
             const tooltips = document.querySelectorAll('.word-tooltip');
