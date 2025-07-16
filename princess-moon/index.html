@@ -178,6 +178,26 @@
             line-height: 1.5;
         }
 
+        .word-tooltip {
+            position: relative;
+            display: inline-block;
+            padding: 2px 0;
+            border-radius: 3px;
+            margin: 0 1px;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .word-group {
+            padding: 2px 4px;
+            border-radius: 4px;
+            transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+        }
+
+        .translation-phrase {
+            border-radius: 4px;
+            transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+        }
+
         rt {
             font-size: 0.5em;
             color: #cbd5e0;
@@ -187,6 +207,78 @@
 
         h1 rt {
             font-size: 0.4em;
+        }
+
+        .tooltip-box {
+            position: absolute;
+            background-color: #2d3748;
+            color: #f7fafc;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 0.85em;
+            white-space: normal;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
+            min-width: 200px;
+            max-width: 300px;
+            text-align: left;
+            line-height: 1.4;
+            pointer-events: none;
+            border: 1px solid var(--border-color);
+        }
+
+        .tooltip-box h4 {
+            margin-top: 0;
+            margin-bottom: 5px;
+            color: #f6e05e;
+            font-size: 1.1em;
+        }
+
+        .tooltip-box h4 .kanji-color {
+            color: #68d391;
+        }
+
+        .tooltip-box p {
+            margin: 0;
+            padding: 2px 0;
+        }
+
+        .tooltip-box strong {
+            color: #9ae6b4;
+        }
+
+        .tooltip-box .kana-romaji {
+            font-size: 0.9em;
+            color: var(--text-muted);
+            margin-top: 5px;
+            padding-top: 5px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .tooltip-box .kana-display {
+            color: #e2e8f0;
+        }
+
+        .tooltip-box .lyric-note {
+            font-style: italic;
+            color: #f6ad55;
+            margin-top: 8px;
+            font-size: 0.85em;
+        }
+
+        .translation-line {
+            font-size: 1em;
+            font-weight: 600;
+            color: #e2e8f0;
+        }
+
+        .highlight-jp-group,
+        .highlight-en-phrase {
+            background-color: rgba(173, 216, 230, 0.7);
+            color: var(--text-dark);
         }
 
         .lyric-row.highlight-line {
@@ -260,116 +352,60 @@
                 <h2 class="grid-header">English</h2>
             </div>
             <div class="lyric-row" data-start-time="6" data-end-time="9">
-                <p class="japanese-line">
-                    <ruby>昼<rt>ひる</rt></ruby>には<ruby>花<rt>はな</rt></ruby>の<ruby>香<rt>かお</rt></ruby>り
-                </p>
-                <p class="translation-line">
-                    The scent of flowers in the daytime
-                </p>
+                <p class="japanese-line"><ruby>昼<rt>ひる</rt></ruby>には<ruby>花<rt>はな</rt></ruby>の<ruby>香<rt>かお</rt></ruby>り</p>
+                <p class="translation-line">The scent of flowers in the daytime</p>
             </div>
-            <div class="lyric-row" data-start-time="10" data-end-time="13">
-                <p class="japanese-line">
-                    <ruby>夜<rt>よる</rt></ruby>には<ruby>星<rt>ほし</rt></ruby>の<ruby>瞬<rt>またた</rt></ruby>き
-                </p>
-                <p class="translation-line">
-                    The twinkling of stars at night
-                </p>
+            <div class="lyric-row" data-start-time="10" data-end-time="12">
+                <p class="japanese-line"><ruby>夜<rt>よる</rt></ruby>には<ruby>星<rt>ほし</rt></ruby>の<ruby>瞬<rt>またた</rt></ruby>き</p>
+                <p class="translation-line">The twinkling of stars at night</p>
             </div>
-            <div class="lyric-row" data-start-time="13" data-end-time="17">
-                <p class="japanese-line">
-                    そこは<ruby>誰<rt>だれ</rt></ruby>も
-                </p>
-                <p class="translation-line">
-                    It's a place no one
-                </p>
+            <div class="lyric-row" data-start-time="12" data-end-time="17">
+                <p class="japanese-line">そこは<ruby>誰<rt>だれ</rt></ruby>も</p>
+                <p class="translation-line">It's a place no one</p>
             </div>
             <div class="lyric-row" data-start-time="17" data-end-time="20">
-                <p class="japanese-line">
-                    <ruby>知<rt>し</rt></ruby>らない<ruby>世界<rt>せかい</rt></ruby>なの
-                </p>
-                <p class="translation-line">
-                    knows of
-                </p>
+                <p class="japanese-line"><ruby>知<rt>し</rt></ruby>らない<ruby>世界<rt>せかい</rt></ruby>なの</p>
+                <p class="translation-line">knows of</p>
             </div>
             <div class="lyric-row" data-start-time="21.060" data-end-time="25">
-                <p class="japanese-line">
-                    <ruby>白<rt>しろ</rt></ruby>い<ruby>靴<rt>くつ</rt></ruby>を<ruby>鳴<rt>な</rt></ruby>らして
-                </p>
-                <p class="translation-line">
-                    Tapping her white shoes
-                </p>
+                <p class="japanese-line"><ruby>白<rt>しろ</rt></ruby>い<ruby>靴<rt>くつ</rt></ruby>を<ruby>鳴<rt>な</rt></ruby>らして</p>
+                <p class="translation-line">Tapping her white shoes</p>
             </div>
-            <div class="lyric-row" data-start-time="25" data-end-time="29">
-                <p class="japanese-line">
-                    <ruby>白<rt>しろ</rt></ruby>い<ruby>月<rt>つき</rt></ruby>の<ruby>橋<rt>はし</rt></ruby>をあたって
-                </p>
-                <p class="translation-line">
-                    Crossing the white moon's bridge
-                </p>
+            <div class="lyric-row" data-start-time="25" data-end-time="30">
+                <p class="japanese-line"><ruby>白<rt>しろ</rt></ruby>い<ruby>月<rt>つき</rt></ruby>の<ruby>橋<rt>はし</rt></ruby>をあたって</p>
+                <p class="translation-line">Crossing the white moon's bridge</p>
             </div>
-            <div class="lyric-row" data-start-time="29" data-end-time="33">
-                <p class="japanese-line">
-                    <ruby>甘<rt>あま</rt></ruby>いキスの<ruby>夢<rt>ゆめ</rt></ruby>を<ruby>見<rt>み</rt></ruby>てる
-                </p>
-                <p class="translation-line">
-                    Dreaming a sweet kiss
-                </p>
+            <div class="lyric-row" data-start-time="30" data-end-time="33.960">
+                <p class="japanese-line"><ruby>甘<rt>あま</rt></ruby>いキスの<ruby>夢<rt>ゆめ</rt></ruby>を<ruby>見<rt>み</rt></ruby>てる</p>
+                <p class="translation-line">Dreaming a sweet kiss</p>
             </div>
-            <div class="lyric-row" data-start-time="33" data-end-time="36.960">
-                <p class="japanese-line">
-                    お<ruby>姫様<rt>ひめさま</rt></ruby>が<ruby>住<rt>す</rt></ruby>んでいるの
-                </p>
-                <p class="translation-line">
-                    A princess is living there
-                </p>
+            <div class="lyric-row" data-start-time="33.960" data-end-time="36.960">
+                <p class="japanese-line">お<ruby>姫様<rt>ひめさま</rt></ruby>が<ruby>住<rt>す</rt></ruby>んでいるの</p>
+                <p class="translation-line">A princess is living there</p>
             </div>
             <div class="lyric-row" data-start-time="36.960" data-end-time="43.960">
-                <p class="japanese-line">
-                    <ruby>祈<rt>いの</rt></ruby>りを<ruby>捧<rt>ささ</rt></ruby>げてる
-                </p>
-                <p class="translation-line">
-                    Offering a prayer
-                </p>
+                <p class="japanese-line"><ruby>祈<rt>いの</rt></ruby>りを<ruby>捧<rt>ささ</rt></ruby>げてる</p>
+                <p class="translation-line">Offering a prayer</p>
             </div>
             <div class="lyric-row" data-start-time="43.960" data-end-time="50.960">
-                <p class="japanese-line">
-                    きっと<ruby>幸<rt>しあわ</rt></ruby>せにしてくれる
-                </p>
-                <p class="translation-line">
-                    Surely, she will bring happiness
-                </p>
+                <p class="japanese-line">きっと<ruby>幸<rt>しあわ</rt></ruby>せにしてくれる</p>
+                <p class="translation-line">Surely, she will bring happiness</p>
             </div>
             <div class="lyric-row" data-start-time="52" data-end-time="59.060">
-                <p class="japanese-line">
-                    <ruby>回<rt>まわ</rt></ruby>れ <ruby>回<rt>まわ</rt></ruby>れ <ruby>月<rt>つき</rt></ruby>のメリーゴーランド
-                </p>
-                <p class="translation-line">
-                    Turn, turn, the moon's merry-go-round
-                </p>
+                <p class="japanese-line"><ruby>回<rt>まわ</rt></ruby>れ <ruby>回<rt>まわ</rt></ruby>れ <ruby>月<rt>つき</rt></ruby>のメリーゴーランド</p>
+                <p class="translation-line">Turn, turn, the moon's merry-go-round</p>
             </div>
-            <div class="lyric-row" data-start-time="60" data-end-time="67.060">
-                <p class="japanese-line">
-                    <ruby>涼<rt>すず</rt></ruby>しげなガラスのドレス ひるがえして
-                </p>
-                <p class="translation-line">
-                    Fluttering her cool glass dress
-                </p>
+            <div class="lyric-row" data-start-time="59.060" data-end-time="1:07.060">
+                <p class="japanese-line"><ruby>涼<rt>すず</rt></ruby>しげなガラスのドレス ひるがえして</p>
+                <p class="translation-line">Fluttering her cool glass dress</p>
             </div>
-            <div class="lyric-row" data-start-time="67.060" data-end-time="74.060">
-                <p class="japanese-line">
-                    いつだって<ruby>見守<rt>みまも</rt></ruby>っているわ
-                </p>
-                <p class="translation-line">
-                    She is always watching over you
-                </p>
+            <div class="lyric-row" data-start-time="1:07.060" data-end-time="1:14.060">
+                <p class="japanese-line">いつだって<ruby>見守<rt>みまも</rt></ruby>っているわ</p>
+                <p class="translation-line">She is always watching over you</p>
             </div>
-            <div class="lyric-row" data-start-time="74.060" data-end-time="81.060">
-                 <p class="japanese-line">
-                    ムーン ムーン プリンセス
-                </p>
-                <p class="translation-line">
-                    Moon, Moon, Princess
-                </p>
+            <div class="lyric-row" data-start-time="1:14.060" data-end-time="1:20.060">
+                 <p class="japanese-line">ムーン ムーン プリンセス</p>
+                <p class="translation-line">Moon, Moon, Princess</p>
             </div>
         </div>
     </div>
@@ -382,6 +418,8 @@
             const muteBtn = document.getElementById('mute-btn');
             const scrollLockBtn = document.getElementById('scroll-lock-btn');
             const lyricRows = document.querySelectorAll('.lyric-row');
+            const tooltips = document.querySelectorAll('.word-tooltip');
+            let currentTooltipElement = null;
 
             const icons = {
                 play: `<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>`,
@@ -395,6 +433,18 @@
             
             let currentRowIndex = -1;
             let isScrollFollowing = true;
+
+            function togglePlayPause() {
+                if (video.paused) {
+                    video.play();
+                    if (video.muted) {
+                        video.muted = false;
+                        updateMuteIcon();
+                    }
+                } else {
+                    video.pause();
+                }
+            }
 
             function updatePlayPauseIcon() {
                 playPauseBtn.innerHTML = video.paused ? icons.play : icons.pause;
@@ -433,22 +483,21 @@
                     }
                 }
             }
+            
+            lyricRows.forEach(row => {
+                row.addEventListener('click', () => {
+                    video.currentTime = parseFloat(row.dataset.startTime);
+                    if (video.paused) {
+                        video.play();
+                    }
+                });
+            });
 
             video.addEventListener('timeupdate', updateTime);
             video.addEventListener('play', updatePlayPauseIcon);
             video.addEventListener('pause', updatePlayPauseIcon);
 
-            playPauseBtn.addEventListener('click', () => {
-                if (video.paused) {
-                    video.play();
-                    if (video.muted) {
-                        video.muted = false;
-                        updateMuteIcon();
-                    }
-                } else {
-                    video.pause();
-                }
-            });
+            playPauseBtn.addEventListener('click', togglePlayPause);
 
             loopBtn.addEventListener('click', () => {
                 video.loop = !video.loop;
@@ -468,38 +517,22 @@
             document.addEventListener('keydown', (event) => {
                 if (event.code === 'Space') {
                     event.preventDefault();
-                    if (video.paused) {
-                        video.play();
-                         if (video.muted) {
-                            video.muted = false;
-                            updateMuteIcon();
-                        }
-                    } else {
-                        video.pause();
-                    }
-                }
-
-                let newIndex = currentRowIndex;
-
-                if (event.code === 'ArrowRight') {
+                    togglePlayPause();
+                } else if (event.code === 'ArrowRight') {
                     event.preventDefault();
-                    newIndex = (currentRowIndex < lyricRows.length - 1) ? currentRowIndex + 1 : lyricRows.length - 1;
-                }
-
-                if (event.code === 'ArrowLeft') {
-                    event.preventDefault();
-                    newIndex = (currentRowIndex > 0) ? currentRowIndex - 1 : 0;
-                }
-                
-                if (newIndex !== currentRowIndex || (newIndex === 0 && currentRowIndex <= 0)) {
-                    currentRowIndex = newIndex;
-                    const targetRow = lyricRows[currentRowIndex];
-                    video.currentTime = parseFloat(targetRow.dataset.startTime);
-                    if (isScrollFollowing) {
-                        targetRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    let newIndex = (currentRowIndex < lyricRows.length - 1) ? currentRowIndex + 1 : lyricRows.length - 1;
+                    if (newIndex !== currentRowIndex) {
+                        currentRowIndex = newIndex;
+                        const targetRow = lyricRows[currentRowIndex];
+                        video.currentTime = parseFloat(targetRow.dataset.startTime);
                     }
-                     if (video.paused) {
-                        video.play();
+                } else if (event.code === 'ArrowLeft') {
+                    event.preventDefault();
+                    let newIndex = (currentRowIndex > 0) ? currentRowIndex - 1 : 0;
+                    if (newIndex !== currentRowIndex) {
+                        currentRowIndex = newIndex;
+                        const targetRow = lyricRows[currentRowIndex];
+                        video.currentTime = parseFloat(targetRow.dataset.startTime);
                     }
                 }
             });
@@ -509,7 +542,79 @@
             updateMuteIcon();
             updateScrollLockIcon();
             loopBtn.innerHTML = icons.loop;
+            
+            function showTooltip(wordSpan) {
+                if (currentTooltipElement) hideTooltip();
+                const meaning = wordSpan.dataset.meaning, grammar = wordSpan.dataset.grammar, kana = wordSpan.dataset.kana, romaji = wordSpan.dataset.romaji, kanji = wordSpan.dataset.kanji, lyricNote = wordSpan.dataset.lyricNote;
+                let h4Text = kanji ? `<span class="kanji-color">${kanji}</span>` : wordSpan.textContent.trim();
+                const newTooltipElement = document.createElement('div');
+                newTooltipElement.classList.add('tooltip-box');
+                let content = `<h4>${h4Text}</h4>`;
+                if (kana || romaji) {
+                    content += `<div class="kana-romaji">`;
+                    if (kanji && kana) content += `<p class="kana-display">${kana}</p>`;
+                    if (romaji) content += `<p>${romaji}</p>`;
+                    content += `</div>`;
+                }
+                if (meaning) content += `<p><strong>Meaning:</strong> ${meaning}</p>`;
+                if (grammar) content += `<p><strong>Grammar:</strong> ${grammar}</p>`;
+                if (lyricNote) content += `<p class="lyric-note">${lyricNote}</p>`;
+                newTooltipElement.innerHTML = content;
+                document.body.appendChild(newTooltipElement);
+                currentTooltipElement = newTooltipElement;
+                const rect = wordSpan.getBoundingClientRect();
+                let left = rect.left + (rect.width / 2) - (currentTooltipElement.offsetWidth / 2);
+                let top = rect.top - currentTooltipElement.offsetHeight - 10;
+                if (left < 10) left = 10;
+                if (left + currentTooltipElement.offsetWidth > window.innerWidth - 10) left = window.innerWidth - currentTooltipElement.offsetWidth - 10;
+                if (top < 10) top = rect.bottom + 10;
+                currentTooltipElement.style.left = `${left + window.scrollX}px`;
+                currentTooltipElement.style.top = `${top + window.scrollY}px`;
+                currentTooltipElement.style.opacity = '1';
+                currentTooltipElement.style.visibility = 'visible';
+            }
 
+            function hideTooltip() {
+                if (currentTooltipElement) {
+                    currentTooltipElement.remove();
+                    currentTooltipElement = null;
+                }
+            }
+
+            function addHighlight(groupId, showTip) {
+                document.querySelectorAll(`[data-group-id="${groupId}"]`).forEach(el => {
+                    el.classList.add(el.classList.contains('word-group') ? 'highlight-jp-group' : 'highlight-en-phrase');
+                });
+                if (showTip) {
+                    const wordGroup = document.querySelector(`.word-group[data-group-id="${groupId}"]`);
+                    const firstTooltip = wordGroup ? wordGroup.querySelector('.word-tooltip') : null;
+                    if (firstTooltip) {
+                        showTooltip(firstTooltip);
+                    }
+                }
+            }
+
+            function removeHighlight(groupId) {
+                document.querySelectorAll(`[data-group-id="${groupId}"]`).forEach(el => {
+                    el.classList.remove('highlight-jp-group', 'highlight-en-phrase');
+                });
+                hideTooltip();
+            }
+
+            document.querySelectorAll('.word-group').forEach(group => {
+                group.addEventListener('mouseenter', () => addHighlight(group.dataset.groupId, false));
+                group.addEventListener('mouseleave', () => removeHighlight(group.dataset.groupId));
+            });
+
+            document.querySelectorAll('.translation-phrase').forEach(phrase => {
+                phrase.addEventListener('mouseenter', () => addHighlight(phrase.dataset.groupId, true));
+                phrase.addEventListener('mouseleave', () => removeHighlight(phrase.dataset.groupId));
+            });
+
+            tooltips.forEach(wordSpan => {
+                wordSpan.addEventListener('mouseenter', () => showTooltip(wordSpan));
+                wordSpan.addEventListener('mouseleave', () => hideTooltip());
+            });
         });
     </script>
 </body>
