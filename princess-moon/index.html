@@ -1,10 +1,3 @@
-Of course. I will now do the same for "Princess Moon."
-
-I've structured this new `index.html` file for `princess-moon` to mirror the functionality we built for `heart-moving`. It includes the video background, synchronized lyric highlighting, interactive tooltips for vocabulary, and playback controls.
-
-Here is the code for `princess-moon/index.html`:
-
-```html
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -185,26 +178,6 @@ Here is the code for `princess-moon/index.html`:
             line-height: 1.5;
         }
 
-        .word-tooltip {
-            position: relative;
-            display: inline-block;
-            padding: 2px 0;
-            border-radius: 3px;
-            margin: 0 1px;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        .word-group {
-            padding: 2px 4px;
-            border-radius: 4px;
-            transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-        }
-
-        .translation-phrase {
-            border-radius: 4px;
-            transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-        }
-
         rt {
             font-size: 0.5em;
             color: #cbd5e0;
@@ -214,78 +187,6 @@ Here is the code for `princess-moon/index.html`:
 
         h1 rt {
             font-size: 0.4em;
-        }
-
-        .tooltip-box {
-            position: absolute;
-            background-color: #2d3748;
-            color: #f7fafc;
-            padding: 10px 15px;
-            border-radius: 8px;
-            font-size: 0.85em;
-            white-space: normal;
-            z-index: 1000;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
-            min-width: 200px;
-            max-width: 300px;
-            text-align: left;
-            line-height: 1.4;
-            pointer-events: none;
-            border: 1px solid var(--border-color);
-        }
-
-        .tooltip-box h4 {
-            margin-top: 0;
-            margin-bottom: 5px;
-            color: #f6e05e;
-            font-size: 1.1em;
-        }
-
-        .tooltip-box h4 .kanji-color {
-            color: #68d391;
-        }
-
-        .tooltip-box p {
-            margin: 0;
-            padding: 2px 0;
-        }
-
-        .tooltip-box strong {
-            color: #9ae6b4;
-        }
-
-        .tooltip-box .kana-romaji {
-            font-size: 0.9em;
-            color: var(--text-muted);
-            margin-top: 5px;
-            padding-top: 5px;
-            border-top: 1px solid var(--border-color);
-        }
-
-        .tooltip-box .kana-display {
-            color: #e2e8f0;
-        }
-
-        .tooltip-box .lyric-note {
-            font-style: italic;
-            color: #f6ad55;
-            margin-top: 8px;
-            font-size: 0.85em;
-        }
-
-        .translation-line {
-            font-size: 1em;
-            font-weight: 600;
-            color: #e2e8f0;
-        }
-
-        .highlight-jp-group,
-        .highlight-en-phrase {
-            background-color: rgba(173, 216, 230, 0.7);
-            color: var(--text-dark);
         }
 
         .lyric-row.highlight-line {
@@ -305,36 +206,29 @@ Here is the code for `princess-moon/index.html`:
             body {
                 padding: 10px;
             }
-
             .container {
                 padding: 15px;
                 max-height: calc(100vh - 20px);
             }
-
             h1 {
                 font-size: 2em;
                 margin-bottom: 20px;
             }
-
             .lyrics-header {
                 display: none;
             }
-
             .lyric-row {
                 grid-template-columns: 1fr;
                 gap: 5px 0;
                 align-items: start;
             }
-
             .grid-header {
                 font-size: 1.5em;
                 margin-bottom: 10px;
             }
-
             .japanese-line {
                 font-size: 1.2em;
             }
-
             .translation-line {
                 font-size: 0.9em;
                 color: var(--text-muted);
@@ -357,6 +251,7 @@ Here is the code for `princess-moon/index.html`:
             <button id="play-pause-btn" class="control-btn" aria-label="Play/Pause"></button>
             <button id="loop-btn" class="control-btn" aria-label="Toggle Loop"></button>
             <button id="mute-btn" class="control-btn" aria-label="Mute/Unmute"></button>
+            <button id="scroll-lock-btn" class="control-btn active" aria-label="Toggle Scroll Lock"></button>
         </div>
 
         <div id="lyrics-body" class="lyrics-grid">
@@ -364,58 +259,116 @@ Here is the code for `princess-moon/index.html`:
                 <h2 class="grid-header">Japanese</h2>
                 <h2 class="grid-header">English</h2>
             </div>
-            <div class="lyric-row" data-start-time="19" data-end-time="36">
+            <div class="lyric-row" data-start-time="6" data-end-time="9">
                 <p class="japanese-line">
-                    <span class="word-group" data-group-id="5-1">たとえば</span>
-                    <span class="word-group" data-group-id="5-2"><span class="word-tooltip" data-meaning="in the middle of the night" data-grammar="Noun" data-kana="まよなか" data-romaji="mayonaka"><ruby>真夜中<rt>まよなか</rt></ruby></span>に</span>
-                    <span class="word-group" data-group-id="5-3"><span class="word-tooltip" data-meaning="even if I knock on the door" data-grammar="Verb" data-kana="ドアをたたいても" data-romaji="doa o tataite mo">ドアをたたいても</span></span>
+                    <ruby>昼<rt>ひる</rt></ruby>には<ruby>花<rt>はな</rt></ruby>の<ruby>香<rt>かお</rt></ruby>り
                 </p>
                 <p class="translation-line">
-                    <span class="translation-phrase" data-group-id="5-1">For example,</span>
-                    <span class="translation-phrase" data-group-id="5-2">in the middle of the night,</span>
-                    <span class="translation-phrase" data-group-id="5-3">even if I knock on the door,</span>
+                    The scent of flowers in the daytime
                 </p>
             </div>
-            <div class="lyric-row" data-start-time="19" data-end-time="36">
+            <div class="lyric-row" data-start-time="10" data-end-time="13">
                 <p class="japanese-line">
-                    <span class="word-group" data-group-id="6-1">なんで?</span>
-                    <span class="word-group" data-group-id="6-2"><span class="word-tooltip" data-meaning="what happened?" data-grammar="Phrase" data-kana="どうしたの" data-romaji="dōshita no">どうしたの?</span>って</span>
+                    <ruby>夜<rt>よる</rt></ruby>には<ruby>星<rt>ほし</rt></ruby>の<ruby>瞬<rt>またた</rt></ruby>き
                 </p>
                 <p class="translation-line">
-                    <span class="translation-phrase" data-group-id="6-1">Why?</span>
-                    <span class="translation-phrase" data-group-id="6-2">What happened?</span>
+                    The twinkling of stars at night
                 </p>
             </div>
-            <div class="lyric-row" data-start-time="36" data-end-time="54">
+            <div class="lyric-row" data-start-time="13" data-end-time="17">
                 <p class="japanese-line">
-                    <span class="word-group" data-group-id="7-1"><span class="word-tooltip" data-meaning="joking around" data-grammar="Verb" data-kana="ふざけて" data-romaji="fuzakete"><ruby>ふざけて<rt>ふざけて</rt></ruby></span></span>
-                    <span class="word-group" data-group-id="7-2"><span class="word-tooltip" data-meaning="you'll get angry, won't you?" data-grammar="Phrase" data-kana="おこるかしら" data-romaji="okoru kashira">おこるかしら</span></span>
+                    そこは<ruby>誰<rt>だれ</rt></ruby>も
                 </p>
                 <p class="translation-line">
-                    <span class="translation-phrase" data-group-id="7-1">If I'm just joking,</span>
-                    <span class="translation-phrase" data-group-id="7-2">will you get angry?</span>
+                    It's a place no one
                 </p>
             </div>
-            <div class="lyric-row" data-start-time="54" data-end-time="71">
+            <div class="lyric-row" data-start-time="17" data-end-time="20">
                 <p class="japanese-line">
-                    <span class="word-group" data-group-id="8-1"><span class="word-tooltip" data-kanji="電話" data-meaning="phone" data-grammar="Noun" data-kana="でんわ" data-romaji="denwa"><ruby>電話<rt>でんわ</rt></ruby></span>も</span>
-                    <span class="word-group" data-group-id="8-2"><span class="word-tooltip" data-meaning="without doing" data-grammar="Verb" data-kana="しないで" data-romaji="shinaide">しないで</span></span>
-                    <span class="word-group" data-group-id="8-3"><span class="word-tooltip" data-meaning="if I go suddenly" data-grammar="Phrase" data-kana="いきなりいったら" data-romaji="ikinari ittara">いきなり<ruby>行<rt>い</rt></ruby>ったら</span></span>
+                    <ruby>知<rt>し</rt></ruby>らない<ruby>世界<rt>せかい</rt></ruby>なの
                 </p>
                 <p class="translation-line">
-                    <span class="translation-phrase" data-group-id="8-3">If I go suddenly</span>
-                    <span class="translation-phrase" data-group-id="8-1">without even</span>
-                    <span class="translation-phrase" data-group-id="8-2">calling,</span>
+                    knows of
                 </p>
             </div>
-            <div class="lyric-row" data-start-time="71" data-end-time="89">
+            <div class="lyric-row" data-start-time="21.060" data-end-time="25">
                 <p class="japanese-line">
-                    <span class="word-group" data-group-id="9-1"><span class="word-tooltip" data-meaning="surely" data-grammar="Adverb" data-kana="きっと" data-romaji="kitto">きっと</span></span>
-                    <span class="word-group" data-group-id="9-2"><span class="word-tooltip" data-meaning="you'll be surprised, won't you?" data-grammar="Phrase" data-kana="おどろくでしょう" data-romaji="odoroku deshō">おどろくでしょう?</span></span>
+                    <ruby>白<rt>しろ</rt></ruby>い<ruby>靴<rt>くつ</rt></ruby>を<ruby>鳴<rt>な</rt></ruby>らして
                 </p>
                 <p class="translation-line">
-                    <span class="translation-phrase" data-group-id="9-1">Surely,</span>
-                    <span class="translation-phrase" data-group-id="9-2">you'll be surprised, right?</span>
+                    Tapping her white shoes
+                </p>
+            </div>
+            <div class="lyric-row" data-start-time="25" data-end-time="29">
+                <p class="japanese-line">
+                    <ruby>白<rt>しろ</rt></ruby>い<ruby>月<rt>つき</rt></ruby>の<ruby>橋<rt>はし</rt></ruby>をあたって
+                </p>
+                <p class="translation-line">
+                    Crossing the white moon's bridge
+                </p>
+            </div>
+            <div class="lyric-row" data-start-time="29" data-end-time="33">
+                <p class="japanese-line">
+                    <ruby>甘<rt>あま</rt></ruby>いキスの<ruby>夢<rt>ゆめ</rt></ruby>を<ruby>見<rt>み</rt></ruby>てる
+                </p>
+                <p class="translation-line">
+                    Dreaming a sweet kiss
+                </p>
+            </div>
+            <div class="lyric-row" data-start-time="33" data-end-time="36.960">
+                <p class="japanese-line">
+                    お<ruby>姫様<rt>ひめさま</rt></ruby>が<ruby>住<rt>す</rt></ruby>んでいるの
+                </p>
+                <p class="translation-line">
+                    A princess is living there
+                </p>
+            </div>
+            <div class="lyric-row" data-start-time="36.960" data-end-time="43.960">
+                <p class="japanese-line">
+                    <ruby>祈<rt>いの</rt></ruby>りを<ruby>捧<rt>ささ</rt></ruby>げてる
+                </p>
+                <p class="translation-line">
+                    Offering a prayer
+                </p>
+            </div>
+            <div class="lyric-row" data-start-time="43.960" data-end-time="50.960">
+                <p class="japanese-line">
+                    きっと<ruby>幸<rt>しあわ</rt></ruby>せにしてくれる
+                </p>
+                <p class="translation-line">
+                    Surely, she will bring happiness
+                </p>
+            </div>
+            <div class="lyric-row" data-start-time="52" data-end-time="59.060">
+                <p class="japanese-line">
+                    <ruby>回<rt>まわ</rt></ruby>れ <ruby>回<rt>まわ</rt></ruby>れ <ruby>月<rt>つき</rt></ruby>のメリーゴーランド
+                </p>
+                <p class="translation-line">
+                    Turn, turn, the moon's merry-go-round
+                </p>
+            </div>
+            <div class="lyric-row" data-start-time="60" data-end-time="67.060">
+                <p class="japanese-line">
+                    <ruby>涼<rt>すず</rt></ruby>しげなガラスのドレス ひるがえして
+                </p>
+                <p class="translation-line">
+                    Fluttering her cool glass dress
+                </p>
+            </div>
+            <div class="lyric-row" data-start-time="67.060" data-end-time="74.060">
+                <p class="japanese-line">
+                    いつだって<ruby>見守<rt>みまも</rt></ruby>っているわ
+                </p>
+                <p class="translation-line">
+                    She is always watching over you
+                </p>
+            </div>
+            <div class="lyric-row" data-start-time="74.060" data-end-time="81.060">
+                 <p class="japanese-line">
+                    ムーン ムーン プリンセス
+                </p>
+                <p class="translation-line">
+                    Moon, Moon, Princess
                 </p>
             </div>
         </div>
@@ -427,6 +380,7 @@ Here is the code for `princess-moon/index.html`:
             const playPauseBtn = document.getElementById('play-pause-btn');
             const loopBtn = document.getElementById('loop-btn');
             const muteBtn = document.getElementById('mute-btn');
+            const scrollLockBtn = document.getElementById('scroll-lock-btn');
             const lyricRows = document.querySelectorAll('.lyric-row');
 
             const icons = {
@@ -434,35 +388,13 @@ Here is the code for `princess-moon/index.html`:
                 pause: `<svg viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>`,
                 loop: `<svg viewBox="0 0 24 24"><path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z"/></svg>`,
                 volumeOn: `<svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>`,
-                volumeOff: `<svg viewBox="0 0 24 24"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>`
+                volumeOff: `<svg viewBox="0 0 24 24"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>`,
+                scrollFollow: `<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 15l-5-5h3V9h4v3h3l-5 5z"/></svg>`,
+                scrollLocked: `<svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>`
             };
-
-            lyricRows.forEach(row => {
-                row.addEventListener('click', () => {
-                    video.currentTime = parseFloat(row.dataset.startTime);
-                    if (video.paused) video.play();
-                });
-            });
-
-            function updateTime() {
-                document.title = `(${Math.floor(video.currentTime / 60)}:${String(Math.floor(video.currentTime % 60)).padStart(2, '0')}) - ${document.querySelector('h1').textContent.trim()}`;
-
-                const currentTime = video.currentTime;
-                let activeRow = null;
-
-                lyricRows.forEach(row => {
-                    const startTime = parseFloat(row.dataset.startTime);
-                    const endTime = parseFloat(row.dataset.endTime);
-                    if (currentTime >= startTime && currentTime <= endTime) {
-                        activeRow = row;
-                    }
-                    row.classList.remove('highlight-line');
-                });
-
-                if (activeRow) {
-                    activeRow.classList.add('highlight-line');
-                }
-            }
+            
+            let currentRowIndex = -1;
+            let isScrollFollowing = true;
 
             function updatePlayPauseIcon() {
                 playPauseBtn.innerHTML = video.paused ? icons.play : icons.pause;
@@ -471,6 +403,35 @@ Here is the code for `princess-moon/index.html`:
             function updateMuteIcon() {
                 muteBtn.innerHTML = video.muted ? icons.volumeOff : icons.volumeOn;
                 muteBtn.classList.toggle('active', !video.muted);
+            }
+            
+            function updateScrollLockIcon() {
+                scrollLockBtn.innerHTML = isScrollFollowing ? icons.scrollFollow : icons.scrollLocked;
+                scrollLockBtn.classList.toggle('active', isScrollFollowing);
+            }
+
+            function updateTime() {
+                document.title = `(${Math.floor(video.currentTime / 60)}:${String(Math.floor(video.currentTime % 60)).padStart(2, '0')}) - Princess Moon`;
+                
+                const currentTime = video.currentTime;
+                let activeRow = null;
+
+                lyricRows.forEach((row, index) => {
+                    const startTime = parseFloat(row.dataset.startTime);
+                    const endTime = parseFloat(row.dataset.endTime);
+                    row.classList.remove('highlight-line');
+                    if (currentTime >= startTime && currentTime <= endTime) {
+                        activeRow = row;
+                        currentRowIndex = index;
+                    }
+                });
+
+                if (activeRow) {
+                    activeRow.classList.add('highlight-line');
+                    if (isScrollFollowing) {
+                        activeRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                }
             }
 
             video.addEventListener('timeupdate', updateTime);
@@ -499,18 +460,17 @@ Here is the code for `princess-moon/index.html`:
                 updateMuteIcon();
             });
 
-            video.muted = true;
-            updatePlayPauseIcon();
-            updateMuteIcon();
-            loopBtn.innerHTML = icons.loop;
+            scrollLockBtn.addEventListener('click', () => {
+                isScrollFollowing = !isScrollFollowing;
+                updateScrollLockIcon();
+            });
 
             document.addEventListener('keydown', (event) => {
                 if (event.code === 'Space') {
-                    event.preventDefault(); // Prevents the page from scrolling
+                    event.preventDefault();
                     if (video.paused) {
                         video.play();
-                        // Unmute if starting from the beginning
-                        if (video.muted) {
+                         if (video.muted) {
                             video.muted = false;
                             updateMuteIcon();
                         }
@@ -518,74 +478,39 @@ Here is the code for `princess-moon/index.html`:
                         video.pause();
                     }
                 }
-            });
 
-            const tooltips = document.querySelectorAll('.word-tooltip');
-            let currentTooltipElement = null;
+                let newIndex = currentRowIndex;
 
-            function showTooltip(wordSpan) {
-                if (currentTooltipElement) hideTooltip();
-                const meaning = wordSpan.dataset.meaning, grammar = wordSpan.dataset.grammar, kana = wordSpan.dataset.kana, romaji = wordSpan.dataset.romaji, kanji = wordSpan.dataset.kanji, lyricNote = wordSpan.dataset.lyricNote;
-                let h4Text = kanji ? `<span class="kanji-color">${kanji}</span>` : wordSpan.textContent.trim();
-                const newTooltipElement = document.createElement('div');
-                newTooltipElement.classList.add('tooltip-box');
-                let content = `<h4>${h4Text}</h4>`;
-                if (kana || romaji) {
-                    content += `<div class="kana-romaji">`;
-                    if (kanji && kana) content += `<p class="kana-display">${kana}</p>`;
-                    if (romaji) content += `<p>${romaji}</p>`;
-                    content += `</div>`;
+                if (event.code === 'ArrowRight') {
+                    event.preventDefault();
+                    newIndex = (currentRowIndex < lyricRows.length - 1) ? currentRowIndex + 1 : lyricRows.length - 1;
                 }
-                if (meaning) content += `<p><strong>Meaning:</strong> ${meaning}</p>`;
-                if (grammar) content += `<p><strong>Grammar:</strong> ${grammar}</p>`;
-                if (lyricNote) content += `<p class="lyric-note">${lyricNote}</p>`;
-                newTooltipElement.innerHTML = content;
-                document.body.appendChild(newTooltipElement);
-                currentTooltipElement = newTooltipElement;
-                const rect = wordSpan.getBoundingClientRect();
-                let left = rect.left + (rect.width / 2) - (currentTooltipElement.offsetWidth / 2);
-                let top = rect.top - currentTooltipElement.offsetHeight - 10;
-                if (left < 10) left = 10;
-                if (left + currentTooltipElement.offsetWidth > window.innerWidth - 10) left = window.innerWidth - currentTooltipElement.offsetWidth - 10;
-                if (top < 10) top = rect.bottom + 10;
-                currentTooltipElement.style.left = `${left + window.scrollX}px`;
-                currentTooltipElement.style.top = `${top + window.scrollY}px`;
-                currentTooltipElement.style.opacity = '1';
-                currentTooltipElement.style.visibility = 'visible';
-            }
 
-            function hideTooltip() {
-                if (currentTooltipElement) {
-                    currentTooltipElement.remove();
-                    currentTooltipElement = null;
+                if (event.code === 'ArrowLeft') {
+                    event.preventDefault();
+                    newIndex = (currentRowIndex > 0) ? currentRowIndex - 1 : 0;
                 }
-            }
-
-            function addHighlight(groupId) {
-                document.querySelectorAll(`[data-group-id="${groupId}"]`).forEach(el => {
-                    if (el.classList.contains('word-group')) el.classList.add('highlight-jp-group');
-                    if (el.classList.contains('translation-phrase')) el.classList.add('highlight-en-phrase');
-                });
-            }
-
-            function removeHighlight(groupId) {
-                document.querySelectorAll(`[data-group-id="${groupId}"]`).forEach(el => {
-                    if (el.classList.contains('word-group')) el.classList.remove('highlight-jp-group');
-                    if (el.classList.contains('translation-phrase')) el.classList.remove('highlight-en-phrase');
-                });
-            }
-
-            document.querySelectorAll('.word-group, .translation-phrase').forEach(el => {
-                el.addEventListener('mouseenter', () => addHighlight(el.dataset.groupId));
-                el.addEventListener('mouseleave', () => removeHighlight(el.dataset.groupId));
+                
+                if (newIndex !== currentRowIndex || (newIndex === 0 && currentRowIndex <= 0)) {
+                    currentRowIndex = newIndex;
+                    const targetRow = lyricRows[currentRowIndex];
+                    video.currentTime = parseFloat(targetRow.dataset.startTime);
+                    if (isScrollFollowing) {
+                        targetRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                     if (video.paused) {
+                        video.play();
+                    }
+                }
             });
 
-            document.querySelectorAll('.word-tooltip').forEach(wordSpan => {
-                wordSpan.addEventListener('mouseenter', () => showTooltip(wordSpan));
-                wordSpan.addEventListener('mouseleave', () => hideTooltip());
-            });
+            video.muted = true;
+            updatePlayPauseIcon();
+            updateMuteIcon();
+            updateScrollLockIcon();
+            loopBtn.innerHTML = icons.loop;
+
         });
     </script>
 </body>
 </html>
-```
