@@ -44,9 +44,7 @@
         #bg-video {
             width: 100%;
             height: 100%;
-            object-fit: cover;
-            transform: translateZ(0);
-            backface-visibility: hidden;
+            object-fit: contain;
         }
 
         .video-overlay {
@@ -76,15 +74,10 @@
             scroll-padding-bottom: 40vh;
             -ms-overflow-style: none;
             scrollbar-width: none;
-            transition: opacity 0.3s ease-out, transform 0.3s ease-out;
-            transform-origin: center center;
-            will-change: opacity, transform;
         }
 
         .container.minimized {
-            opacity: 0;
-            pointer-events: none;
-            transform: translateY(-100vh);
+            display: none;
         }
 
         .container::-webkit-scrollbar {
@@ -387,16 +380,24 @@
 
         /* Fire TV optimizations */
         @media (pointer: coarse) {
+            * {
+                transform: none !important;
+                transform-style: flat !important;
+                transition: none !important;
+                animation: none !important;
+            }
+            
             .container {
                 transform: none !important;
+                transition: none !important;
             }
             
             .container.minimized {
-                transform: translateY(-100vh) !important;
+                display: none !important;
             }
             
-            * {
-                transform-style: flat;
+            .control-btn:hover {
+                transform: none !important;
             }
         }
     </style>
@@ -738,26 +739,40 @@
             }
 
             function updateTime() {
-                document.title = `(${Math.floor(video.currentTime / 60)}:${String(Math.floor(video.currentTime % 60)).padStart(2, '0')}) - Moonlight Densetsu`;
-                
+                // Throttle updates for Fire TV performance
                 const currentTime = video.currentTime;
+                const minutes = Math.floor(currentTime / 60);
+                const seconds = String(Math.floor(currentTime % 60)).padStart(2, '0');
+                document.title = `(${minutes}:${seconds}) - Moonlight Densetsu`;
+                
+                // Disable lyric highlighting on Fire TV to prevent rendering issues
+                if (window.matchMedia('(pointer: coarse)').matches) {
+                    return;
+                }
+                
                 let activeRow = null;
 
                 lyricRows.forEach((row, index) => {
                     const startTime = parseFloat(row.dataset.startTime);
                     const endTime = parseFloat(row.dataset.endTime);
-                    row.classList.remove('highlight-line');
-                    if (currentTime >= startTime && currentTime <= endTime) {
-                        activeRow = row;
-                        currentRowIndex = index;
+                    const wasHighlighted = row.classList.contains('highlight-line');
+                    const shouldHighlight = currentTime >= startTime && currentTime <= endTime;
+                    
+                    if (wasHighlighted !== shouldHighlight) {
+                        if (shouldHighlight) {
+                            row.classList.add('highlight-line');
+                            activeRow = row;
+                            currentRowIndex = index;
+                        } else {
+                            row.classList.remove('highlight-line');
+                        }
                     }
                 });
 
-                if (activeRow) {
-                    activeRow.classList.add('highlight-line');
-                    if (isScrollFollowing && lyricsVisible) {
-                        activeRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    }
+                if (activeRow && isScrollFollowing && lyricsVisible) {
+                    // Use instant scroll on Fire TV to prevent shaking
+                    const scrollBehavior = window.matchMedia('(pointer: coarse)').matches ? 'auto' : 'smooth';
+                    activeRow.scrollIntoView({ behavior: scrollBehavior, block: 'center' });
                 }
             }
             
@@ -773,6 +788,35 @@
             video.addEventListener('timeupdate', updateTime);
             video.addEventListener('play', updatePlayPauseIcon);
             video.addEventListener('pause', updatePlayPauseIcon);
+            
+            // Fire TV specific optimizations - throttle timeupdate for performance
+            let lastTimeUpdate = 0;
+            const originalTimeUpdate = updateTime;
+            
+            function throttledTimeUpdate() {
+                const now = Date.now();
+                if (now - lastTimeUpdate > 200) { // Only update every 200ms on Fire TV
+                    lastTimeUpdate = now;
+                    originalTimeUpdate();
+                }
+            }
+            
+            // Use throttled updates on Fire TV (detected by coarse pointer)
+            if (window.matchMedia('(pointer: coarse)').matches) {
+                video.removeEventListener('timeupdate', updateTime);
+                video.addEventListener('timeupdate', throttledTimeUpdate);
+            }
+            
+            // Fire TV specific video handling
+            video.addEventListener('loadstart', () => {
+                console.log('Video loading started');
+            });
+            video.addEventListener('error', (e) => {
+                console.log('Video error:', e);
+            });
+            video.addEventListener('stalled', () => {
+                console.log('Video stalled');
+            });
 
             // Main controls event listeners
             playPauseBtn.addEventListener('click', togglePlayPause);
