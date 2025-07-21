@@ -60,7 +60,7 @@
         .container {
             max-width: 1200px;
             width: 100%;
-            padding: 30px;
+            padding: 20px;
             background-color: var(--bg-dark-translucent);
             border-radius: 12px;
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
@@ -212,14 +212,15 @@
             margin: 0;
             padding: 0;
             transition: color 0.3s ease-in-out;
-            white-space: nowrap;
+            white-space: normal;
             overflow: hidden;
-            text-overflow: ellipsis;
+            word-wrap: break-word;
+            line-height: 1.4;
         }
 
         .japanese-line {
-            font-size: 1.4em;
-            line-height: 1.5;
+            font-size: 1.2em;
+            line-height: 1.4;
         }
 
         .word-tooltip {
