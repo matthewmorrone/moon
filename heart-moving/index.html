@@ -203,13 +203,8 @@
             padding: 8px 12px;
             border-radius: 6px;
             cursor: pointer;
-            transition: background-color 0.3s ease-in-out, font-size 0.2s;
+            transition: background-color 0.3s ease-in-out;
             align-items: baseline;
-            /* No nowrap or ellipsis, allow script to shrink font size */
-        }
-
-        .lyric-row.shrunk {
-            font-size: 0.95em;
         }
 
         .japanese-line,
@@ -217,14 +212,10 @@
             margin: 0;
             padding: 0;
             transition: color 0.3s ease-in-out;
-<<<<<<< HEAD
-            /* No forced white-space or ellipsis */
-=======
             white-space: normal;
             overflow: hidden;
             word-wrap: break-word;
             line-height: 1.4;
->>>>>>> 032eb8f0139b073a797570e6aa816a0fa42b0cee
         }
 
         .japanese-line {
@@ -415,7 +406,7 @@
 
 <body>
     <div class="video-background">
-        <video id="bg-video" src="heart-moving.mp4" playsinline autoplay></video>
+        <video id="bg-video" src="heart-moving.mp4" playsinline></video>
     </div>
     <div class="video-overlay"></div>
 
@@ -446,7 +437,7 @@
                 <h2 class="grid-header">Japanese</h2>
                 <h2 class="grid-header">English</h2>
             </div>
-            <div class="lyric-row" data-start-time="1" data-end-time="8.5">
+            <div class="lyric-row" data-start-time="2" data-end-time="8">
                 <p class="japanese-line">
                     <span class="word-group" data-group-id="31-1"><span class="word-tooltip" data-kanji="夢" data-meaning="dream" data-grammar="Noun" data-kana="ゆめ" data-romaji="yume"><ruby>夢<rt>ゆめ</rt></ruby></span>の<ruby>中<rt>なか</rt></ruby></span>
                     <span class="word-group" data-group-id="31-2"><span class="word-tooltip" data-meaning="two people" data-grammar="Noun" data-kana="ふたり" data-romaji="futari"><ruby>二人<rt>ふたり</rt></ruby></span>で</span>
@@ -458,7 +449,7 @@
                     <span class="translation-phrase" data-group-id="31-3">were together, right?</span>
                 </p>
             </div>
-            <div class="lyric-row" data-start-time="8.5" data-end-time="17">
+            <div class="lyric-row" data-start-time="9" data-end-time="16">
                 <p class="japanese-line">
                     <span class="word-group" data-group-id="32-1"><span class="word-tooltip" data-kanji="星" data-meaning="stars" data-grammar="Noun" data-kana="ほし" data-romaji="hoshi"><ruby>星<rt>ほし</rt></ruby></span>たちに</span>
                     <span class="word-group" data-group-id="32-2"><span class="word-tooltip" data-meaning="being protected" data-grammar="Verb, passive form" data-kana="まもられて" data-romaji="mamorarete"><ruby>守<rt>まも</rt></ruby>られて</span></span>
@@ -468,7 +459,7 @@
                     <span class="translation-phrase" data-group-id="32-1">by the stars</span>
                 </p>
             </div>
-            <div class="lyric-row" data-start-time="26" data-end-time="31">
+            <div class="lyric-row" data-start-time="25" data-end-time="30">
                 <p class="japanese-line">
                     <span class="word-group" data-group-id="33-1"><span class="word-tooltip" data-kanji="友達" data-meaning="friends" data-grammar="Noun" data-kana="ともだち" data-romaji="tomodachi"><ruby>友達<rt>ともだち</rt></ruby></span>の<ruby>時<rt>とき</rt></ruby>には</span>
                     <span class="word-group" data-group-id="33-2"><span class="word-tooltip" data-meaning="without minding" data-grammar="Phrase" data-kana="きにせず" data-romaji="ki ni sezu"><ruby>気<rt>き</rt></ruby>にせず</span></span>
@@ -478,7 +469,7 @@
                     <span class="translation-phrase" data-group-id="33-2">I didn't mind</span>
                 </p>
             </div>
-            <div class="lyric-row" data-start-time="33" data-end-time="38">
+            <div class="lyric-row" data-start-time="32" data-end-time="38.5">
                 <p class="japanese-line">
                     <span class="word-group" data-group-id="34-1"><span class="word-tooltip" data-meaning="casually" data-grammar="Adverb" data-kana="なにげなく" data-romaji="nanigenaku"><ruby>何気<rt>なにげ</rt></ruby>なく</span></span>
                     <span class="word-group" data-group-id="34-2"><span class="word-tooltip" data-meaning="we talked, but" data-grammar="Verb + Conjunction" data-kana="はなしていたけど" data-romaji="hanashite ita kedo"><ruby>話<rt>はな</rt></ruby>していたけど</span></span>
@@ -488,15 +479,16 @@
                     <span class="translation-phrase" data-group-id="34-2">casually, but</span>
                 </p>
             </div>
-            <div class="lyric-row" data-start-time="39" data-end-time="46">
-                <p class="japanese-line" style="font-size: 1.3rem;">
+            <div class="lyric-row" data-start-time="38.5" data-end-time="46">
+                <p class="japanese-line">
                     <span class="word-group" data-group-id="35-1"><span class="word-tooltip" data-meaning="only you" data-grammar="Pronoun + Particle" data-kana="あなただけ" data-romaji="anata dake">あなただけ</span></span>
                     <span class="word-group" data-group-id="35-2"><span class="word-tooltip" data-meaning="to come to mind" data-grammar="Phrase" data-kana="きになる" data-romaji="ki ni naru"><ruby>気<rt>き</rt></ruby>になる</span></span>
                     <span class="word-group" data-group-id="35-3"><span class="word-tooltip" data-meaning="there was a moment" data-grammar="Phrase" data-kana="しゅんかんがあったの" data-romaji="shunkan ga atta no"><ruby>瞬間<rt>しゅんかん</rt></ruby>があったの</span></span>
                 </p>
                 <p class="translation-line">
-                    <span class="translation-phrase" data-group-id="35-1">When only you</span>
-                    <span class="translation-phrase" data-group-id="35-2">came to mind, there was a moment</span>
+                    <span class="translation-phrase" data-group-id="35-3">There was a moment</span>
+                    <span class="translation-phrase" data-group-id="35-1">when only you</span>
+                    <span class="translation-phrase" data-group-id="35-2">came to mind</span>
                 </p>
             </div>
             <div class="lyric-row" data-start-time="47" data-end-time="54">
@@ -511,19 +503,19 @@
                     <span class="translation-phrase" data-group-id="36-1">more beautiful</span>
                 </p>
             </div>
-            <div class="lyric-row" data-start-time="54" data-end-time="60">
+            <div class="lyric-row" data-start-time="54" data-end-time="61">
                 <p class="japanese-line">
                     <span class="word-group" data-group-id="37-1"><span class="word-tooltip" data-meaning="when you fall in love" data-grammar="Phrase" data-kana="こいすると" data-romaji="koi suru to"><ruby>恋<rt>こい</rt></ruby>すると</span></span>
                     <span class="word-group" data-group-id="37-2"><span class="word-tooltip" data-meaning="something" data-grammar="Pronoun" data-kana="なにか" data-romaji="nanika"><ruby>何<rt>なに</rt></ruby>かが</span></span>
                     <span class="word-group" data-group-id="37-3"><span class="word-tooltip" data-meaning="changes, right?" data-grammar="Verb + Particle" data-kana="かわるね" data-romaji="kawaru ne"><ruby>変<rt>か</rt></ruby>わるね</span></span>
                 </p>
-                <p class="translation-line" style="font-size: .9rem;">
+                <p class="translation-line">
                     <span class="translation-phrase" data-group-id="37-1">When you fall in love,</span>
                     <span class="translation-phrase" data-group-id="37-2">something</span>
                     <span class="translation-phrase" data-group-id="37-3">changes, doesn't it?</span>
                 </p>
             </div>
-            <div class="lyric-row" data-start-time="60" data-end-time="68">
+            <div class="lyric-row" data-start-time="62" data-end-time="68">
                 <p class="japanese-line">
                     <span class="word-group" data-group-id="38-1"><span class="word-tooltip" data-meaning="close your eyes" data-grammar="Verb" data-kana="めをとじて" data-romaji="me wo tojite"><ruby>目<rt>め</rt></ruby>を<ruby>閉<rt>と</rt></ruby>じて</span></span>
                     <span class="word-group" data-group-id="38-2"><span class="word-tooltip" data-meaning="and make sure" data-grammar="Verb" data-kana="たしかめて" data-romaji="tashikamete">たしかめて</span></span>
@@ -555,46 +547,8 @@
             </div>
         </div>
     </div>
+
     <script>
-<<<<<<< HEAD
-    const video = document.getElementById('bg-video');
-    const playPauseBtn = document.getElementById('play-pause-btn');
-    // Try to autoplay video on load
-    video.autoplay = true;
-    video.muted = false;
-    video.play().catch(() => {});
-    // Programmatically click the play button to simulate user gesture
-    setTimeout(() => {
-        playPauseBtn.click();
-    }, 100);
-    const loopBtn = document.getElementById('loop-btn');
-    const muteBtn = document.getElementById('mute-btn');
-    const scrollLockBtn = document.getElementById('scroll-lock-btn');
-    const lyricRows = document.querySelectorAll('.lyric-row');
-    const tooltips = document.querySelectorAll('.word-tooltip');
-    let currentTooltipElement = null;
-
-    const icons = {
-        play: `<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>`,
-        pause: `<svg viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>`,
-        loop: `<svg viewBox="0 0 24 24"><path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z"/></svg>`,
-        volumeOn: `<svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>`,
-        volumeOff: `<svg viewBox="0 0 24 24"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>`,
-        scrollFollow: `<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 15l-5-5h3V9h4v3h3l-5 5z"/></svg>`,
-        scrollLocked: `<svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>`
-    };
-    
-    let currentRowIndex = -1;
-    let isScrollFollowing = true;
-
-    function togglePlayPause() {
-        if (video.paused) {
-            video.play();
-            // This block ensures the video unmutes on play
-            if (video.muted) {
-                video.muted = false;
-                updateMuteIcon();
-=======
         document.addEventListener('DOMContentLoaded', () => {
             const video = document.getElementById('bg-video');
 
@@ -959,182 +913,50 @@
                 currentTooltipElement.style.top = `${top + window.scrollY}px`;
                 currentTooltipElement.style.opacity = '1';
                 currentTooltipElement.style.visibility = 'visible';
->>>>>>> 032eb8f0139b073a797570e6aa816a0fa42b0cee
             }
-        } else {
-            video.pause();
-        }
-    }
 
-    function updatePlayPauseIcon() {
-        playPauseBtn.innerHTML = video.paused ? icons.play : icons.pause;
-    }
-
-    function updateMuteIcon() {
-        muteBtn.innerHTML = video.muted ? icons.volumeOff : icons.volumeOn;
-        muteBtn.classList.toggle('active', !video.muted);
-    }
-    
-    function updateScrollLockIcon() {
-        scrollLockBtn.innerHTML = isScrollFollowing ? icons.scrollFollow : icons.scrollLocked;
-        scrollLockBtn.classList.toggle('active', isScrollFollowing);
-    }
-
-    function updateTime() {
-        document.title = `(${Math.floor(video.currentTime / 60)}:${String(Math.floor(video.currentTime % 60)).padStart(2, '0')}) - HEART MOVING (ハート・ムーヴィング)`;
-        
-        const currentTime = video.currentTime;
-        let activeRow = null;
-
-        lyricRows.forEach((row, index) => {
-            const startTime = parseFloat(row.dataset.startTime);
-            const endTime = parseFloat(row.dataset.endTime);
-            row.classList.remove('highlight-line');
-            if (currentTime >= startTime && currentTime <= endTime) {
-                activeRow = row;
-                currentRowIndex = index;
+            function hideTooltip() {
+                if (currentTooltipElement) {
+                    currentTooltipElement.remove();
+                    currentTooltipElement = null;
+                }
             }
+
+            function addHighlight(groupId, showTip) {
+                document.querySelectorAll(`[data-group-id="${groupId}"]`).forEach(el => {
+                    el.classList.add(el.classList.contains('word-group') ? 'highlight-jp-group' : 'highlight-en-phrase');
+                });
+                if (showTip) {
+                    const wordGroup = document.querySelector(`.word-group[data-group-id="${groupId}"]`);
+                    const firstTooltip = wordGroup ? wordGroup.querySelector('.word-tooltip') : null;
+                    if (firstTooltip) {
+                        showTooltip(firstTooltip);
+                    }
+                }
+            }
+
+            function removeHighlight(groupId) {
+                document.querySelectorAll(`[data-group-id="${groupId}"]`).forEach(el => {
+                    el.classList.remove('highlight-jp-group', 'highlight-en-phrase');
+                });
+                hideTooltip();
+            }
+
+            document.querySelectorAll('.word-group').forEach(group => {
+                group.addEventListener('mouseenter', () => addHighlight(group.dataset.groupId, false));
+                group.addEventListener('mouseleave', () => removeHighlight(group.dataset.groupId));
+            });
+
+            document.querySelectorAll('.translation-phrase').forEach(phrase => {
+                phrase.addEventListener('mouseenter', () => addHighlight(phrase.dataset.groupId, true));
+                phrase.addEventListener('mouseleave', () => removeHighlight(phrase.dataset.groupId));
+            });
+
+            tooltips.forEach(wordSpan => {
+                wordSpan.addEventListener('mouseenter', () => showTooltip(wordSpan));
+                wordSpan.addEventListener('mouseleave', () => hideTooltip());
+            });
         });
-
-        if (activeRow) {
-            activeRow.classList.add('highlight-line');
-            if (isScrollFollowing) {
-                activeRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }
-        }
-    }
-    
-    lyricRows.forEach(row => {
-        row.addEventListener('click', () => {
-            video.currentTime = parseFloat(row.dataset.startTime);
-            if (video.paused) {
-                video.play();
-            }
-        });
-    });
-
-    video.addEventListener('timeupdate', updateTime);
-    video.addEventListener('play', updatePlayPauseIcon);
-    video.addEventListener('pause', updatePlayPauseIcon);
-
-    playPauseBtn.addEventListener('click', togglePlayPause);
-
-    loopBtn.addEventListener('click', () => {
-        video.loop = !video.loop;
-        loopBtn.classList.toggle('active', video.loop);
-    });
-
-    muteBtn.addEventListener('click', () => {
-        video.muted = !video.muted;
-        updateMuteIcon();
-    });
-
-    scrollLockBtn.addEventListener('click', () => {
-        isScrollFollowing = !isScrollFollowing;
-        updateScrollLockIcon();
-    });
-
-    document.addEventListener('keydown', (event) => {
-        if (event.code === 'Space') {
-            event.preventDefault();
-            togglePlayPause();
-        } else if (event.code === 'ArrowRight') {
-            event.preventDefault();
-            let newIndex = (currentRowIndex < lyricRows.length - 1) ? currentRowIndex + 1 : lyricRows.length - 1;
-            if (newIndex !== currentRowIndex) {
-                currentRowIndex = newIndex;
-                const targetRow = lyricRows[currentRowIndex];
-                video.currentTime = parseFloat(targetRow.dataset.startTime);
-            }
-        } else if (event.code === 'ArrowLeft') {
-            event.preventDefault();
-            let newIndex = (currentRowIndex > 0) ? currentRowIndex - 1 : 0;
-            if (newIndex !== currentRowIndex) {
-                currentRowIndex = newIndex;
-                const targetRow = lyricRows[currentRowIndex];
-                video.currentTime = parseFloat(targetRow.dataset.startTime);
-            }
-        }
-    });
-
-    // video.muted = true; // Do not force mute on load
-    updatePlayPauseIcon();
-    updateMuteIcon();
-    updateScrollLockIcon();
-    loopBtn.innerHTML = icons.loop;
-    
-    function showTooltip(wordSpan) {
-        if (currentTooltipElement) hideTooltip();
-        const meaning = wordSpan.dataset.meaning, grammar = wordSpan.dataset.grammar, kana = wordSpan.dataset.kana, romaji = wordSpan.dataset.romaji, kanji = wordSpan.dataset.kanji, lyricNote = wordSpan.dataset.lyricNote;
-        let h4Text = kanji ? `<span class="kanji-color">${kanji}</span>` : wordSpan.textContent.trim();
-        const newTooltipElement = document.createElement('div');
-        newTooltipElement.classList.add('tooltip-box');
-        let content = `<h4>${h4Text}</h4>`;
-        if (kana || romaji) {
-            content += `<div class="kana-romaji">`;
-            if (kanji && kana) content += `<p class="kana-display">${kana}</p>`;
-            if (romaji) content += `<p>${romaji}</p>`;
-            content += `</div>`;
-        }
-        if (meaning) content += `<p><strong>Meaning:</strong> ${meaning}</p>`;
-        if (grammar) content += `<p><strong>Grammar:</strong> ${grammar}</p>`;
-        if (lyricNote) content += `<p class="lyric-note">${lyricNote}</p>`;
-        newTooltipElement.innerHTML = content;
-        document.body.appendChild(newTooltipElement);
-        currentTooltipElement = newTooltipElement;
-        const rect = wordSpan.getBoundingClientRect();
-        let left = rect.left + (rect.width / 2) - (currentTooltipElement.offsetWidth / 2);
-        let top = rect.top - currentTooltipElement.offsetHeight - 10;
-        if (left < 10) left = 10;
-        if (left + currentTooltipElement.offsetWidth > window.innerWidth - 10) left = window.innerWidth - currentTooltipElement.offsetWidth - 10;
-        if (top < 10) top = rect.bottom + 10;
-        currentTooltipElement.style.left = `${left + window.scrollX}px`;
-        currentTooltipElement.style.top = `${top + window.scrollY}px`;
-        currentTooltipElement.style.opacity = '1';
-        currentTooltipElement.style.visibility = 'visible';
-    }
-
-    function hideTooltip() {
-        if (currentTooltipElement) {
-            currentTooltipElement.remove();
-            currentTooltipElement = null;
-        }
-    }
-
-    function addHighlight(groupId, showTip) {
-        document.querySelectorAll(`[data-group-id="${groupId}"]`).forEach(el => {
-            el.classList.add(el.classList.contains('word-group') ? 'highlight-jp-group' : 'highlight-en-phrase');
-        });
-        if (showTip) {
-            const wordGroup = document.querySelector(`.word-group[data-group-id="${groupId}"]`);
-            const firstTooltip = wordGroup ? wordGroup.querySelector('.word-tooltip') : null;
-            if (firstTooltip) {
-                showTooltip(firstTooltip);
-            }
-        }
-    }
-
-    function removeHighlight(groupId) {
-        document.querySelectorAll(`[data-group-id="${groupId}"]`).forEach(el => {
-            el.classList.remove('highlight-jp-group', 'highlight-en-phrase');
-        });
-        hideTooltip();
-    }
-
-    document.querySelectorAll('.word-group').forEach(group => {
-        group.addEventListener('mouseenter', () => addHighlight(group.dataset.groupId, false));
-        group.addEventListener('mouseleave', () => removeHighlight(group.dataset.groupId));
-    });
-
-    document.querySelectorAll('.translation-phrase').forEach(phrase => {
-        phrase.addEventListener('mouseenter', () => addHighlight(phrase.dataset.groupId, true));
-        phrase.addEventListener('mouseleave', () => removeHighlight(phrase.dataset.groupId));
-    });
-
-    tooltips.forEach(wordSpan => {
-        wordSpan.addEventListener('mouseenter', () => showTooltip(wordSpan));
-        wordSpan.addEventListener('mouseleave', () => hideTooltip());
-    });
     </script>
 </body>
 </html>
