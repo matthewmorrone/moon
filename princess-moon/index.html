@@ -44,7 +44,7 @@
         #bg-video {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
         }
 
         .video-overlay {
@@ -60,7 +60,7 @@
         .container {
             max-width: 1200px;
             width: 100%;
-            padding: 30px;
+            padding: 20px;
             background-color: var(--bg-dark-translucent);
             border-radius: 12px;
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
@@ -76,6 +76,10 @@
             scrollbar-width: none;
         }
 
+        .container.minimized {
+            display: none;
+        }
+
         .container::-webkit-scrollbar {
             display: none;
         }
@@ -85,6 +89,39 @@
             justify-content: center;
             gap: 15px;
             margin-bottom: 30px;
+            transition: opacity 0.3s ease-out;
+            position: relative;
+            z-index: 100;
+        }
+
+        .minimized-controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            margin-bottom: 0;
+            background-color: rgba(26, 32, 44, 0.9);
+            padding: 15px;
+            border-radius: 25px;
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .controls.minimized {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            transform: none;
+            margin-top: 0;
+            margin-bottom: 0;
+            background-color: rgba(26, 32, 44, 0.9);
+            padding: 15px;
+            border-radius: 25px;
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .control-btn {
@@ -99,7 +136,14 @@
             align-items: center;
             cursor: pointer;
             transition: background-color 0.2s, transform 0.2s;
-            z-index: 10;
+            z-index: 101;
+            position: relative;
+        }
+
+        .control-btn:focus {
+            outline: 3px solid var(--controls-active);
+            outline-offset: 2px;
+            background-color: var(--controls-hover);
         }
 
         .control-btn svg {
@@ -168,14 +212,15 @@
             margin: 0;
             padding: 0;
             transition: color 0.3s ease-in-out;
-            white-space: nowrap;
+            white-space: normal;
             overflow: hidden;
-            text-overflow: ellipsis;
+            word-wrap: break-word;
+            line-height: 1.4;
         }
 
         .japanese-line {
-            font-size: 1.4em;
-            line-height: 1.5;
+            font-size: 1.2em;
+            line-height: 1.4;
         }
 
         .word-tooltip {
@@ -298,52 +343,93 @@
             body {
                 padding: 10px;
             }
+
             .container {
                 padding: 15px;
                 max-height: calc(100vh - 20px);
             }
+
             h1 {
                 font-size: 2em;
                 margin-bottom: 20px;
             }
+
             .lyrics-header {
                 display: none;
             }
+
             .lyric-row {
                 grid-template-columns: 1fr;
                 gap: 5px 0;
                 align-items: start;
             }
+
             .grid-header {
                 font-size: 1.5em;
                 margin-bottom: 10px;
             }
+
             .japanese-line {
                 font-size: 1.2em;
             }
+
             .translation-line {
                 font-size: 0.9em;
                 color: var(--text-muted);
             }
         }
+
+        /* Fire TV optimizations */
+        @media (pointer: coarse) {
+            * {
+                transform: none !important;
+                transform-style: flat !important;
+                transition: none !important;
+                animation: none !important;
+            }
+
+            .container {
+                transform: none !important;
+                transition: none !important;
+            }
+
+            .container.minimized {
+                display: none !important;
+            }
+
+            .control-btn:hover {
+                transform: none !important;
+            }
+        }
     </style>
 </head>
+
 <body>
     <div class="video-background">
         <video id="bg-video" src="princess-moon.mp4" playsinline></video>
     </div>
     <div class="video-overlay"></div>
 
+    <!-- Controls when minimized (top-right corner) -->
+    <div class="controls minimized-controls" style="display: none;">
+        <button id="play-pause-btn-mini" class="control-btn" tabindex="0" aria-label="Play/Pause"></button>
+        <button id="loop-btn-mini" class="control-btn" tabindex="0" aria-label="Toggle Loop"></button>
+        <button id="mute-btn-mini" class="control-btn" tabindex="0" aria-label="Mute/Unmute"></button>
+        <button id="scroll-lock-btn-mini" class="control-btn active" tabindex="0" aria-label="Toggle Scroll Lock"></button>
+        <button id="lyrics-toggle-btn-mini" class="control-btn active" tabindex="0" aria-label="Toggle Lyrics"></button>
+    </div>
+
     <div class="container">
         <h1>
             PRINCESS MOON (プリンセス・ムーン)
         </h1>
 
-        <div class="controls">
-            <button id="play-pause-btn" class="control-btn" aria-label="Play/Pause"></button>
-            <button id="loop-btn" class="control-btn" aria-label="Toggle Loop"></button>
-            <button id="mute-btn" class="control-btn" aria-label="Mute/Unmute"></button>
-            <button id="scroll-lock-btn" class="control-btn active" aria-label="Toggle Scroll Lock"></button>
+        <div class="controls main-controls">
+            <button id="play-pause-btn" class="control-btn" tabindex="0" aria-label="Play/Pause"></button>
+            <button id="loop-btn" class="control-btn" tabindex="0" aria-label="Toggle Loop"></button>
+            <button id="mute-btn" class="control-btn" tabindex="0" aria-label="Mute/Unmute"></button>
+            <button id="scroll-lock-btn" class="control-btn active" tabindex="0" aria-label="Toggle Scroll Lock"></button>
+            <button id="lyrics-toggle-btn" class="control-btn active" tabindex="0" aria-label="Toggle Lyrics"></button>
         </div>
 
         <div id="lyrics-body" class="lyrics-grid">
@@ -458,10 +544,24 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const video = document.getElementById('bg-video');
+
+            // Main controls (inside container)
             const playPauseBtn = document.getElementById('play-pause-btn');
             const loopBtn = document.getElementById('loop-btn');
             const muteBtn = document.getElementById('mute-btn');
             const scrollLockBtn = document.getElementById('scroll-lock-btn');
+            const lyricsToggleBtn = document.getElementById('lyrics-toggle-btn');
+
+            // Mini controls (top-right when minimized)
+            const playPauseBtnMini = document.getElementById('play-pause-btn-mini');
+            const loopBtnMini = document.getElementById('loop-btn-mini');
+            const muteBtnMini = document.getElementById('mute-btn-mini');
+            const scrollLockBtnMini = document.getElementById('scroll-lock-btn-mini');
+            const lyricsToggleBtnMini = document.getElementById('lyrics-toggle-btn-mini');
+
+            const container = document.querySelector('.container');
+            const mainControls = document.querySelector('.main-controls');
+            const miniControls = document.querySelector('.minimized-controls');
             const lyricRows = document.querySelectorAll('.lyric-row');
             const tooltips = document.querySelectorAll('.word-tooltip');
             let currentTooltipElement = null;
@@ -473,15 +573,19 @@
                 volumeOn: `<svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>`,
                 volumeOff: `<svg viewBox="0 0 24 24"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>`,
                 scrollFollow: `<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 15l-5-5h3V9h4v3h3l-5 5z"/></svg>`,
-                scrollLocked: `<svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>`
+                scrollLocked: `<svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>`,
+                lyricsShow: `<svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>`,
+                lyricsHide: `<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5h3V9h4v3h3l-5 5z"/></svg>`
             };
             
             let currentRowIndex = -1;
             let isScrollFollowing = true;
+            let lyricsVisible = true;
 
             function togglePlayPause() {
                 if (video.paused) {
                     video.play();
+                    // This block ensures the video unmutes on play
                     if (video.muted) {
                         video.muted = false;
                         updateMuteIcon();
@@ -492,40 +596,85 @@
             }
 
             function updatePlayPauseIcon() {
-                playPauseBtn.innerHTML = video.paused ? icons.play : icons.pause;
+                const icon = video.paused ? icons.play : icons.pause;
+                playPauseBtn.innerHTML = icon;
+                playPauseBtnMini.innerHTML = icon;
             }
 
             function updateMuteIcon() {
-                muteBtn.innerHTML = video.muted ? icons.volumeOff : icons.volumeOn;
+                const icon = video.muted ? icons.volumeOff : icons.volumeOn;
+                muteBtn.innerHTML = icon;
+                muteBtnMini.innerHTML = icon;
                 muteBtn.classList.toggle('active', !video.muted);
+                muteBtnMini.classList.toggle('active', !video.muted);
             }
             
             function updateScrollLockIcon() {
-                scrollLockBtn.innerHTML = isScrollFollowing ? icons.scrollFollow : icons.scrollLocked;
+                const icon = isScrollFollowing ? icons.scrollFollow : icons.scrollLocked;
+                scrollLockBtn.innerHTML = icon;
+                scrollLockBtnMini.innerHTML = icon;
                 scrollLockBtn.classList.toggle('active', isScrollFollowing);
+                scrollLockBtnMini.classList.toggle('active', isScrollFollowing);
+            }
+
+            function updateLyricsToggleIcon() {
+                const icon = lyricsVisible ? icons.lyricsShow : icons.lyricsHide;
+                lyricsToggleBtn.innerHTML = icon;
+                lyricsToggleBtnMini.innerHTML = icon;
+                lyricsToggleBtn.classList.toggle('active', lyricsVisible);
+                lyricsToggleBtnMini.classList.toggle('active', lyricsVisible);
+            }
+
+            function toggleLyrics() {
+                lyricsVisible = !lyricsVisible;
+                container.classList.toggle('minimized', !lyricsVisible);
+
+                if (lyricsVisible) {
+                    mainControls.style.display = 'flex';
+                    miniControls.style.display = 'none';
+                } else {
+                    mainControls.style.display = 'none';
+                    miniControls.style.display = 'flex';
+                }
+                
+                updateLyricsToggleIcon();
             }
 
             function updateTime() {
-                document.title = `(${Math.floor(video.currentTime / 60)}:${String(Math.floor(video.currentTime % 60)).padStart(2, '0')}) - Princess Moon`;
-                
+                // Throttle updates for Fire TV performance
                 const currentTime = video.currentTime;
+                const minutes = Math.floor(currentTime / 60);
+                const seconds = String(Math.floor(currentTime % 60)).padStart(2, '0');
+                document.title = `(${minutes}:${seconds}) - Princess Moon`;
+
+                // Disable lyric highlighting on Fire TV to prevent rendering issues
+                if (window.matchMedia('(pointer: coarse)').matches) {
+                    return;
+                }
+
                 let activeRow = null;
 
                 lyricRows.forEach((row, index) => {
                     const startTime = parseFloat(row.dataset.startTime);
                     const endTime = parseFloat(row.dataset.endTime);
-                    row.classList.remove('highlight-line');
-                    if (currentTime >= startTime && currentTime <= endTime) {
-                        activeRow = row;
-                        currentRowIndex = index;
+                    const wasHighlighted = row.classList.contains('highlight-line');
+                    const shouldHighlight = currentTime >= startTime && currentTime <= endTime;
+
+                    if (wasHighlighted !== shouldHighlight) {
+                        if (shouldHighlight) {
+                            row.classList.add('highlight-line');
+                            activeRow = row;
+                            currentRowIndex = index;
+                        } else {
+                            row.classList.remove('highlight-line');
+                        }
                     }
                 });
 
-                if (activeRow) {
-                    activeRow.classList.add('highlight-line');
-                    if (isScrollFollowing) {
-                        activeRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    }
+                if (activeRow && isScrollFollowing && lyricsVisible) {
+                    // Use instant scroll on Fire TV to prevent shaking
+                    const scrollBehavior = window.matchMedia('(pointer: coarse)').matches ? 'auto' : 'smooth';
+                    activeRow.scrollIntoView({ behavior: scrollBehavior, block: 'center' });
                 }
             }
             
@@ -542,25 +691,147 @@
             video.addEventListener('play', updatePlayPauseIcon);
             video.addEventListener('pause', updatePlayPauseIcon);
 
+            // Fire TV specific optimizations - throttle timeupdate for performance
+            let lastTimeUpdate = 0;
+            const originalTimeUpdate = updateTime;
+
+            function throttledTimeUpdate() {
+                const now = Date.now();
+                if (now - lastTimeUpdate > 200) { // Only update every 200ms on Fire TV
+                    lastTimeUpdate = now;
+                    originalTimeUpdate();
+                }
+            }
+
+            // Use throttled updates on Fire TV (detected by coarse pointer)
+            if (window.matchMedia('(pointer: coarse)').matches) {
+                video.removeEventListener('timeupdate', updateTime);
+                video.addEventListener('timeupdate', throttledTimeUpdate);
+            }
+
+            // Fire TV specific video handling
+            video.addEventListener('loadstart', () => {
+                console.log('Video loading started');
+            });
+            video.addEventListener('error', (e) => {
+                console.log('Video error:', e);
+            });
+            video.addEventListener('stalled', () => {
+                console.log('Video stalled');
+            });
+
+            // Main controls event listeners
             playPauseBtn.addEventListener('click', togglePlayPause);
+            playPauseBtn.addEventListener('keydown', (e) => {
+                if (e.code === 'Enter' || e.code === 'Space') {
+                    e.preventDefault();
+                    togglePlayPause();
+                }
+            });
 
             loopBtn.addEventListener('click', () => {
                 video.loop = !video.loop;
                 loopBtn.classList.toggle('active', video.loop);
+                loopBtnMini.classList.toggle('active', video.loop);
+            });
+            loopBtn.addEventListener('keydown', (e) => {
+                if (e.code === 'Enter' || e.code === 'Space') {
+                    e.preventDefault();
+                    video.loop = !video.loop;
+                    loopBtn.classList.toggle('active', video.loop);
+                    loopBtnMini.classList.toggle('active', video.loop);
+                }
             });
 
             muteBtn.addEventListener('click', () => {
                 video.muted = !video.muted;
                 updateMuteIcon();
             });
+            muteBtn.addEventListener('keydown', (e) => {
+                if (e.code === 'Enter' || e.code === 'Space') {
+                    e.preventDefault();
+                    video.muted = !video.muted;
+                    updateMuteIcon();
+                }
+            });
 
             scrollLockBtn.addEventListener('click', () => {
                 isScrollFollowing = !isScrollFollowing;
                 updateScrollLockIcon();
             });
+            scrollLockBtn.addEventListener('keydown', (e) => {
+                if (e.code === 'Enter' || e.code === 'Space') {
+                    e.preventDefault();
+                    isScrollFollowing = !isScrollFollowing;
+                    updateScrollLockIcon();
+                }
+            });
+
+            lyricsToggleBtn.addEventListener('click', toggleLyrics);
+            lyricsToggleBtn.addEventListener('keydown', (e) => {
+                if (e.code === 'Enter' || e.code === 'Space') {
+                    e.preventDefault();
+                    toggleLyrics();
+                }
+            });
+
+            // Mini controls event listeners (same functionality)
+            playPauseBtnMini.addEventListener('click', togglePlayPause);
+            playPauseBtnMini.addEventListener('keydown', (e) => {
+                if (e.code === 'Enter' || e.code === 'Space') {
+                    e.preventDefault();
+                    togglePlayPause();
+                }
+            });
+
+            loopBtnMini.addEventListener('click', () => {
+                video.loop = !video.loop;
+                loopBtn.classList.toggle('active', video.loop);
+                loopBtnMini.classList.toggle('active', video.loop);
+            });
+            loopBtnMini.addEventListener('keydown', (e) => {
+                if (e.code === 'Enter' || e.code === 'Space') {
+                    e.preventDefault();
+                    video.loop = !video.loop;
+                    loopBtn.classList.toggle('active', video.loop);
+                    loopBtnMini.classList.toggle('active', video.loop);
+                }
+            });
+
+            muteBtnMini.addEventListener('click', () => {
+                video.muted = !video.muted;
+                updateMuteIcon();
+            });
+            muteBtnMini.addEventListener('keydown', (e) => {
+                if (e.code === 'Enter' || e.code === 'Space') {
+                    e.preventDefault();
+                    video.muted = !video.muted;
+                    updateMuteIcon();
+                }
+            });
+
+            scrollLockBtnMini.addEventListener('click', () => {
+                isScrollFollowing = !isScrollFollowing;
+                updateScrollLockIcon();
+            });
+            scrollLockBtnMini.addEventListener('keydown', (e) => {
+                if (e.code === 'Enter' || e.code === 'Space') {
+                    e.preventDefault();
+                    isScrollFollowing = !isScrollFollowing;
+                    updateScrollLockIcon();
+                }
+            });
+
+            lyricsToggleBtnMini.addEventListener('click', toggleLyrics);
+            lyricsToggleBtnMini.addEventListener('keydown', (e) => {
+                if (e.code === 'Enter' || e.code === 'Space') {
+                    e.preventDefault();
+                    toggleLyrics();
+                }
+            });
 
             document.addEventListener('keydown', (event) => {
-                if (event.code === 'Space') {
+                if (event.code === 'Space' || event.code === 'Enter' || event.code === 'NumpadEnter') {
                     event.preventDefault();
                     // Only toggle play/pause, do not reset time
                     togglePlayPause();
@@ -580,6 +851,22 @@
                         const targetRow = lyricRows[currentRowIndex];
                         video.currentTime = parseFloat(targetRow.dataset.startTime);
                     }
+                } else if (event.code === 'ArrowUp') {
+                    event.preventDefault();
+                    video.muted = !video.muted;
+                    updateMuteIcon();
+                } else if (event.code === 'ArrowDown') {
+                    event.preventDefault();
+                    video.loop = !video.loop;
+                    loopBtn.classList.toggle('active', video.loop);
+                    loopBtnMini.classList.toggle('active', video.loop);
+                } else if (event.code === 'KeyL') {
+                    event.preventDefault();
+                    toggleLyrics();
+                } else if (event.code === 'KeyS') {
+                    event.preventDefault();
+                    isScrollFollowing = !isScrollFollowing;
+                    updateScrollLockIcon();
                 }
             });
 
@@ -587,7 +874,9 @@
             updatePlayPauseIcon();
             updateMuteIcon();
             updateScrollLockIcon();
+            updateLyricsToggleIcon();
             loopBtn.innerHTML = icons.loop;
+            loopBtnMini.innerHTML = icons.loop;
             
             function showTooltip(wordSpan) {
                 if (currentTooltipElement) hideTooltip();
