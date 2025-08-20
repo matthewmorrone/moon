@@ -112,7 +112,7 @@
     <script>
         // Fetch song folders from PHP endpoint and parse as JSON
         function fetchSongFolders() {
-            return fetch('list-folders.js')
+            return fetch('songs.json')
                 .then(res => {
                     if (!res.ok) throw new Error('Failed to load folder list');
                     return res.json();

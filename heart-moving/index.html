@@ -29,7 +29,7 @@
             align-items: center;
             min-height: 100vh;
             box-sizing: border-box;
-            overflow: hidden;
+            /* overflow: hidden; removed to allow scrolling */
         }
 
         .video-background {
@@ -44,7 +44,7 @@
         #bg-video {
             width: 100%;
             height: 100%;
-            object-fit: contain;
+            object-fit: cover;
         }
 
         .video-overlay {
@@ -420,9 +420,7 @@
     </div>
 
     <div class="container">
-        <h1>
-            HEART MOVING (ハート・ムーヴィング)
-        </h1>
+        <h1>ハート・ムーヴィング</h1>
 
         <div class="controls main-controls">
             <button id="play-pause-btn" class="control-btn" tabindex="0" aria-label="Play/Pause"></button>
@@ -433,10 +431,6 @@
         </div>
 
         <div id="lyrics-body" class="lyrics-grid">
-            <div class="lyrics-header">
-                <h2 class="grid-header">Japanese</h2>
-                <h2 class="grid-header">English</h2>
-            </div>
             <div class="lyric-row" data-start-time="2" data-end-time="8">
                 <p class="japanese-line">
                     <span class="word-group" data-group-id="31-1"><span class="word-tooltip" data-kanji="夢" data-meaning="dream" data-grammar="Noun" data-kana="ゆめ" data-romaji="yume"><ruby>夢<rt>ゆめ</rt></ruby></span>の<ruby>中<rt>なか</rt></ruby></span>
@@ -493,7 +487,7 @@
             </div>
             <div class="lyric-row" data-start-time="47" data-end-time="54">
                 <p class="japanese-line">
-                    <span class="word-group" data-group-id="36-1"><span class="word-tooltip" data-meaning="more beautiful" data-grammar="Adverb + Adjective" data-kana="もっときれい" data-romaji="motto kirei ni">もっと<ruby>きれい<rt>きれい</rt></ruby>に</span></span>
+                    <span class="word-group" data-group-id="36-1"><span class="word-tooltip" data-meaning="more beautiful" data-grammar="Adverb + Adjective" data-kana="もっときれい" data-romaji="motto kirei ni">もっと<ruby>きれい</ruby>に</span></span>
                     <span class="word-group" data-group-id="36-2"><span class="word-tooltip" data-meaning="right now" data-grammar="Adverb" data-kana="いますぐ" data-romaji="ima sugu"><ruby>今<rt>いま</rt></ruby>すぐ</span></span>
                     <span class="word-group" data-group-id="36-3"><span class="word-tooltip" data-meaning="want to become" data-grammar="Verb" data-kana="なりたい" data-romaji="naritai">なりたい</span></span>
                 </p>
@@ -654,11 +648,7 @@
                 const seconds = String(Math.floor(currentTime % 60)).padStart(2, '0');
                 document.title = `(${minutes}:${seconds}) - HEART MOVING (ハート・ムーヴィング)`;
 
-                // Disable lyric highlighting on Fire TV to prevent rendering issues
-                if (window.matchMedia('(pointer: coarse)').matches) {
-                    return;
-                }
-
+                // Always allow lyric highlighting, even on coarse pointer devices
                 let activeRow = null;
 
                 lyricRows.forEach((row, index) => {
@@ -701,16 +691,13 @@
             // Fire TV specific optimizations - throttle timeupdate for performance
             let lastTimeUpdate = 0;
             const originalTimeUpdate = updateTime;
-
             function throttledTimeUpdate() {
                 const now = Date.now();
-                if (now - lastTimeUpdate > 200) { // Only update every 200ms on Fire TV
+                if (now - lastTimeUpdate > 200) {
                     lastTimeUpdate = now;
                     originalTimeUpdate();
                 }
             }
-
-            // Use throttled updates on Fire TV (detected by coarse pointer)
             if (window.matchMedia('(pointer: coarse)').matches) {
                 video.removeEventListener('timeupdate', updateTime);
                 video.addEventListener('timeupdate', throttledTimeUpdate);

@@ -29,7 +29,7 @@
             align-items: center;
             min-height: 100vh;
             box-sizing: border-box;
-            overflow: hidden;
+            /* overflow: hidden; removed to allow scrolling */
         }
 
         .video-background {
@@ -44,7 +44,7 @@
         #bg-video {
             width: 100%;
             height: 100%;
-            object-fit: contain;
+            object-fit: cover;
         }
 
         .video-overlay {
@@ -181,8 +181,8 @@
         .lyrics-header {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 0 40px;
-            padding: 0 10px;
+            gap: 0;
+            padding: 0 0px;
             margin-bottom: 15px;
         }
 
@@ -220,22 +220,34 @@
 
         .japanese-line {
             font-size: 1.2em;
-            line-height: 1.4;
+            line-height: 1.8em;
+            min-height: 1.8em;
         }
 
         .word-tooltip {
             position: relative;
-            display: inline-block;
-            padding: 2px 0;
+            display: inline;
+            padding: 0;
             border-radius: 3px;
-            margin: 0 1px;
+            margin: 0;
             -webkit-tap-highlight-color: transparent;
         }
 
         .word-group {
-            padding: 2px 4px;
-            border-radius: 4px;
+            border-radius: 0;
             transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+            display: inline;
+            position: relative;
+            padding: 0;
+            margin: 0;
+        }
+
+        /* Always reserve space for furigana, even if not present */
+        .word-group:not(:has(ruby))::before {
+            content: '';
+            display: inline-block;
+            height: 0.6em;
+            width: 0;
         }
 
         .translation-phrase {
@@ -244,10 +256,17 @@
         }
 
         rt {
-            font-size: 0.5em;
+            font-size: 0.6em;
             color: #cbd5e0;
             user-select: none;
             transition: color 0.3s ease-in-out;
+            line-height: 1;
+        }
+
+        ruby {
+            ruby-align: center;
+            ruby-position: over;
+            white-space: nowrap;
         }
 
         h1 rt {
@@ -420,10 +439,7 @@
     </div>
 
     <div class="container">
-        <h1>
-            PRINCESS MOON (プリンセス・ムーン)
-        </h1>
-
+        <h1>プリンセス・ムーン</h1>
         <div class="controls main-controls">
             <button id="play-pause-btn" class="control-btn" tabindex="0" aria-label="Play/Pause"></button>
             <button id="loop-btn" class="control-btn" tabindex="0" aria-label="Toggle Loop"></button>
@@ -433,109 +449,314 @@
         </div>
 
         <div id="lyrics-body" class="lyrics-grid">
-            <div class="lyrics-header">
-                <h2 class="grid-header">Japanese</h2>
-                <h2 class="grid-header">English</h2>
-            </div>
-            <div class="lyric-row" data-start-time="6" data-end-time="9">
+            <div class="lyric-row" data-start-time="6" data-end-time="9.5">
                 <p class="japanese-line">
-                  <span class="word-group"><span class="word-tooltip" data-meaning="daytime" data-grammar="Noun"><ruby>昼<rt>ひる</rt></ruby></span></span>には
-                  <span class="word-group"><span class="word-tooltip" data-meaning="flower" data-grammar="Noun"><ruby>花<rt>はな</rt></ruby></span></span>の
-                  <span class="word-group"><span class="word-tooltip" data-meaning="scent" data-grammar="Noun"><ruby>香<rt>かお</rt></ruby></span></span>り
+                    <span class="word-group" data-group-id="1-1">
+                        <span class="word-tooltip" data-kanji="昼" data-meaning="daytime" data-grammar="Noun" data-kana="ひる" data-romaji="hiru"><ruby>昼<rt>ひる</rt></ruby></span>
+                    </span>
+                    <span class="word-group" data-group-id="1-2">
+                        <span class="word-tooltip" data-meaning="particle" data-grammar="Particle" data-kana="に" data-romaji="ni">に</span>
+                    </span>
+                    <span class="word-group" data-group-id="1-3">
+                        <span class="word-tooltip" data-meaning="topic particle" data-grammar="Particle" data-kana="は" data-romaji="wa">は</span>
+                    </span>
+                    <span class="word-group" data-group-id="1-4">
+                        <span class="word-tooltip" data-kanji="花" data-meaning="flower" data-grammar="Noun" data-kana="はな" data-romaji="hana"><ruby>花<rt>はな</rt></ruby></span>
+                    </span>
+                    <span class="word-group" data-group-id="1-5">
+                        <span class="word-tooltip" data-meaning="possessive particle" data-grammar="Particle" data-kana="の" data-romaji="no">の</span>
+                    </span>
+                    <span class="word-group" data-group-id="1-6">
+                        <span class="word-tooltip" data-kanji="香" data-meaning="scent" data-grammar="Noun" data-kana="かお" data-romaji="kao"><ruby>香<rt>かお</rt></ruby></span>
+                    </span>
+                    <span class="word-group" data-group-id="1-7">
+                        <span class="word-tooltip" data-meaning="nominalizer" data-grammar="Particle" data-kana="り" data-romaji="ri">り</span>
+                    </span>
                 </p>
                 <p class="translation-line">The scent of flowers in the daytime</p>
             </div>
-            <div class="lyric-row" data-start-time="10" data-end-time="12">
+            <div class="lyric-row" data-start-time="10" data-end-time="13.5">
                 <p class="japanese-line">
-                  <span class="word-group"><span class="word-tooltip" data-meaning="night" data-grammar="Noun"><ruby>夜<rt>よる</rt></ruby></span></span>には
-                  <span class="word-group"><span class="word-tooltip" data-meaning="star" data-grammar="Noun"><ruby>星<rt>ほし</rt></ruby></span></span>の
-                  <span class="word-group"><span class="word-tooltip" data-meaning="twinkle" data-grammar="Noun"><ruby>瞬<rt>またた</rt></ruby></span></span>き
+                    <span class="word-group" data-group-id="2-1">
+                        <span class="word-tooltip" data-kanji="夜" data-meaning="night" data-grammar="Noun" data-kana="よる" data-romaji="yoru"><ruby>夜<rt>よる</rt></ruby></span>
+                    </span>
+                    <span class="word-group" data-group-id="2-2">
+                        <span class="word-tooltip" data-meaning="particle" data-grammar="Particle" data-kana="に" data-romaji="ni">に</span>
+                    </span>
+                    <span class="word-group" data-group-id="2-3">
+                        <span class="word-tooltip" data-meaning="topic particle" data-grammar="Particle" data-kana="は" data-romaji="wa">は</span>
+                    </span>
+                    <span class="word-group" data-group-id="2-4">
+                        <span class="word-tooltip" data-kanji="星" data-meaning="star" data-grammar="Noun" data-kana="ほし" data-romaji="hoshi"><ruby>星<rt>ほし</rt></ruby></span>
+                    </span>
+                    <span class="word-group" data-group-id="2-5">
+                        <span class="word-tooltip" data-meaning="possessive particle" data-grammar="Particle" data-kana="の" data-romaji="no">の</span>
+                    </span>
+                    <span class="word-group" data-group-id="2-6">
+                        <span class="word-tooltip" data-kanji="瞬" data-meaning="twinkle" data-grammar="Noun" data-kana="またた" data-romaji="matata"><ruby>瞬<rt>またた</rt></ruby></span>
+                    </span>
+                    <span class="word-group" data-group-id="2-7">
+                        <span class="word-tooltip" data-meaning="nominalizer" data-grammar="Particle" data-kana="き" data-romaji="ki">き</span>
+                    </span>
                 </p>
                 <p class="translation-line">The twinkling of stars at night</p>
             </div>
-            <div class="lyric-row" data-start-time="12" data-end-time="17">
+            <div class="lyric-row" data-start-time="14" data-end-time="17">
                 <p class="japanese-line">
-                  そこは
-                  <span class="word-group"><span class="word-tooltip" data-meaning="who" data-grammar="Pronoun"><ruby>誰<rt>だれ</rt></ruby></span></span>も
+                    <span class="word-group" data-group-id="3-1">
+                        <span class="word-tooltip" data-meaning="there" data-grammar="Pronoun" data-kana="そこ" data-romaji="soko">そこ</span>
+                    </span>
+                    <span class="word-group" data-group-id="3-2">
+                        <span class="word-tooltip" data-meaning="topic particle" data-grammar="Particle" data-kana="は" data-romaji="wa">は</span>
+                    </span>
+                    <span class="word-group" data-group-id="3-3">
+                        <span class="word-tooltip" data-kanji="誰" data-meaning="who" data-grammar="Pronoun" data-kana="だれ" data-romaji="dare"><ruby>誰<rt>だれ</rt></ruby></span>
+                    </span>
+                    <span class="word-group" data-group-id="3-4">
+                        <span class="word-tooltip" data-meaning="emphasis particle" data-grammar="Particle" data-kana="も" data-romaji="mo">も</span>
+                    </span>
                 </p>
                 <p class="translation-line">It's a place no one</p>
             </div>
-            <div class="lyric-row" data-start-time="17" data-end-time="20">
+            <div class="lyric-row" data-start-time="17" data-end-time="21">
                 <p class="japanese-line">
-                  <span class="word-group"><span class="word-tooltip" data-meaning="to know" data-grammar="Verb"><ruby>知<rt>し</rt></ruby></span></span>らない
-                  <span class="word-group"><span class="word-tooltip" data-meaning="world" data-grammar="Noun"><ruby>世界<rt>せかい</rt></ruby></span></span>なの
+                    <span class="word-group" data-group-id="4-1">
+                        <span class="word-tooltip" data-kanji="知" data-meaning="to know" data-grammar="Verb" data-kana="し" data-romaji="shi"><ruby>知<rt>し</rt></ruby></span>
+                    </span>
+                    <span class="word-group" data-group-id="4-2">
+                        <span class="word-tooltip" data-meaning="negative suffix" data-grammar="Auxiliary" data-kana="らない" data-romaji="ranai">らない</span>
+                    </span>
+                    <span class="word-group" data-group-id="4-3">
+                        <span class="word-tooltip" data-kanji="世界" data-meaning="world" data-grammar="Noun" data-kana="せかい" data-romaji="sekai"><ruby>世界<rt>せかい</rt></ruby></span>
+                    </span>
+                    <span class="word-group" data-group-id="4-4">
+                        <span class="word-tooltip" data-meaning="sentence ending" data-grammar="Particle" data-kana="なの" data-romaji="nano">なの</span>
+                    </span>
                 </p>
                 <p class="translation-line">knows of</p>
             </div>
             <div class="lyric-row" data-start-time="21.060" data-end-time="25">
                 <p class="japanese-line">
-                  <span class="word-group"><span class="word-tooltip" data-meaning="white" data-grammar="Adjective"><ruby>白<rt>しろ</rt></ruby></span></span>い
-                  <span class="word-group"><span class="word-tooltip" data-meaning="shoes" data-grammar="Noun"><ruby>靴<rt>くつ</rt></ruby></span></span>を
-                  <span class="word-group"><span class="word-tooltip" data-meaning="to ring, to sound" data-grammar="Verb"><ruby>鳴<rt>な</rt></ruby></span></span>らして
+                    <span class="word-group" data-group-id="5-1">
+                        <span class="word-tooltip" data-kanji="白" data-meaning="white" data-grammar="Adjective" data-kana="しろ" data-romaji="shiro"><ruby>白<rt>しろ</rt></ruby></span>
+                    </span>
+                    <span class="word-group" data-group-id="5-2">
+                        <span class="word-tooltip" data-meaning="adjective ending" data-grammar="Suffix" data-kana="い" data-romaji="i">い</span>
+                    </span>
+                    <span class="word-group" data-group-id="5-3">
+                        <span class="word-tooltip" data-kanji="靴" data-meaning="shoes" data-grammar="Noun" data-kana="くつ" data-romaji="kutsu"><ruby>靴<rt>くつ</rt></ruby></span>
+                    </span>
+                    <span class="word-group" data-group-id="5-4">
+                        <span class="word-tooltip" data-meaning="object marker" data-grammar="Particle" data-kana="を" data-romaji="o">を</span>
+                    </span>
+                    <span class="word-group" data-group-id="5-5">
+                        <span class="word-tooltip" data-kanji="鳴" data-meaning="to ring, to sound" data-grammar="Verb" data-kana="な" data-romaji="na"><ruby>鳴<rt>な</rt></ruby></span>
+                    </span>
+                    <span class="word-group" data-group-id="5-6">
+                        <span class="word-tooltip" data-meaning="conjugation" data-grammar="Suffix" data-kana="らして" data-romaji="rashite">らして</span>
+                    </span>
                 </p>
                 <p class="translation-line">Tapping her white shoes</p>
             </div>
-            <div class="lyric-row" data-start-time="25" data-end-time="30">
+            <div class="lyric-row" data-start-time="25" data-end-time="28">
                 <p class="japanese-line">
-                  <span class="word-group"><span class="word-tooltip" data-meaning="white" data-grammar="Adjective"><ruby>白<rt>しろ</rt></ruby></span></span>い
-                  <span class="word-group"><span class="word-tooltip" data-meaning="moon" data-grammar="Noun"><ruby>月<rt>つき</rt></ruby></span></span>の
-                  <span class="word-group"><span class="word-tooltip" data-meaning="bridge" data-grammar="Noun"><ruby>橋<rt>はし</rt></ruby></span></span>をあたって
+                    <span class="word-group" data-group-id="6-1">
+                        <span class="word-tooltip" data-kanji="白" data-meaning="white" data-grammar="Adjective" data-kana="しろ" data-romaji="shiro"><ruby>白<rt>しろ</rt></ruby></span>
+                    </span>
+                    <span class="word-group" data-group-id="6-2">
+                        <span class="word-tooltip" data-meaning="adjective ending" data-grammar="Suffix" data-kana="い" data-romaji="i">い</span>
+                    </span>
+                    <span class="word-group" data-group-id="6-3">
+                        <span class="word-tooltip" data-kanji="月" data-meaning="moon" data-grammar="Noun" data-kana="つき" data-romaji="tsuki"><ruby>月<rt>つき</rt></ruby></span>
+                    </span>
+                    <span class="word-group" data-group-id="6-4">
+                        <span class="word-tooltip" data-meaning="possessive particle" data-grammar="Particle" data-kana="の" data-romaji="no">の</span>
+                    </span>
+                    <span class="word-group" data-group-id="6-5">
+                        <span class="word-tooltip" data-kanji="橋" data-meaning="bridge" data-grammar="Noun" data-kana="はし" data-romaji="hashi"><ruby>橋<rt>はし</rt></ruby></span>
+                    </span>
+                    <span class="word-group" data-group-id="6-6">
+                        <span class="word-tooltip" data-meaning="object marker" data-grammar="Particle" data-kana="を" data-romaji="o">を</span>
+                    </span>
+                    <span class="word-group" data-group-id="6-7">
+                        <span class="word-tooltip" data-meaning="to cross" data-grammar="Verb" data-kana="あたって" data-romaji="atatte">あたって</span>
+                    </span>
                 </p>
                 <p class="translation-line">Crossing the white moon's bridge</p>
             </div>
-            <div class="lyric-row" data-start-time="30" data-end-time="33.960">
+            <div class="lyric-row" data-start-time="29" data-end-time="33.960">
                 <p class="japanese-line">
-                  <span class="word-group"><span class="word-tooltip" data-meaning="sweet" data-grammar="Adjective"><ruby>甘<rt>あま</rt></ruby></span></span>いキスの
-                  <span class="word-group"><span class="word-tooltip" data-meaning="dream" data-grammar="Noun"><ruby>夢<rt>ゆめ</rt></ruby></span></span>を
-                  <span class="word-group"><span class="word-tooltip" data-meaning="to see (dream)" data-grammar="Verb"><ruby>見<rt>み</rt></ruby></span></span>てる
+                    <span class="word-group" data-group-id="7-1">
+                        <span class="word-tooltip" data-kanji="甘" data-meaning="sweet" data-grammar="Adjective" data-kana="あま" data-romaji="ama"><ruby>甘<rt>あま</rt></ruby></span>
+                    </span>
+                    <span class="word-group" data-group-id="7-2">
+                        <span class="word-tooltip" data-meaning="adjective ending" data-grammar="Suffix" data-kana="い" data-romaji="i">い</span>
+                    </span>
+                    <span class="word-group" data-group-id="7-3">
+                        <span class="word-tooltip" data-meaning="kiss" data-grammar="Noun" data-kana="きす" data-romaji="kisu">キス</span>
+                    </span>
+                    <span class="word-group" data-group-id="7-4">
+                        <span class="word-tooltip" data-meaning="possessive particle" data-grammar="Particle" data-kana="の" data-romaji="no">の</span>
+                    </span>
+                    <span class="word-group" data-group-id="7-5">
+                        <span class="word-tooltip" data-kanji="夢" data-meaning="dream" data-grammar="Noun" data-kana="ゆめ" data-romaji="yume"><ruby>夢<rt>ゆめ</rt></ruby></span>
+                    </span>
+                    <span class="word-group" data-group-id="7-6">
+                        <span class="word-tooltip" data-meaning="object marker" data-grammar="Particle" data-kana="を" data-romaji="o">を</span>
+                    </span>
+                    <span class="word-group" data-group-id="7-7">
+                        <span class="word-tooltip" data-kanji="見" data-meaning="to see (dream)" data-grammar="Verb" data-kana="み" data-romaji="mi"><ruby>見<rt>み</rt></ruby></span>
+                    </span>
+                    <span class="word-group" data-group-id="7-8">
+                        <span class="word-tooltip" data-meaning="conjugation" data-grammar="Suffix" data-kana="てる" data-romaji="teru">てる</span>
+                    </span>
                 </p>
                 <p class="translation-line">Dreaming a sweet kiss</p>
             </div>
             <div class="lyric-row" data-start-time="33.960" data-end-time="36.960">
                 <p class="japanese-line">
-                  お
-                  <span class="word-group"><span class="word-tooltip" data-meaning="princess" data-grammar="Noun"><ruby>姫様<rt>ひめさま</rt></ruby></span></span>が
-                  <span class="word-group"><span class="word-tooltip" data-meaning="to live" data-grammar="Verb"><ruby>住<rt>す</rt></ruby></span></span>んでいるの
+                    <span class="word-group" data-group-id="8-1">
+                        <span class="word-tooltip" data-meaning="honorific prefix" data-grammar="Prefix" data-kana="お" data-romaji="o">お</span>
+                    </span>
+                    <span class="word-group" data-group-id="8-2">
+                        <span class="word-tooltip" data-kanji="姫様" data-meaning="princess" data-grammar="Noun" data-kana="ひめさま" data-romaji="himesama"><ruby>姫様<rt>ひめさま</rt></ruby></span>
+                    </span>
+                    <span class="word-group" data-group-id="8-3">
+                        <span class="word-tooltip" data-meaning="subject marker" data-grammar="Particle" data-kana="が" data-romaji="ga">が</span>
+                    </span>
+                    <span class="word-group" data-group-id="8-4">
+                        <span class="word-tooltip" data-kanji="住" data-meaning="to live" data-grammar="Verb" data-kana="す" data-romaji="su"><ruby>住<rt>す</rt></ruby></span>
+                    </span>
+                    <span class="word-group" data-group-id="8-5">
+                        <span class="word-tooltip" data-meaning="conjugation" data-grammar="Suffix" data-kana="んでいる" data-romaji="ndeiru">んでいる</span>
+                    </span>
+                    <span class="word-group" data-group-id="8-6">
+                        <span class="word-tooltip" data-meaning="sentence ending" data-grammar="Particle" data-kana="の" data-romaji="no">の</span>
+                    </span>
                 </p>
                 <p class="translation-line">A princess is living there</p>
             </div>
             <div class="lyric-row" data-start-time="36.960" data-end-time="43.960">
                 <p class="japanese-line">
-                  <span class="word-group"><span class="word-tooltip" data-meaning="prayer" data-grammar="Noun"><ruby>祈<rt>いの</rt></ruby></span></span>りを
-                  <span class="word-group"><span class="word-tooltip" data-meaning="to offer" data-grammar="Verb"><ruby>捧<rt>ささ</rt></ruby></span></span>げてる
+                    <span class="word-group" data-group-id="9-1">
+                        <span class="word-tooltip" data-kanji="祈" data-meaning="prayer" data-grammar="Noun" data-kana="いの" data-romaji="ino"><ruby>祈<rt>いの</rt></ruby></span>
+                    </span>
+                    <span class="word-group" data-group-id="9-2">
+                        <span class="word-tooltip" data-meaning="nominalizer" data-grammar="Suffix" data-kana="り" data-romaji="ri">り</span>
+                    </span>
+                    <span class="word-group" data-group-id="9-3">
+                        <span class="word-tooltip" data-meaning="object marker" data-grammar="Particle" data-kana="を" data-romaji="o">を</span>
+                    </span>
+                    <span class="word-group" data-group-id="9-4">
+                        <span class="word-tooltip" data-kanji="捧" data-meaning="to offer" data-grammar="Verb" data-kana="ささ" data-romaji="sasa"><ruby>捧<rt>ささ</rt></ruby></span>
+                    </span>
+                    <span class="word-group" data-group-id="9-5">
+                        <span class="word-tooltip" data-meaning="conjugation" data-grammar="Suffix" data-kana="げてる" data-romaji="geteru">げてる</span>
+                    </span>
                 </p>
                 <p class="translation-line">Offering a prayer</p>
             </div>
             <div class="lyric-row" data-start-time="43.960" data-end-time="50.960">
                 <p class="japanese-line">
-                  きっと
-                  <span class="word-group"><span class="word-tooltip" data-meaning="happiness" data-grammar="Noun"><ruby>幸<rt>しあわ</rt></ruby></span></span>せにしてくれる
+                    <span class="word-group" data-group-id="10-1">
+                        <span class="word-tooltip" data-meaning="surely" data-grammar="Adverb" data-kana="きっと" data-romaji="kitto">きっと</span>
+                    </span>
+                    <span class="word-group" data-group-id="10-2">
+                        <span class="word-tooltip" data-kanji="幸" data-meaning="happiness" data-grammar="Noun" data-kana="しあわ" data-romaji="shiawa"><ruby>幸<rt>しあわ</rt></ruby></span>
+                    </span>
+                    <span class="word-group" data-group-id="10-3">
+                        <span class="word-tooltip" data-meaning="adjective ending" data-grammar="Suffix" data-kana="せ" data-romaji="se">せ</span>
+                    </span>
+                    <span class="word-group" data-group-id="10-4">
+                        <span class="word-tooltip" data-meaning="particle" data-grammar="Particle" data-kana="に" data-romaji="ni">に</span>
+                    </span>
+                    <span class="word-group" data-group-id="10-5">
+                        <span class="word-tooltip" data-meaning="to do for someone" data-grammar="Verb" data-kana="してくれる" data-romaji="shitekureru">してくれる</span>
+                    </span>
                 </p>
                 <p class="translation-line">Surely, she will bring happiness</p>
             </div>
-            <div class="lyric-row" data-start-time="52" data-end-time="59.060">
+            <div class="lyric-row" data-start-time="52" data-end-time="59">
                 <p class="japanese-line">
-                  <span class="word-group"><span class="word-tooltip" data-meaning="to turn" data-grammar="Verb"><ruby>回<rt>まわ</rt></ruby></span></span>れ
-                  <span class="word-group"><span class="word-tooltip" data-meaning="to turn" data-grammar="Verb"><ruby>回<rt>まわ</rt></ruby></span></span>れ
-                  <span class="word-group"><span class="word-tooltip" data-meaning="moon" data-grammar="Noun"><ruby>月<rt>つき</rt></ruby></span></span>のメリーゴーランド
+                    <span class="word-group" data-group-id="11-1">
+                        <span class="word-tooltip" data-kanji="回" data-meaning="to turn" data-grammar="Verb" data-kana="まわ" data-romaji="mawa"><ruby>回<rt>まわ</rt></ruby></span>
+                    </span>
+                    <span class="word-group" data-group-id="11-2">
+                        <span class="word-tooltip" data-meaning="imperative" data-grammar="Suffix" data-kana="れ" data-romaji="re">れ</span>
+                    </span>
+                    <span class="word-group" data-group-id="11-3">
+                        <span class="word-tooltip" data-kanji="回" data-meaning="to turn" data-grammar="Verb" data-kana="まわ" data-romaji="mawa"><ruby>回<rt>まわ</rt></ruby></span>
+                    </span>
+                    <span class="word-group" data-group-id="11-4">
+                        <span class="word-tooltip" data-meaning="imperative" data-grammar="Suffix" data-kana="れ" data-romaji="re">れ</span>
+                    </span>
+                    <span class="word-group" data-group-id="11-5">
+                        <span class="word-tooltip" data-kanji="月" data-meaning="moon" data-grammar="Noun" data-kana="つき" data-romaji="tsuki"><ruby>月<rt>つき</rt></ruby></span>
+                    </span>
+                    <span class="word-group" data-group-id="11-6">
+                        <span class="word-tooltip" data-meaning="possessive particle" data-grammar="Particle" data-kana="の" data-romaji="no">の</span>
+                    </span>
+                    <span class="word-group" data-group-id="11-7">
+                        <span class="word-tooltip" data-meaning="merry-go-round" data-grammar="Noun" data-kana="めりーごーらんど" data-romaji="meriigorando">メリーゴーランド</span>
+                    </span>
                 </p>
                 <p class="translation-line">Turn, turn, the moon's merry-go-round</p>
             </div>
-            <div class="lyric-row" data-start-time="59.060" data-end-time="1:07.060">
+            <div class="lyric-row" data-start-time="59" data-end-time="67">
                 <p class="japanese-line">
-                  <span class="word-group"><span class="word-tooltip" data-meaning="cool, refreshing" data-grammar="Adjective"><ruby>涼<rt>すず</rt></ruby></span></span>しげなガラスのドレス ひるがえして
+                    <span class="word-group" data-group-id="12-1">
+                        <span class="word-tooltip" data-kanji="涼" data-meaning="cool, refreshing" data-grammar="Adjective" data-kana="すず" data-romaji="suzu"><ruby>涼<rt>すず</rt></ruby></span>
+                    </span>
+                    <span class="word-group" data-group-id="12-2">
+                        <span class="word-tooltip" data-meaning="appearance suffix" data-grammar="Suffix" data-kana="しげ" data-romaji="shige">しげ</span>
+                    </span>
+                    <span class="word-group" data-group-id="12-3">
+                        <span class="word-tooltip" data-meaning="adjective" data-grammar="Suffix" data-kana="な" data-romaji="na">な</span>
+                    </span>
+                    <span class="word-group" data-group-id="12-4">
+                        <span class="word-tooltip" data-meaning="glass" data-grammar="Noun" data-kana="がらす" data-romaji="garasu">ガラス</span>
+                    </span>
+                    <span class="word-group" data-group-id="12-5">
+                        <span class="word-tooltip" data-meaning="possessive particle" data-grammar="Particle" data-kana="の" data-romaji="no">の</span>
+                    </span>
+                    <span class="word-group" data-group-id="12-6">
+                        <span class="word-tooltip" data-meaning="dress" data-grammar="Noun" data-kana="どれす" data-romaji="doresu">ドレス</span>
+                    </span>
+                    <span class="word-group" data-group-id="12-7">
+                        <span class="word-tooltip" data-meaning="to flutter" data-grammar="Verb" data-kana="ひるがえして" data-romaji="hirugaeshite">ひるがえして</span>
+                    </span>
                 </p>
                 <p class="translation-line">Fluttering her cool glass dress</p>
             </div>
-            <div class="lyric-row" data-start-time="1:07.060" data-end-time="1:14.060">
+            <div class="lyric-row" data-start-time="67" data-end-time="75">
                 <p class="japanese-line">
-                  いつだって
-                  <span class="word-group"><span class="word-tooltip" data-meaning="to watch over" data-grammar="Verb"><ruby>見守<rt>みまも</rt></ruby></span></span>っているわ
+                    <span class="word-group" data-group-id="13-1">
+                        <span class="word-tooltip" data-meaning="always" data-grammar="Adverb" data-kana="いつだって" data-romaji="itsudatte">いつだって</span>
+                    </span>
+                    <span class="word-group" data-group-id="13-2">
+                        <span class="word-tooltip" data-kanji="見守" data-meaning="to watch over" data-grammar="Verb" data-kana="みまも" data-romaji="mimamo"><ruby>見守<rt>みまも</rt></ruby></span>
+                    </span>
+                    <span class="word-group" data-group-id="13-3">
+                        <span class="word-tooltip" data-meaning="conjugation" data-grammar="Suffix" data-kana="っている" data-romaji="tteiru">っている</span>
+                    </span>
+                    <span class="word-group" data-group-id="13-4">
+                        <span class="word-tooltip" data-meaning="emphasis particle" data-grammar="Particle" data-kana="わ" data-romaji="wa">わ</span>
+                    </span>
                 </p>
                 <p class="translation-line">She is always watching over you</p>
             </div>
-            <div class="lyric-row" data-start-time="1:14.060" data-end-time="1:20.060">
-                 <p class="japanese-line">ムーン ムーン プリンセス</p>
+            <div class="lyric-row" data-start-time="75" data-end-time="80">
+                <p class="japanese-line">
+                    <span class="word-group" data-group-id="14-1">
+                        <span class="word-tooltip" data-meaning="moon" data-grammar="Noun" data-kana="むーん" data-romaji="muun">ムーン</span>
+                    </span>
+                    <span class="word-group" data-group-id="14-2">
+                        <span class="word-tooltip" data-meaning="moon" data-grammar="Noun" data-kana="むーん" data-romaji="muun">ムーン</span>
+                    </span>
+                    <span class="word-group" data-group-id="14-3">
+                        <span class="word-tooltip" data-meaning="princess" data-grammar="Noun" data-kana="ぷりんせす" data-romaji="purinsesu">プリンセス</span>
+                    </span>
+                </p>
                 <p class="translation-line">Moon, Moon, Princess</p>
             </div>
         </div>
@@ -648,10 +869,7 @@
                 document.title = `(${minutes}:${seconds}) - Princess Moon`;
 
                 // Disable lyric highlighting on Fire TV to prevent rendering issues
-                if (window.matchMedia('(pointer: coarse)').matches) {
-                    return;
-                }
-
+                // Always allow lyric highlighting, even on coarse pointer devices
                 let activeRow = null;
 
                 lyricRows.forEach((row, index) => {
@@ -673,8 +891,8 @@
 
                 if (activeRow && isScrollFollowing && lyricsVisible) {
                     // Use instant scroll on Fire TV to prevent shaking
-                    const scrollBehavior = window.matchMedia('(pointer: coarse)').matches ? 'auto' : 'smooth';
-                    activeRow.scrollIntoView({ behavior: scrollBehavior, block: 'center' });
+                    // Always use smooth scroll for lyric highlighting
+                    activeRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 }
             }
             
@@ -887,7 +1105,12 @@
                 let content = `<h4>${h4Text}</h4>`;
                 if (kana || romaji) {
                     content += `<div class="kana-romaji">`;
-                    if (kanji && kana) content += `<p class="kana-display">${kana}</p>`;
+                    if (kanji && kana) {
+                        content += `<p class="kana-display">${kana}</p>`;
+                    } else if (kana) {
+                        // If only kana, show it as main line
+                        content += `<p class="kana-display">${kana}</p>`;
+                    }
                     if (romaji) content += `<p>${romaji}</p>`;
                     content += `</div>`;
                 }
