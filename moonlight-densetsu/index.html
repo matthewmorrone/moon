@@ -250,15 +250,20 @@
             margin: 0;
             padding: 0;
             transition: color 0.3s ease-in-out;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            white-space: normal;
+            overflow: visible;
+            text-overflow: unset;
             line-height: 1.4;
         }
 
         .japanese-line {
-            font-size: 1.2em;
+            font-size: 1.4em;
             line-height: 1.4;
+        }
+
+        .translation-line {
+            font-size: 1.4em;
+            font-weight: 600;
         }
 
         .word-tooltip {
@@ -282,14 +287,18 @@
         }
 
         rt {
-            font-size: 0.5em;
+            font-size: 0.6em;
             color: #cbd5e0;
             user-select: none;
             transition: color 0.3s ease-in-out;
+            letter-spacing: 0.03em;
         }
 
         h1 rt {
-            font-size: 0.4em;
+            font-size: 0.6em;
+            font-weight: bold;
+            letter-spacing: 0.03em;
+            text-shadow: 0 1px 2px #1a202c, 0 0 1px #fff;
         }
 
         .tooltip-box {
@@ -317,7 +326,7 @@
             margin-top: 0;
             margin-bottom: 5px;
             color: #f6e05e;
-            font-size: 1.1em;
+            font-size: 1.4em;
         }
 
         .tooltip-box h4 .kanji-color {
@@ -381,40 +390,6 @@
             body {
                 padding: 10px;
             }
-
-            .container {
-                padding: 15px;
-                max-height: calc(100vh - 20px);
-            }
-
-            h1 {
-                font-size: 2em;
-                margin-bottom: 20px;
-            }
-
-            .lyrics-header {
-                display: none;
-            }
-
-            .lyric-row {
-                grid-template-columns: 1fr;
-                gap: 5px 0;
-                align-items: start;
-            }
-
-            .grid-header {
-                font-size: 1.5em;
-                margin-bottom: 10px;
-            }
-
-            .japanese-line {
-                font-size: 1.2em;
-            }
-
-            .translation-line {
-                font-size: 0.9em;
-                color: var(--text-muted);
-            }
         }
 
         /* Fire TV optimizations */
@@ -458,14 +433,10 @@
     </div>
 
     <div class="container">
-        <h1>
-            ムーンライト<ruby>伝説<rt>でんせつ</rt></ruby>
-            <br>
-            <span style="font-size: 0.6em; font-weight: 400;">(Moonlight Densetsu)</span>
-        </h1>
+        <h1>ムーンライト<ruby>伝説<rt>でんせつ</rt></ruby></h1>
 
         <div class="controls main-controls">
-            <div class="font-switcher" id="font-switcher">✨ Romantic</div>
+            <!-- font-switcher removed -->
             <button id="play-pause-btn" class="control-btn" tabindex="0" aria-label="Play/Pause"></button>
             <button id="loop-btn" class="control-btn" tabindex="0" aria-label="Toggle Loop"></button>
             <button id="mute-btn" class="control-btn" tabindex="0" aria-label="Mute/Unmute"></button>
@@ -474,10 +445,6 @@
         </div>
 
         <div id="lyrics-body" class="lyrics-grid">
-            <div class="lyrics-header">
-                <h2 class="grid-header">Japanese</h2>
-                <h2 class="grid-header">English</h2>
-            </div>
             <div class="lyric-row" data-start-time="27.740" data-end-time="31.480">
                 <p class="japanese-line">
                     <span class="word-group" data-group-id="1-1"><span class="word-tooltip" data-meaning="sorry" data-grammar="Interjection" data-kana="ごめんね" data-romaji="gomen ne">ごめんね</span></span>
@@ -689,7 +656,7 @@
             const muteBtn = document.getElementById('mute-btn');
             const scrollLockBtn = document.getElementById('scroll-lock-btn');
             const lyricsToggleBtn = document.getElementById('lyrics-toggle-btn');
-            const fontSwitcher = document.getElementById('font-switcher');
+            // font-switcher removed
             
             // Mini controls (top-right when minimized)
             const playPauseBtnMini = document.getElementById('play-pause-btn-mini');
@@ -706,51 +673,7 @@
             let currentTooltipElement = null;
 
             // Font combinations
-            const fontCombos = [
-                {
-                    name: '✨ Romantic',
-                    body: "'Lora', serif",
-                    display: "'Prata', serif",
-                    weight: '400',
-                    spacing: '0.5px'
-                },
-                {
-                    name: '🌙 Classical',
-                    body: "'Crimson Text', serif",
-                    display: "'Cinzel', serif",
-                    weight: '600',
-                    spacing: '1px'
-                },
-                {
-                    name: '💫 Elegant',
-                    body: "'Cormorant Garamond', serif",
-                    display: "'Playfair Display', serif",
-                    weight: '500',
-                    spacing: '0.8px'
-                }
-            ];
-            
-            let currentFontIndex = 0;
-
-            function switchFont() {
-                currentFontIndex = (currentFontIndex + 1) % fontCombos.length;
-                const combo = fontCombos[currentFontIndex];
-                
-                document.documentElement.style.setProperty('--body-font', combo.body);
-                document.documentElement.style.setProperty('--display-font', combo.display);
-                document.documentElement.style.setProperty('--display-weight', combo.weight);
-                document.documentElement.style.setProperty('--display-spacing', combo.spacing);
-                
-                fontSwitcher.textContent = combo.name;
-            }
-
-            fontSwitcher.addEventListener('click', switchFont);
-            fontSwitcher.addEventListener('keydown', (e) => {
-                if (e.code === 'Enter' || e.code === 'Space') {
-                    e.preventDefault();
-                    switchFont();
-                }
-            });
+            // font-switcher logic removed
 
             const icons = {
                 play: `<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>`,
