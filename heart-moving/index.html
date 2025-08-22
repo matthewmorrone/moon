@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Heart Moving Lyrics - Interactive</title>
+    <title>ハート ムーヴィング</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -76,14 +76,6 @@
             scrollbar-width: none;
         }
 
-        .container.minimized {
-            display: none;
-        }
-
-        .container::-webkit-scrollbar {
-            display: none;
-        }
-
         .controls {
             display: flex;
             justify-content: center;
@@ -92,36 +84,6 @@
             transition: opacity 0.3s ease-out;
             position: relative;
             z-index: 100;
-        }
-
-        .minimized-controls {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            margin-bottom: 0;
-            background-color: rgba(26, 32, 44, 0.9);
-            padding: 15px;
-            border-radius: 25px;
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .controls.minimized {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            transform: none;
-            margin-top: 0;
-            margin-bottom: 0;
-            background-color: rgba(26, 32, 44, 0.9);
-            padding: 15px;
-            border-radius: 25px;
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .control-btn {
@@ -393,10 +355,6 @@
                 transition: none !important;
             }
 
-            .container.minimized {
-                display: none !important;
-            }
-
             .control-btn:hover {
                 transform: none !important;
             }
@@ -410,24 +368,15 @@
     </div>
     <div class="video-overlay"></div>
 
-    <!-- Controls when minimized (top-right corner) -->
-    <div class="controls minimized-controls" style="display: none;">
-        <button id="play-pause-btn-mini" class="control-btn" tabindex="0" aria-label="Play/Pause"></button>
-        <button id="loop-btn-mini" class="control-btn" tabindex="0" aria-label="Toggle Loop"></button>
-        <button id="mute-btn-mini" class="control-btn" tabindex="0" aria-label="Mute/Unmute"></button>
-        <button id="scroll-lock-btn-mini" class="control-btn active" tabindex="0" aria-label="Toggle Scroll Lock"></button>
-        <button id="lyrics-toggle-btn-mini" class="control-btn active" tabindex="0" aria-label="Toggle Lyrics"></button>
-    </div>
-
     <div class="container">
-        <h1>ハート・ムーヴィング</h1>
+        <h1>ハート ムーヴィング</h1>
 
-        <div class="controls main-controls">
+        <div class="controls">
             <button id="play-pause-btn" class="control-btn" tabindex="0" aria-label="Play/Pause"></button>
             <button id="loop-btn" class="control-btn" tabindex="0" aria-label="Toggle Loop"></button>
             <button id="mute-btn" class="control-btn" tabindex="0" aria-label="Mute/Unmute"></button>
             <button id="scroll-lock-btn" class="control-btn active" tabindex="0" aria-label="Toggle Scroll Lock"></button>
-            <button id="lyrics-toggle-btn" class="control-btn active" tabindex="0" aria-label="Toggle Lyrics"></button>
+            <button id="furigana-toggle-btn" class="control-btn" tabindex="0" aria-label="Toggle Furigana" title="Toggle Furigana"></button>
         </div>
 
         <div id="lyrics-body" class="lyrics-grid">
@@ -551,18 +500,11 @@
             const loopBtn = document.getElementById('loop-btn');
             const muteBtn = document.getElementById('mute-btn');
             const scrollLockBtn = document.getElementById('scroll-lock-btn');
-            const lyricsToggleBtn = document.getElementById('lyrics-toggle-btn');
+            const furiganaToggleBtn = document.getElementById('furigana-toggle-btn');
 
-            // Mini controls (top-right when minimized)
-            const playPauseBtnMini = document.getElementById('play-pause-btn-mini');
-            const loopBtnMini = document.getElementById('loop-btn-mini');
-            const muteBtnMini = document.getElementById('mute-btn-mini');
-            const scrollLockBtnMini = document.getElementById('scroll-lock-btn-mini');
-            const lyricsToggleBtnMini = document.getElementById('lyrics-toggle-btn-mini');
+            let furiganaVisible = true;
 
             const container = document.querySelector('.container');
-            const mainControls = document.querySelector('.main-controls');
-            const miniControls = document.querySelector('.minimized-controls');
             const lyricRows = document.querySelectorAll('.lyric-row');
             const tooltips = document.querySelectorAll('.word-tooltip');
             let currentTooltipElement = null;
@@ -575,13 +517,11 @@
                 volumeOff: `<svg viewBox="0 0 24 24"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>`,
                 scrollFollow: `<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 15l-5-5h3V9h4v3h3l-5 5z"/></svg>`,
                 scrollLocked: `<svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>`,
-                lyricsShow: `<svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>`,
-                lyricsHide: `<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5h3V9h4v3h3l-5 5z"/></svg>`
+                furigana: `<svg width="24" height="24" viewBox="0 0 225 225" xmlns="http://www.w3.org/2000/svg"><g id="#ffffffff"></g><g id="#000000ff"><path fill="#000000" opacity="1.00" d=" M 75.22 19.24 C 81.08 18.14 87.40 19.30 92.39 22.61 C 100.91 27.97 105.12 39.30 102.07 48.90 C 99.33 58.40 89.97 65.64 80.01 65.48 C 72.15 65.72 64.26 61.61 60.10 54.91 C 55.60 48.11 55.11 38.89 58.82 31.65 C 62.01 25.29 68.24 20.60 75.22 19.24 Z" /><path fill="#000000" opacity="1.00" d=" M 139.54 19.58 C 152.69 15.69 167.51 26.05 168.44 39.71 C 170.43 52.76 159.09 65.58 145.95 65.49 C 133.49 66.28 122.15 55.37 121.92 43.00 C 121.37 32.34 129.13 22.01 139.54 19.58 Z" /><path fill="#000000" opacity="1.00" d=" M 103.17 75.01 C 109.39 75.00 115.61 74.99 121.84 75.01 C 121.82 81.27 121.84 87.54 121.83 93.81 C 140.58 93.81 159.32 93.82 178.07 93.80 C 178.08 99.99 178.07 106.18 178.08 112.37 C 172.08 112.31 166.07 112.41 160.07 112.31 C 155.95 131.30 142.43 146.25 128.64 159.12 C 143.83 171.15 158.85 183.40 174.14 195.30 C 170.35 200.29 166.23 205.02 162.53 210.08 C 146.48 197.02 130.16 184.28 114.11 171.21 C 97.97 184.21 81.84 197.21 65.57 210.04 C 61.78 205.12 58.01 200.15 53.96 195.44 C 69.34 183.49 84.41 171.12 99.66 159.00 C 87.92 148.43 77.26 136.24 70.39 121.90 C 77.58 121.90 84.77 121.91 91.97 121.90 C 98.15 131.21 105.68 139.58 114.00 147.04 C 124.67 137.24 135.03 126.12 140.17 112.34 C 109.09 112.38 78.01 112.32 46.92 112.37 C 46.93 106.18 46.92 99.99 46.93 93.80 C 65.67 93.82 84.42 93.81 103.17 93.81 C 103.17 87.54 103.17 81.27 103.17 75.01 Z" /></g></svg>`
             };
             
             let currentRowIndex = -1;
             let isScrollFollowing = true;
-            let lyricsVisible = true;
 
             function togglePlayPause() {
                 if (video.paused) {
@@ -599,46 +539,28 @@
             function updatePlayPauseIcon() {
                 const icon = video.paused ? icons.play : icons.pause;
                 playPauseBtn.innerHTML = icon;
-                playPauseBtnMini.innerHTML = icon;
             }
 
             function updateMuteIcon() {
                 const icon = video.muted ? icons.volumeOff : icons.volumeOn;
                 muteBtn.innerHTML = icon;
-                muteBtnMini.innerHTML = icon;
                 muteBtn.classList.toggle('active', !video.muted);
-                muteBtnMini.classList.toggle('active', !video.muted);
             }
             
             function updateScrollLockIcon() {
                 const icon = isScrollFollowing ? icons.scrollFollow : icons.scrollLocked;
                 scrollLockBtn.innerHTML = icon;
-                scrollLockBtnMini.innerHTML = icon;
                 scrollLockBtn.classList.toggle('active', isScrollFollowing);
-                scrollLockBtnMini.classList.toggle('active', isScrollFollowing);
-            }
-
-            function updateLyricsToggleIcon() {
-                const icon = lyricsVisible ? icons.lyricsShow : icons.lyricsHide;
-                lyricsToggleBtn.innerHTML = icon;
-                lyricsToggleBtnMini.innerHTML = icon;
-                lyricsToggleBtn.classList.toggle('active', lyricsVisible);
-                lyricsToggleBtnMini.classList.toggle('active', lyricsVisible);
             }
 
             function toggleLyrics() {
-                lyricsVisible = !lyricsVisible;
-                container.classList.toggle('minimized', !lyricsVisible);
+                container.classList.toggle('minimized');
                 
-                if (lyricsVisible) {
-                    mainControls.style.display = 'flex';
-                    miniControls.style.display = 'none';
-                } else {
+                if (container.classList.contains('minimized')) {
                     mainControls.style.display = 'none';
-                    miniControls.style.display = 'flex';
+                } else {
+                    mainControls.style.display = 'flex';
                 }
-
-                updateLyricsToggleIcon();
             }
 
             function updateTime() {
@@ -668,7 +590,7 @@
                     }
                 });
 
-                if (activeRow && isScrollFollowing && lyricsVisible) {
+                if (activeRow && isScrollFollowing) {
                     // Use instant scroll on Fire TV to prevent shaking
                     const scrollBehavior = window.matchMedia('(pointer: coarse)').matches ? 'auto' : 'smooth';
                     activeRow.scrollIntoView({ behavior: scrollBehavior, block: 'center' });
@@ -726,14 +648,12 @@
             loopBtn.addEventListener('click', () => {
                 video.loop = !video.loop;
                 loopBtn.classList.toggle('active', video.loop);
-                loopBtnMini.classList.toggle('active', video.loop);
             });
             loopBtn.addEventListener('keydown', (e) => {
                 if (e.code === 'Enter' || e.code === 'Space') {
                     e.preventDefault();
                     video.loop = !video.loop;
                     loopBtn.classList.toggle('active', video.loop);
-                    loopBtnMini.classList.toggle('active', video.loop);
                 }
             });
 
@@ -761,68 +681,31 @@
                 }
             });
 
-            lyricsToggleBtn.addEventListener('click', toggleLyrics);
-            lyricsToggleBtn.addEventListener('keydown', (e) => {
+            // Furigana toggle logic (Otome no Policy style)
+            function updateFuriganaToggleBtn() {
+                furiganaToggleBtn.classList.toggle('active', furiganaVisible);
+                furiganaToggleBtn.innerHTML = icons.furigana;
+            }
+            function toggleFurigana() {
+                furiganaVisible = !furiganaVisible;
+                document.querySelectorAll('.japanese-line ruby rt').forEach(rt => {
+                    rt.style.display = furiganaVisible ? '' : 'none';
+                });
+                updateFuriganaToggleBtn();
+            }
+            updateFuriganaToggleBtn();
+            furiganaToggleBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                toggleFurigana();
+            });
+            furiganaToggleBtn.addEventListener('keydown', (e) => {
                 if (e.code === 'Enter' || e.code === 'Space') {
                     e.preventDefault();
-                    toggleLyrics();
+                    toggleFurigana();
                 }
             });
 
-            // Mini controls event listeners (same functionality)
-            playPauseBtnMini.addEventListener('click', togglePlayPause);
-            playPauseBtnMini.addEventListener('keydown', (e) => {
-                if (e.code === 'Enter' || e.code === 'Space') {
-                    e.preventDefault();
-                    togglePlayPause();
-                }
-            });
-
-            loopBtnMini.addEventListener('click', () => {
-                video.loop = !video.loop;
-                loopBtn.classList.toggle('active', video.loop);
-                loopBtnMini.classList.toggle('active', video.loop);
-            });
-            loopBtnMini.addEventListener('keydown', (e) => {
-                if (e.code === 'Enter' || e.code === 'Space') {
-                    e.preventDefault();
-                    video.loop = !video.loop;
-                    loopBtn.classList.toggle('active', video.loop);
-                    loopBtnMini.classList.toggle('active', video.loop);
-                }
-            });
-
-            muteBtnMini.addEventListener('click', () => {
-                video.muted = !video.muted;
-                updateMuteIcon();
-            });
-            muteBtnMini.addEventListener('keydown', (e) => {
-                if (e.code === 'Enter' || e.code === 'Space') {
-                    e.preventDefault();
-                    video.muted = !video.muted;
-                    updateMuteIcon();
-                }
-            });
-
-            scrollLockBtnMini.addEventListener('click', () => {
-                isScrollFollowing = !isScrollFollowing;
-                updateScrollLockIcon();
-            });
-            scrollLockBtnMini.addEventListener('keydown', (e) => {
-                if (e.code === 'Enter' || e.code === 'Space') {
-                    e.preventDefault();
-                    isScrollFollowing = !isScrollFollowing;
-                    updateScrollLockIcon();
-                }
-            });
-
-            lyricsToggleBtnMini.addEventListener('click', toggleLyrics);
-            lyricsToggleBtnMini.addEventListener('keydown', (e) => {
-                if (e.code === 'Enter' || e.code === 'Space') {
-                    e.preventDefault();
-                    toggleLyrics();
-                }
-            });
+            setFuriganaVisibility(furiganaVisible);
 
             document.addEventListener('keydown', (event) => {
                 if (event.code === 'Space' || event.code === 'Enter' || event.code === 'NumpadEnter') {
@@ -852,14 +735,6 @@
                     event.preventDefault();
                     video.loop = !video.loop;
                     loopBtn.classList.toggle('active', video.loop);
-                    loopBtnMini.classList.toggle('active', video.loop);
-                } else if (event.code === 'KeyL') {
-                    event.preventDefault();
-                    toggleLyrics();
-                } else if (event.code === 'KeyS') {
-                    event.preventDefault();
-                    isScrollFollowing = !isScrollFollowing;
-                    updateScrollLockIcon();
                 }
             });
 
@@ -867,9 +742,7 @@
             updatePlayPauseIcon();
             updateMuteIcon();
             updateScrollLockIcon();
-            updateLyricsToggleIcon();
             loopBtn.innerHTML = icons.loop;
-            loopBtnMini.innerHTML = icons.loop;
             
             function showTooltip(wordSpan) {
                 if (currentTooltipElement) hideTooltip();
