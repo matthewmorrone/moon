@@ -602,12 +602,16 @@
         </div>
         <div class="right">
             <select id="deckSelect" title="Choose deck path">
+                <option value="">Song…</option>
                 <option value="heart-moving.txt">Heart Moving</option>
                 <option value="kirari.txt">Kirari</option>
                 <option value="moonlight-densetsu.txt">Moonlight Densetsu</option>
                 <option value="princess-moon.txt">Princess Moon</option>
                 <option value="otome-no-policy.txt">Otome no Policy</option>
                 <option value="tuxedo-mirage.txt">Tuxedo Mirage</option>
+            </select>
+            <select id="chapterSelect" title="Vocab chapters (cumulative)" disabled style="margin-left:10px;min-width:140px;">
+                <option value="">Chapter…</option>
             </select>
         </div>
     </div>
@@ -682,6 +686,7 @@
             spawnPetals();
 
             let deck = [], index = 0, flipped = false, round = 1, misses = [], ok = 0, miss = 0, currentPath = '', shuffleOn = false, reverseMode = false;
+            let vocabEntries = [], usingVocabMode = false;
             const els = {
                 card: document.getElementById('card'),
                 cardNext: document.getElementById('cardNext'),
@@ -692,6 +697,7 @@
                 missCount: document.getElementById('missCount'),
                 leftCount: document.getElementById('leftCount'),
                 select: document.getElementById('deckSelect'),
+                chapterSelect: document.getElementById('chapterSelect'),
                 toast: document.getElementById('toast'),
                 btnGot: document.getElementById('btnGot'),
                 btnMiss: document.getElementById('btnMiss'),
@@ -836,12 +842,80 @@
                         const parts = l.split(',');
                         if (parts.length < 2) return null;
                         const jp = parts[0].trim();
-                        const en = parts.slice(1).join(',').trim();
+                        // const en = parts.slice(1).join(',').trim();
+                        const en = parts[1].trim();
                         // in case comma appears in meaning in future
                         if (!jp || !en) return null;
                         return { q: jp, a: en };
                     })
                     .filter(Boolean);
+            }
+
+            function parseVocabCsv(text) {
+                return text.split(/\r?\n/)
+                    .map(l => l.trim())
+                    .filter(l => l && !l.startsWith('#'))
+                    .map(l => {
+                        const parts = l.split(',').map(p => p.trim());
+                        if (parts.length < 3) return null; // need at least chapter, jp, en
+                        const ch = parseInt(parts[0], 10);
+                        if (!Number.isFinite(ch)) return null;
+                        if (parts.length >= 4) { // chapter, jp/kanji, kana, en (remaining)
+                            const jp = parts[1];
+                            const kana = parts[2];
+                            const en = parts.slice(3).join(',');
+                            return { chapter: ch, jp, kana, en };
+                        } else { // chapter, jp, en
+                            const jp = parts[1];
+                            const en = parts.slice(2).join(',');
+                            return { chapter: ch, jp, kana: '', en };
+                        }
+                    })
+                    .filter(Boolean)
+                    .sort((a, b) => a.chapter - b.chapter);
+            }
+
+            async function loadVocabCsv() {
+                try {
+                    const res = await fetch('vocab.csv?t=' + Date.now());
+                    if (!res.ok) return; // silently ignore if not present
+                    const txt = await res.text();
+                    vocabEntries = parseVocabCsv(txt);
+                    if (!vocabEntries.length) return;
+                    // build chapter options ONLY for chapters that exist in the file
+                    const chapters = [...new Set(vocabEntries.map(v => v.chapter))].sort((a, b) => a - b);
+                    const frag = document.createDocumentFragment();
+                    chapters.forEach(ch => {
+                        const opt = document.createElement('option');
+                        opt.value = String(ch);
+                        opt.textContent = 'Ch. ' + ch;
+                        frag.appendChild(opt);
+                    });
+                    els.chapterSelect.appendChild(frag);
+                    els.chapterSelect.disabled = false;
+                    // restore saved chapter
+                    const savedCh = parseInt(localStorage.getItem('flashcards.vocabChapter') || '', 10);
+                    if (Number.isFinite(savedCh) && chapters.includes(savedCh)) {
+                        els.chapterSelect.value = String(savedCh);
+                        applyChapter(savedCh, false);
+                        toast('Vocab ch. ' + savedCh + ' loaded (' + deck.length + ')');
+                    }
+                } catch (e) {
+                    // ignore
+                }
+            }
+
+            function applyChapter(chapter, announce = true) {
+                usingVocabMode = true;
+                const subset = vocabEntries.filter(v => v.chapter <= chapter);
+                deck = subset.map(v => {
+                    const combined = v.kana && v.kana && v.kana !== v.jp ? v.jp + '\n' + v.kana : v.jp;
+                    return { q: combined, a: v.en };
+                });
+                currentPath = 'vocab.csv';
+                localStorage.setItem('flashcards.vocabChapter', String(chapter));
+                init();
+                if (announce) toast('Vocab up to Ch. ' + chapter + ' (' + deck.length + ')');
             }
 
             function shuffleArray(arr) {
@@ -967,7 +1041,17 @@
 
             els.select.addEventListener('change', (e) => {
                 const path = e.target.value.trim();
+                usingVocabMode = false;
+                if (els.chapterSelect) els.chapterSelect.value = '';
                 loadDeck(path);
+            });
+
+            els.chapterSelect.addEventListener('change', (e) => {
+                const val = e.target.value;
+                if (!val) return; // placeholder
+                const ch = parseInt(val, 10);
+                if (!Number.isFinite(ch)) return;
+                applyChapter(ch);
             });
 
             els.btnShuffle.addEventListener('click', () => {
@@ -995,14 +1079,21 @@
                 toast(reverseMode ? 'Reversed' : 'Normal');
             });
 
+            /*
             // If no stored deck, randomly pick one (excluding placeholder empty option)
             (function autoPickRandomDeck() {
-                const opts = Array.from(els.select.options).filter(o => o.value);
-                if (!opts.length) return;
-                const choice = opts[Math.floor(Math.random() * opts.length)];
-                choice.selected = true;
-                loadDeck(choice.value);
+                // Delay random pick slightly to allow vocab load + restore
+                setTimeout(() => {
+                    if (usingVocabMode) return; // vocab restored
+                    const opts = Array.from(els.select.options).filter(o => o.value);
+                    if (!opts.length) return;
+                    const choice = opts[Math.floor(Math.random() * opts.length)];
+                    choice.selected = true;
+                    loadDeck(choice.value);
+                }, 150);
             })();
+             */
+            loadVocabCsv();
 
             els.btnGot.onclick = () => grade(true);
             els.btnMiss.onclick = () => grade(false);

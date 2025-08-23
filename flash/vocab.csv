@@ -1,0 +1,738 @@
+Chapter,Kana,Meaning
+6,おはようございます,Good morning.
+6,こんにちは,Good afternoon.
+6,こんばんは,Good evening.
+6,おやすみなさい,Goodnight.
+6,どうもありがとうございます,Thank you very much.
+6,ありがとう,Thank you.
+6,どうも,Thanks.
+6,どういたしまして,You&rsquo;re welcome.
+6,はじめまして,Nice to meet you.
+6,どうぞよろしく,Nice to meet you.
+6,おじぎ,Bow
+6,おなまえ,(Your) name
+6,はい,Yes
+6,いいえ,No
+6,アメリカ,America
+6,カナダ,Canada
+6,～じん,Suffix that attaches to country names to mean a person from that country
+6,にほんじん,Japanese person
+6,アメリカじん,American person
+6,です,To be
+6,なん,What?
+6,は,Topic marker
+6,か,Question marker
+6,にほん,Japan
+6,なに,What?
+6,まりこ,Mariko
+6,ジョン,John
+6,ありがとうございます,Thank you very much.
+6,あ,Oh!
+7,ねこ,Cat
+7,えんぴつ,Pencil
+7,ペン,Pen
+7,でしょう,Conjecture form of です. Similar to &ldquo;it will probably be&rdquo; or &ldquo;it might be.&rdquo;
+7,りんご,Apple
+7,みず,Water
+7,いぬ,Dog
+7,うま,Horse
+7,とり,Bird
+8,へや,Room
+8,いま,Living room
+8,だいどころ,Kitchen
+8,れいぞうこ,Refrigerator
+8,おてあらい,Bathroom (polite)
+8,トイレ,Bathroom
+8,ながしだい,Sink
+8,おふろ,Bath
+8,おふろば,Bath-room, e.g., room that has the bath in it
+8,やね,Roof
+8,てんじょう,Ceiling
+8,かべ,Wall
+8,ゆか,Hardwood floor
+8,ドア,Door
+8,まど,Window
+8,ほんだな,Bookshelf
+8,ベッド,Bed
+8,たたみ,Tatami
+8,しょうじ,Sliding paper door
+8,ふとん,Futon
+8,テレビ,TV
+8,ラジオ,Radio
+8,とけい,Clock, watch
+8,エアコン,Air conditioning
+8,さら,Plate
+8,ちゃわん,Bowl
+8,コップ,Cup
+8,おはし,Chopsticks
+8,スプーン,Spoon
+8,ナイフ,Knife
+8,テーブル,Table
+8,カウチ,Couch
+8,コンピューター,Computer
+8,いす,Chair
+8,ほん,Book
+8,いえ,House
+9,いち,One
+9,に,Two
+9,し,Four
+9,よん,Four
+9,ろく,Six
+9,なな,Seven
+9,しち,Seven
+9,はち,Eight
+9,きゅう,Nine
+9,く,Nine
+9,じゅう,Ten
+9,にじゅう,Twenty
+9,さんじゅう,Thirty
+9,よんじゅう,Forty
+9,ろくじゅう,Sixty
+9,ななじゅう,Seventy
+9,はちじゅう,Eighty
+9,きゅうじゅう,Ninety
+9,ひゃく,Hundred
+9,にひゃく,Two hundred
+9,さんびゃく,Three hundred
+9,よんひゃく,Four hundred
+9,ごひゃく,Five hundred
+9,ろっぴゃく,Six hundred
+9,ななひゃく,Seven hundred
+9,はっぴゃく,Eight hundred
+9,きゅうひゃく,Nine hundred
+9,せん,Thousand
+9,にせん,Two thousand
+9,さんぜん,Three thousand
+9,よんせん,Four thousand
+9,ごせん,Five thousand
+9,ろくせん,Six thousand
+9,ななせん,Seven thousand
+9,はっせん,Eight thousand
+9,きゅうせん,Nine thousand
+9,まん,Ten thousand
+9,おく,One hundred million
+9,さん,Three
+9,ご,Five
+9,ごじゅう,Fifty
+10,きのう,Yesterday
+10,あした,Tomorrow
+10,おととい,The day before yesterday
+10,あさって,The day after tomorrow
+10,よる,Night
+10,ゆうべ,Last night
+10,にちようび,Sunday
+10,らいしゅう,Next week
+10,せんせんしゅう,The week before last
+10,さらいしゅう,The week after next
+10,せんせんげつ,The month before last
+10,さらいげつ,The month after next
+10,～がつ,Suffix for month of year
+10,いちがつ,January
+10,にがつ,February
+10,さんがつ,March
+10,しがつ,April
+10,しちがつ,July
+10,くがつ,September
+10,きょねん,Last year
+10,おととし,The year before last
+10,さらいねん,The year after next
+10,まい～,Prefix meaning &ldquo;every.&rdquo;
+10,まいしゅう,Every week
+10,まいつき,Every month
+10,まいとし,Every year
+10,いい,Good
+10,おてんき,Weather
+10,こうえん,Park
+10,ね,Agreement seeker
+10,まいにち,Every day
+10,らいげつ,Next month
+10,げつようび,Monday
+10,かようび,Tuesday
+10,すいようび,Wednesday
+10,もくようび,Thursday
+10,きんようび,Friday
+10,どようび,Saturday
+10,せんしゅう,Last week
+10,せんげつ,Last month
+10,なつ,Summer
+10,ふゆ,Winter
+10,こんげつ,This month
+10,こんしゅう,This week
+10,きょう,Today
+10,あき,Autumn
+10,はる,Spring (season)
+10,ことし,This year
+10,らいねん,Next year
+10,けさ,This morning
+10,ろくがつ,June
+10,はちがつ,August
+10,じゅうがつ,October
+12,いってきます,I&rsquo;m leaving!
+12,いってらっしゃい,See you when you get home!
+12,ただいま,I&rsquo;m home!
+12,おかえりなさい,Welcome back!
+12,すみません,Excuse me / I&rsquo;m sorry
+12,しつれいします,Excuse me.
+12,さよなら,Goodbye.
+12,では,Well then...
+12,じゃ、また,See you later.
+12,またね,Later!
+12,じゃあね,See ya!
+13,そう,That way, so
+13,なんようび,Which day of the week?
+13,なんがつ,What month?
+14,スーパーマーケット,Supermarket
+14,スーパー,Supermarket (abbreviated form)
+14,ゆうびんきょく,Post office
+14,えき,Train station
+14,コンビニ,Convenience store
+14,こうばん,Police box
+14,～や,A suffix that can attach to any noun to mean a store that sells that thing
+14,ほんや,Bookstore
+14,パン,Bread
+14,パンや,Bread store (bakery)
+14,～やさん,A suffix that can attach to any noun to mean a person who works at a store that sells that thing
+14,ほんやさん,Bookseller
+14,みずうみ,Lake
+14,たいよう,Sun
+14,バイク,Motorized cycle
+14,オートバイ,&ldquo;automatic bicycle,&rdquo; motorcycle
+14,タクシー,Taxi
+14,バス,Bus
+14,バスてい,Bus stop
+14,はな,Flower
+14,みせ,Store, shop
+14,き,Tree, wood
+14,でんしゃ,Train
+14,やま,Mountain
+14,かわ,River
+14,あめ,Rain
+14,ぎんこう,Bank
+14,くも,Cloud
+14,そら,Sky
+14,レストラン,Restaurant
+14,くるま,Car
+14,じてんしゃ,Bicycle
+14,くさ,Grass
+14,ちかてつ,Subway
+14,みち,Road, way
+15,あなた,You
+15,ともだち,Friend
+15,～たち,Pluralizer for human-related words
+15,～さん,A polite name suffix
+15,ひと,Person
+15,わたし,I / me
+17,たべもの,Food
+17,わしょく,Japanese food
+17,ようしょく,Western food
+17,しょうゆ,Soy sauce
+17,てんぷら,Tempura
+17,す,Vinegar
+17,やきとり,Skewered chicken
+17,チキン,Chicken
+17,やさい,Vegetables
+17,トマト,Tomato
+17,レタス,Lettuce
+17,にんじん,Carrot
+17,にんにく,Garlic
+17,ねぎ,Green onions
+17,たまねぎ,Round onion
+17,たまご,Egg
+17,くだもの,Fruit
+17,ぶどう,Red grape
+17,マスカット,Green grape
+17,レモン,Lemon
+17,オレンジ,Orange (the fruit)
+17,みかん,Tangerine
+17,なし,Asian pear
+17,いちご,Strawberry
+17,すいか,Watermelon
+17,ファーストフード,Fast food
+17,ハンバーグ,Hamburg steak
+17,ハンバーガー,Hamburger (the sandwich)
+17,フライポテト,French fries
+17,マクドナルド,McDonald&rsquo;s
+17,モスバーガー,Mos Burger
+17,のみもの,Beverage
+17,ミルクセーキ,Milkshake
+17,オレンジジュース,Orange juice
+17,レモネード,Lemonade
+17,さけ,Sake
+17,ビール,Beer
+17,ワイン,Wine
+17,ひる,Noon
+17,ばん,Evening
+17,あさごはん,Breakfast
+17,ひるごはん,Lunch
+17,ばんごはん,Dinner
+17,すき,Like
+17,きらい,Dislike
+17,だいすき,Love (big like)
+17,だいきらい,Hate (big dislike)
+17,いちばん,Number one
+17,が,Subject marker
+17,ぎゅうにゅう,Milk
+17,さかな,Fish
+17,しょくじ,Meal
+17,ごはん,Rice, food
+17,すし,Sushi
+17,さしみ,Unadorned raw fish
+17,わさび,Japanese horseradish
+17,あさ,Morning
+17,いも,Potato
+18,これ,This
+18,それ,That
+18,あれ,That one over there
+18,どれ,Which one?
+18,この,This X
+18,その,That X
+18,あの,That X over there
+18,どの,Which X?
+18,ここ,Here
+18,そこ,There
+18,あそこ,Over there
+18,どこ,Where?
+18,こんな,This kind of X
+18,そんな,That kind of X
+18,あんな,That (over there) kind of X
+18,どんな,Which kind of X?
+18,こちら,This way
+18,そちら,That way
+18,あちら,That way over there
+18,どちら,Which way?
+19,せいと,Student
+19,つくえ,Desk
+19,ごみばこ,Trash can
+19,がっこう,School
+19,こうとうがっこう,High school
+19,こうこう,High school (abbreviated form)
+19,だいがく,College
+19,～ねんせい,A suffix that attaches to a number to mean a student of that year
+19,～せい,A suffix that attaches to a type of learning institution to mean a student who attends there
+19,れきし,History
+19,ちり,Geography
+19,しゃかい,Social studies
+19,りか,Science
+19,かがく,Science
+19,たいいく,Physical education
+19,かもく,School subject
+19,ドイツ,Germany
+19,スペイン,Spain
+19,イタリア,Italy
+19,フランス,France
+19,えいこく,England
+19,イギリス,England
+19,かんこく,South Korea
+19,タイワン,Taiwan
+19,オーストラリア,Australia
+19,～ご,A suffix that attaches to the name of a country to mean the language spoken there
+19,えいご,English (language)
+19,ちゅうがっこう,Middle school
+19,しょうがっこう,Elementary school
+19,せんせい,Teacher
+19,すうがく,Mathematics
+19,ちゅうごく,China
+19,こくご,The national language, e.g., Japanese
+19,こくばん,Blackboard
+20,おんなのひと,Woman
+20,おとこのこ,Boy
+20,こ,Child
+20,の,Possessive particle
+20,おんな,Woman
+20,おとこ,Man
+21,きます,To come
+21,たべます,To eat
+21,のみます,To drink
+21,ください,Please
+21,いきます,To go
+21,みます,To see
+21,よみます,To read
+23,に,Location or time marker
+24,うん,Yeah
+24,よ,New information marking particle
+24,を,Object marker
+24,なにか,Something
+25,や,A conjunction used to create lists of items, with the implication that there are other similar things included but not named
+25,あります,To exist (inanimate)
+25,います,To exist (animate)
+25,と,And, with
+26,おとうさん,Father
+26,ちち,(My) dad
+26,はは,(My) mom
+26,おにいさん,Older brother
+26,おねえさん,Older sister
+26,あに,(My) older brother
+26,あね,(My) older sister
+26,おとうとさん,(Someone else&rsquo;s) younger brother
+26,いもうとさん,(Someone else&rsquo;s) younger sister
+26,おとうと,(My) younger brother
+26,いもうと,(My) younger sister
+26,～ちゃん,A suffix that attaches to the end of a name as a diminuitive version of <i>san</i>
+26,おじいさん,Grandfather / old man
+26,おばあさん,Grandmother / old woman
+26,おじいちゃん,Grandpa / old man
+26,おばあちゃん,Grandma / old woman
+26,おじさん,Uncle
+26,おばさん,Aunt
+26,いとこ,Cousin
+26,しゅじん,(My) husband
+26,ごしゅじん,(Someone else&rsquo;s) husband
+26,だんな,(My) husband
+26,だんなさん,(Someone else&rsquo;s) husband
+26,つま,My wife
+26,おくさん,(Someone else&rsquo;s) wife
+26,かれ,He, boyfriend
+26,かのじょ,Her, girlfriend
+26,おかあさん,Mother
+27,しゅみ,Hobby
+27,きょうみ,Interest
+27,いなか,The countryside
+27,ところ,Location, place
+27,やまのぼり,Mountain climbing
+27,ドライブ,A drive
+27,ハイキング,Hiking
+27,さんぽ,A walk
+27,けんがく,Sightseeing
+27,とかい,The city
+27,えいが,Movie
+27,えいがかん,Theater
+27,かいもの,Shopping
+27,きっさてん,Coffee shop
+27,はくぶつかん,Museum
+27,びじゅつ,Art
+27,びじゅつかん,Art museum
+27,カラオケ,Karaoke
+27,しろ,Castle
+27,たんじょうび,Birthday
+27,パーティー,Party
+27,おかね,Money
+27,ピアノ,Piano
+27,トランペット,Trumpet
+27,スポーツ,Sports
+27,サッカー,Soccer
+27,バスケットボール,Basketball
+27,フットボール,American football
+27,テニス,Tennis
+27,やきゅう,Baseball
+27,おんがく,Music
+28,～がわ,A suffix meaning &ldquo;side&rdquo;
+28,うしろ,Back, behind
+28,ひだり,Left
+28,ひだりがわ,Left side
+28,みぎ,Right
+28,みぎがわ,Right side
+28,うえ,Up, top, above, on
+28,した,Down, bottom, below, under
+28,なか,Middle, center, in
+28,そと,Outside
+28,まえ,Before, front
+28,あと,After
+29,します,To do
+29,ききます,To hear, to ask
+29,かいます,To buy
+29,たちます,To stand
+29,すわります,To sit
+29,べんきょう,Study
+29,れんしゅう,Practice
+29,そうじ,Cleaning
+29,もしもし,Hello? (phone greeting)
+29,も,Also, even
+29,わかります,To understand (lit., to break down)
+29,りょうり,Cooking
+29,はなします,To speak
+29,でんわ,Phone
+29,かきます,To write
+30,だれ,Who?
+30,いつ,When?
+30,なぜ,Why?
+30,どうして,Why? / How?
+30,なんで,Why? / How?
+30,どうやって,How?
+32,～まい,Counter for sheets (of paper, etc.)
+32,ひとつ,One thing
+32,ふたつ,Two things
+32,みっつ,Three things
+32,よっつ,Four things
+32,いつつ,Five things
+32,むっつ,Six things
+32,ななつ,Seven things
+32,やっつ,Eight things
+32,ここのつ,Nine things
+32,とお,Ten things
+32,いくつ,How many?
+32,ひとり,One person
+32,ふたり,Two people
+32,さんにん,Three people
+32,よにん,Four people
+32,～にん,Person counter
+32,なんまい,How many sheets?
+32,きって,Postal stamp
+32,～こ,Counter for small, roundish things
+32,いっこ,One small, roundish thing
+32,ろっこ,Six small, roundish things
+32,はっこ,Eight small, roundish things
+32,じゅっこ,Ten small, roundish things
+32,なんこ,How many small, roundish things?
+32,～ほん,Counter for long, cylindrical things
+32,いっぽん,One long or cylindrical object
+32,さんぼん,Three long or cylindrical objects
+32,ろっぽん,Six long or cylindrical objects
+32,はっぽん,Eight long or cylindrical objects
+32,じゅっぽん,Ten long or cylindrical objects
+32,なんぼん,How many long or cylindrical objects?
+32,～ひき,Counter for most animals (except birds)
+32,いっぴき,One animal
+32,さんびき,Three animals
+32,ろっぴき,Six animals
+32,はっぴき,Eight animals
+32,じゅっぴき,Ten animals
+32,なんびき,How many animals?
+32,～じ,Suffix for counting the hours of the day
+32,～はん,Suffix to mean &ldquo;half past&rdquo;
+32,～ふん,Counter for minutes
+32,なんじ,What time?
+32,いっぷん,One minute
+32,にふん,Two minutes
+32,さんふん,Three minutes
+32,よんふん,Four minutes
+32,ごふん,Five minutes
+32,ろっぷん,Six minutes
+32,ななふん,Seven minutes
+32,はっぷん,Eight minutes
+32,きゅうふん,Nine minutes
+32,じゅっぷん,Ten minutes
+32,ごぜん,A.M.
+32,ごご,P.M.
+32,から,From
+32,まで,Until
+32,ついたち,The first of the month
+32,ふつか,The second of the month
+32,みっか,The third of the month
+32,よっか,The fourth of the month
+32,いつか,The fifth of the month
+32,むいか,The sixth of the month
+32,なのか,The seventh of the month
+32,ようか,The eighth of the month
+32,ここのか,The ninth of the month
+32,とおか,The tenth of the month
+32,じゅうよっか,The fourteenth of the month
+32,はつか,The twentieth of the month
+32,にじゅうよっか,The twentyfourth of the month
+32,～にち,Counter for days, days of month
+32,なんにち,What day of the month?
+32,～ねん,Counter for years
+32,なんねん,What year?
+32,～さい,Counter for age
+32,いっさい,One year old
+32,はっさい,Eight years old
+32,じゅっさい,Ten years old
+32,はたち,Twenty years old
+32,なんさい,How many years old?
+32,おいくつ,How many years old? (polite)
+32,～えん,Counter for yen
+32,～さつ,Suffix that indicates a bill of the given denomination
+32,いくら,How much money / cost?
+32,なんにん,How many people?
+32,～だま,Suffix for a coin of such-and-such value
+32,いま,Now
+32,かみ,Paper
+32,てがみ,Letter, correspondence
+33,でも,But...
+33,しかし,However...
+33,が,...But
+33,けれども,...But
+33,けれど,...But
+33,けど,...But
+34,きいろい,Yellow
+34,みどり,Green
+34,むらさき,Purple
+34,ちゃいろ,Brown
+34,オレンジいろ,Orange
+34,ねずみいろ,Grey
+34,へた,Bad (unskilled)
+34,へん,Strange, weird
+34,きれい,Clean, pretty
+34,かんたん,Simple
+34,あつい,Hot
+34,むしあつい,Hot and humid
+34,さむい,Cold (air)
+34,つめたい,Cold to the touch
+34,あたたかい,Warm
+34,すずしい,Cool
+34,ない,Non-existent (functional opposite of <i>arimasu</i>)
+34,じょうず,Skilled, good
+34,あかい,Red
+34,あおい,Blue, green
+34,しろい,White
+34,くろい,Black
+34,いろ,Color
+35,たかい,Tall, expensive
+35,ひくい,Low, short (in height)
+35,やすい,Cheap
+35,ひろい,Wide, spacious
+35,せまい,Narrow, cramped
+35,わるい,Bad
+35,よい,Good (ancient form)
+35,みじかい,Short (in length)
+35,おいしい,Delicious
+35,まずい,Bland, gross, unappetizing
+35,うつくしい,Beautiful
+35,みにくい,Ugly
+35,しずか,Quiet
+35,うるさい,Noisy
+35,つよい,Strong
+35,よわい,Weak
+35,うれしい,Happy
+35,かなしい,Sad
+35,たのしい,Fun
+35,つまらない,Boring
+35,すごい,Cool, awesome, incredible
+35,きたない,Dirty
+35,むずかしい,Difficult
+35,やさしい,Friendly
+35,きびしい,Stern, strict
+35,はやい,Fast, quick
+35,おそい,Slow, late
+35,いっぱい,A lot, full
+35,おおきい,Big, large
+35,ちいさい,Small
+35,ながい,Long
+36,あたま,Head
+36,ひたい,Forehead
+36,かお,Face
+36,はな,Nose
+36,くち,Mouth
+36,は,Tooth
+36,した,Tongue
+36,ほほ,Cheek
+36,くび,Neck
+36,かた,Shoulder
+36,むね,Chest
+36,うで,Arm
+36,ひじ,Elbow
+36,てくび,Wrist
+36,ゆび,Finger
+36,つめ,Fingernail, toenail
+36,ふとい,Fat
+36,ほそい,Slender
+36,ウエスト,Waist
+36,ひざ,Knee
+36,あしくび,Ankle
+36,け,Hair
+36,かみのけ,Head-hair
+36,せなか,Back
+36,せ,Stature, one&rsquo;s height
+36,いたい,Painful
+36,すてき,Charming
+36,びょうき,Sick, sickness
+36,ぐあい,Condition
+36,どう,How?
+36,かぜ,A cold
+36,ひきます,To pull, to catch (a cold)
+36,インフルエンザ,The flu
+36,ちょっと,A little
+36,とても,Very
+36,ねつ,Fever
+36,あがります,To rise
+36,せき,Cough
+36,げり,Diarrhea
+36,はなみず,Runny nose, snot
+36,かみます,To blow (one&rsquo;s nose)
+36,びょうにん,Sick person
+36,びょういん,Hospital
+36,おいしゃ,Doctor
+36,かんごふ,Nurse
+36,くすり,Medicine
+36,ちゅうしゃ,Shot, injection
+36,うけます,To receive
+36,～ど,Suffix that attaches to a number to indicate a number of times
+36,そして,Then, after that
+36,たくさん,A lot
+36,さがります,To go down
+36,め,Eye
+36,みみ,Ear
+36,て,Hand
+36,あし,Foot, leg
+36,でます,To go out
+36,げんき,Healthy, vigorous
+37,しります,To come to know
+38,きます,To wear (upper body)
+38,わふく,Japanese clothing
+38,ようふく,Western clothing
+38,きもの,Kimono
+38,シャツ,Shirt
+38,ズボン,Slacks / pants
+38,はきます,To wear (lower body)
+38,ドレス,Dress
+38,スーツ,Suit
+38,ワイシャツ,Mens dress shirt
+38,セーター,Sweater
+38,したぎ,Underwear
+38,パンツ,Underpants
+38,ブラ,Bra
+38,ソックス,Sock
+38,くつ,Shoe
+38,ハイヒール,High heels
+38,イヤリング,Earring
+38,ネクタイ,Necktie
+38,マフラー,Muffler, scarf
+38,ベルト,Belt
+38,てぶくろ,Glove
+38,ぼうし,Hat
+38,かぶります,To wear on the head
+38,はめます,To fasten around (waist, hands)
+39,で,By-means-of particle, or location marker for active verbs
+39,ふね,Boat
+39,しんかんせん,Bullet train
+39,ロサンゼルス,Los Angeles
+39,シカゴ,Chicago
+39,シアトル,Seattle
+39,ロンドン,London
+39,～しゅう,Suffix for the names of states
+39,あるきます,To walk
+39,およぎます,To swim
+39,とびます,To fly
+39,うんてん します,To drive
+39,ひこうき,Airplane
+39,はしります,To run
+40,しごと,Work (the concept)
+40,しごとば,Work (the place)
+40,アルバイト,Part-time job
+40,こうじょう,Factory
+40,じむしょ,Office
+40,かいしゃ,Company
+40,きゅうりょう,Wages, pay
+40,はたらきます,To work
+40,きょうじゅ,Professor
+40,べんごし,Lawyer
+40,サラリーマン,Office worker
+40,ひしょ,Secretary
+40,てんいん,Shopkeeper
+40,ソフト,Software
+40,プログラマー,Programmer
+40,ぶちょう,Department head
+40,じゅうぎょういん,Employee
+40,どうりょう,Colleague
+40,へんしゅう,Editing
+40,～ぶ,Suffix for departments
+40,ぶもん,Department
+40,かちょう,Section head
+40,まちます,To await (something), to wait
+40,かいけい,The total, the bill
+40,しゃちょう,President (of a company)
+43,ほんとう,Real
+43,たしか,Certain
+43,ぜったい,Definite
+43,じつ,True, actual
+43,じっさい,Actual
+44,ひょう,Hail
+44,ふります,To fall (rain, etc.)
+44,はれます,To clear up
+44,くもります,To cloud up
+44,あらし,Storm
+44,つなみ,Tsunami
+44,たつまき,Tornado
+44,じしん,Earthquake
+44,おそいます,To attack
+44,ゆき,Snow
+44,たいふう,Typhoon
