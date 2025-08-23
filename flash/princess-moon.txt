@@ -1,0 +1,41 @@
+昼,daytime/noon,ひる
+花,flower,はな
+の,possessive/nominal linker,の
+香り,fragrance/scent,かおり
+夜,night,よる
+星,star,ほし
+瞬き,twinkling/blinking,またたき
+そこ,there,そこ
+誰,who,だれ
+知らない,unknown/don't know,しらない
+世界,world,せかい
+だ,copula,だ
+白い,white,しろい
+靴,shoes,くつ
+を,object marker,を
+鳴らす,to ring/make sound,ならす
+月,moon/month,つき
+橋,bridge,はし
+あたる,to hit,あたる
+甘い,sweet,あまい
+キス,kiss,きす
+夢,dream,ゆめ
+見る,to see,みる
+お姫様,princess,おひめさま
+住む,to live in,すむ
+いる,to be,いる
+祈り,prayer,いのり
+捧げる,to offer,ささげる
+きっと,surely,きっと
+幸せ,happiness,しあわせ
+する,to make,する
+くれる,to give (to me/speaker),くれる
+回る,to turn/revolve,まわる
+月,moon,つき
+涼しげ,cool-looking/refreshing (appearance),すずしげ
+ひるがえす,to flutter,ひるがえす
+いつ,when,いつ
+だって,even,だって
+見守る,to watch over,みまもる
+ムーン,moon,むーん
+プリンセス,princess,ぷりんせす
