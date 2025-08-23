@@ -1,0 +1,38 @@
+ごめん,sorry,ごめん
+素直,honest,すなお
+だ,copula,だ
+夢,dream,ゆめ
+中,inside,なか
+なら,if (it's),なら
+言う,to say,いう
+思考,thought,しこう
+回路,circuit,かいろ
+寸前,on the verge,すんぜん
+今,right away,いま
+会う,to meet,あう
+泣く,to cry,なく
+なる,to become,なる
+よう,manner,よう
+電話,call,でんわ
+できる,to be able,できる
+だって,because,だって
+純情,innocence,じゅんじょう
+仕様,way,しよう
+ハート,heart,はーと
+万華鏡,kaleidoscope,まんげきょう
+月,moon,つき
+光,light,ひかり
+導く,to guide,みちびく
+何度,many times,なんど
+巡る,to go around,めぐる
+会う,to meet,あう
+星座,constellation,せいざ
+瞬き,twinkling/blink,またたき
+数える,to count,かぞえる
+占う,to foretell,うらなう
+恋,love (romantic),こい
+行方,outcome,ゆくえ
+同じ,same,おなじ
+国,country,くに
+生まれる,to be born,うまれる
+信じる,to believe,しんじる

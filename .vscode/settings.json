@@ -1,0 +1,6 @@
+{
+    "editor.formatOnSave": true,
+    "css.format.newlineBetweenRules": false,
+    "less.format.newlineBetweenRules": false,
+    "scss.format.newlineBetweenRules": false
+}

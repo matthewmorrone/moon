@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <title>Flashcards</title>
+    <style>
+        /* Additional Japanese aesthetic elements */
+        /* Title and styling */
+
+        :root {
+            --bg: #f8f5f0;
+            --bg-accent: #f0ebe4;
+            --card: #fffdf8;
+            --ink: #222;
+            --muted: #6d6d6d;
+            --accent: #c7363b;
+            --accent-alt: #2d4f73;
+            --good: #2e7d32;
+            --bad: #c62828;
+            --shadow: 0 8px 22px rgba(0, 0, 0, .16), 0 2px 4px rgba(0, 0, 0, .12);
+            --radius: 18px;
+            --pattern-line: rgba(0, 0, 0, .04);
+            --pattern-dot: rgba(0, 0, 0, .03);
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'OpenMoji', "Hiragino Kaku Gothic ProN", "Noto Sans JP", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+            color: var(--ink);
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+            overflow: hidden;
+            overscroll-behavior: none;
+            touch-action: none;
+            min-height: 100dvh;
+            padding-bottom: env(safe-area-inset-bottom);
+            background:
+                repeating-linear-gradient(45deg, var(--pattern-line) 0 2px, transparent 2px 14px),
+                radial-gradient(circle at 18% 12%, #fde8ef 0%, transparent 55%),
+                radial-gradient(circle at 82% 78%, #e8f3ff 0%, transparent 60%),
+                var(--bg);
+            background-attachment: fixed;
+        }
+
+        .topbar {
+            align-items: center;
+            gap: 12px;
+            justify-content: space-between;
+            padding: 10px 18px 12px;
+            background: linear-gradient(120deg, rgba(255, 255, 255, .85), rgba(255, 255, 255, .65));
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid rgba(0, 0, 0, .07);
+            display: flex;
+            position: relative;
+        }
+
+        .app-title {
+            font-family: "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", "serif";
+            font-size: 20px;
+            letter-spacing: .12em;
+            font-weight: 600;
+            color: var(--accent-alt);
+            padding-right: 10px;
+            position: relative;
+            user-select: none;
+        }
+
+        .app-title:after {
+            content: "";
+            position: absolute;
+            left: 4px;
+            right: 4px;
+            bottom: 3px;
+            height: 6px;
+            background: linear-gradient(90deg, #f9d5d8, #faecd1 55%, #e3f3ff);
+            opacity: .55;
+            border-radius: 4px;
+            pointer-events: none;
+        }
+
+        .left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .top-buttons {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .title {
+            font-weight: 800;
+            letter-spacing: .2px;
+            font-size: 18px
+        }
+
+        select {
+            font-size: 16px;
+            padding: 8px 10px;
+            border-radius: 10px;
+            border: 1px solid rgba(0, 0, 0, .12);
+            background: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, .12);
+            max-width: 260px;
+        }
+
+        .stage {
+            display: grid;
+            place-items: center;
+            padding: 16px;
+        }
+
+        .card-wrap {
+            width: min(900px, 94vw);
+            perspective: 1000px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 60vh;
+            position: relative;
+        }
+
+        .card {
+            height: clamp(320px, 54vh, 520px);
+            width: 100%;
+            position: absolute;
+            inset: 0;
+            cursor: pointer;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            background: transparent;
+            transform-style: preserve-3d;
+            transition: transform .45s ease;
+        }
+
+        .card.under {
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .card.active {
+            z-index: 1;
+        }
+
+        .card {
+            touch-action: none;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            /* no motion-specific overrides needed */
+        }
+
+        .swipe-indicator {
+            position: absolute;
+            top: 18px;
+            padding: 10px 18px;
+            font-size: 40px;
+            font-weight: 900;
+            border: 4px solid;
+            border-radius: 18px;
+            opacity: 0;
+            transform: scale(.9);
+            pointer-events: none;
+            mix-blend-mode: multiply;
+        }
+
+        .swipe-indicator.good {
+            left: 18px;
+            color: var(--good);
+            border-color: var(--good);
+        }
+
+        .swipe-indicator.bad {
+            right: 18px;
+            color: var(--bad);
+            border-color: var(--bad);
+        }
+
+        .card.dragging .swipe-indicator {
+            transition: none;
+        }
+
+        .card.flinging {
+            pointer-events: none;
+        }
+
+        .card.swipe-hint::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+        }
+
+        .card.flipped {
+            transform: rotateY(180deg);
+        }
+
+        /* Swipe off animations (duration .9s must match JS) */
+        .card.swipe-left,
+        .card.swipe-right {
+            transition: transform .9s cubic-bezier(.22, .8, .32, 1), opacity .9s linear;
+        }
+
+        .card.swipe-left {
+            transform: translateX(-150%) rotate(-18deg);
+            opacity: 0;
+        }
+
+        .card.swipe-right {
+            transform: translateX(150%) rotate(18deg);
+            opacity: 0;
+        }
+
+        .card.resetting {
+            transition: none !important;
+        }
+
+        /* Remove earlier duplicate .card; additional flip context not animated */
+
+        /* .card.dragging intentionally has no additional styles now */
+        .face {
+            position: absolute;
+            inset: 0;
+            display: grid;
+            place-items: center;
+            padding: 28px 32px;
+            border-radius: var(--radius);
+            background:
+                repeating-linear-gradient(135deg, rgba(0, 0, 0, .015) 0 3px, transparent 3px 10px),
+                var(--card);
+            backdrop-filter: saturate(1.1);
+            backface-visibility: hidden;
+            border: 1px solid rgba(0, 0, 0, .07);
+            overflow: hidden;
+        }
+
+        /* Seigaiha (青海波) wave motif overlay */
+        .face:before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            opacity: .16;
+            mix-blend-mode: multiply;
+            background:
+                radial-gradient(circle at 10% 120%, rgba(0, 0, 0, .33) 0 8%, transparent 8.3%),
+                radial-gradient(circle at 30% 120%, rgba(0, 0, 0, .33) 0 8%, transparent 8.3%),
+                radial-gradient(circle at 50% 120%, rgba(0, 0, 0, .33) 0 8%, transparent 8.3%),
+                radial-gradient(circle at 70% 120%, rgba(0, 0, 0, .33) 0 8%, transparent 8.3%),
+                radial-gradient(circle at 90% 120%, rgba(0, 0, 0, .33) 0 8%, transparent 8.3%);
+            background-size: 80px 40px;
+            background-repeat: repeat-x;
+            transform: translateY(-4px);
+            pointer-events: none;
+        }
+
+        /* .front inherits default face styles */
+        .back {
+            transform: rotateY(180deg);
+        }
+
+        .prompt,
+        .answer {
+            font-size: clamp(32px, 8.5vw, 64px);
+            font-weight: 900;
+            line-height: 1.1;
+            text-align: center;
+        }
+
+        .prompt {
+            position: relative;
+            padding: 0 .4em;
+        }
+
+        .prompt:after {
+            content: "";
+            position: absolute;
+            left: -6%;
+            right: -6%;
+            top: 52%;
+            height: 46%;
+            background: linear-gradient(90deg, #ffe5e0, #ffeaf2 50%, #e5f4ff);
+            transform: skewX(-14deg);
+            z-index: -1;
+            border-radius: 16px;
+            filter: blur(1px);
+        }
+
+        .answer {
+            font-family: "Hiragino Kaku Gothic ProN", "Noto Sans JP", system-ui;
+        }
+
+        .stats {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            align-items: center;
+            margin-top: 14px;
+            white-space: nowrap;
+        }
+
+        .stat {
+            font-size: 18px;
+            padding: 8px 12px;
+            border-radius: 999px;
+            background: #fff;
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, .08);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* (moved .stat definition above) */
+
+        .dock {
+            position: sticky;
+            bottom: 0;
+            padding: 12px 14px;
+            display: grid;
+            gap: 12px;
+            background: rgba(255, 255, 255, .7);
+            border-top: 1px solid rgba(0, 0, 0, .06);
+            backdrop-filter: blur(6px)
+        }
+
+        .actions {
+            display: flex;
+            gap: 12px;
+            width: 100%;
+        }
+
+        .actions .btn {
+            flex: 1 1 0;
+        }
+
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .4);
+            backdrop-filter: blur(4px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 20px
+        }
+
+        .modal-backdrop.show {
+            display: flex
+        }
+
+        .modal {
+            background: #fff;
+            color: #111;
+            border-radius: 18px;
+            width: min(680px, 92vw);
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 28px rgba(0, 0, 0, .25);
+        }
+
+        .modal header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 18px;
+            border-bottom: 1px solid rgba(0, 0, 0, .08);
+            font-weight: 700;
+            font-size: 18px
+        }
+
+        .modal .body {
+            padding: 16px;
+            display: grid;
+            gap: 12px;
+            overflow: auto
+        }
+
+        .modal textarea {
+            min-height: 220px;
+            padding: 12px;
+            border-radius: 12px;
+            font-family: monospace;
+            font-size: 14px;
+            border: 1px solid rgba(0, 0, 0, .2);
+            resize: vertical
+        }
+
+        .modal footer {
+            padding: 14px 16px;
+            border-top: 1px solid rgba(0, 0, 0, .08);
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: flex-end
+        }
+
+        .btn.outline {
+            background: #fff;
+            border: 1px solid #ccc
+        }
+
+        .btn.danger {
+            background: #fdeaea
+        }
+
+        .visually-hidden {
+            position: absolute;
+            left: -9999px;
+            top: auto;
+            width: 1px;
+            height: 1px;
+            overflow: hidden
+        }
+
+        .btn.toggle-active {
+            outline: 3px solid var(--accent);
+            background: #dfeeff
+        }
+
+        .btn {
+            padding: 14px 16px;
+            border-radius: 14px;
+            border: 1px solid rgba(0, 0, 0, .08);
+            font-weight: 700;
+            font-size: 18px;
+            cursor: pointer;
+            background: linear-gradient(var(--card), #efe9df);
+            color: var(--ink);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 1px 0 rgba(255, 255, 255, .6) inset;
+            transition: background .25s, transform .15s;
+        }
+
+        .btn:active {
+            transform: translateY(2px);
+        }
+
+        .btn.toggle-active {
+            outline: 2px solid var(--accent);
+            background: linear-gradient(#fff, #f9dada);
+        }
+
+        #btnGot {
+            background: linear-gradient(#e6f6ea, #d2ebd8);
+        }
+
+        #btnMiss {
+            background: linear-gradient(#fde8e6, #f9d2cf);
+        }
+
+        #btnReverse {
+            background: linear-gradient(#eef3fa, #dde7f3);
+        }
+
+        .btn.primary {
+            background: linear-gradient(#ffe9ec, #ffd3da);
+        }
+
+        .btn.good {
+            background: #eafbea
+        }
+
+        .btn.bad {
+            background: #fdeaea
+        }
+
+        .btn:disabled {
+            opacity: .6
+        }
+
+        .restart {
+            justify-self: center;
+            width: min(340px, 60vw)
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            left: 50%;
+            bottom: 88px;
+            transform: translateX(-50%);
+            background: rgba(34, 34, 34, .92);
+            color: #fff;
+            padding: 10px 14px;
+            border-radius: 10px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .6s ease;
+        }
+
+        .toast.visible {
+            opacity: 1;
+        }
+
+        /* Sakura petals (subtle floating, accessibility-friendly) */
+        .petal {
+            position: fixed;
+            top: -12vh;
+            width: 14px;
+            height: 10px;
+            background: linear-gradient(145deg, #ffc6d1, #ffdde5);
+            border-radius: 60% 40% 60% 40%;
+            opacity: .35;
+            pointer-events: none;
+            animation: petal-drift linear infinite;
+            will-change: transform;
+            filter: blur(.3px);
+        }
+
+        @keyframes petal-drift {
+            from {
+                transform: translate3d(var(--x-start), 0, 0) rotate(0deg);
+            }
+
+            to {
+                transform: translate3d(var(--x-end), 110vh, 0) rotate(360deg);
+            }
+        }
+
+        /* Mobile adjustments */
+        @media (max-width: 700px) {
+            .topbar {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 8px;
+            }
+
+            .topbar .right,
+            .topbar .left {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+            }
+
+            .top-buttons {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            select {
+                max-width: 100%;
+                width: 100%;
+            }
+
+            .stats {
+                gap: 10px;
+            }
+
+            .stat {
+                font-size: 16px;
+                padding: 6px 10px;
+            }
+
+            .card {
+                height: clamp(260px, 54vh, 500px);
+            }
+
+            .stage {
+                padding-bottom: 110px;
+            }
+
+            .stats {
+                margin-top: 8px;
+            }
+
+            .dock {
+                padding-bottom: calc(12px + env(safe-area-inset-bottom));
+            }
+        }
+
+        /* Global kill-switch for CSS keyframe animations only (allow transitions for flips) */
+        /* Respect reduced motion preference */
+        @media (prefers-reduced-motion: reduce) {
+            .petal {
+                animation: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="topbar">
+        <div class="app-title" aria-hidden="true">単語カード</div>
+        <div class="left">
+            <div class="top-buttons">
+                <button id="btnRestart" class="btn" aria-label="Restart">↺</button>
+                <button id="btnShuffle" class="btn" aria-label="Shuffle">🔀</button>
+                <button id="btnReverse" class="btn" aria-label="Reverse Front/Back">⇄</button>
+                <button id="btnImport" class="btn" aria-label="Import Cards">⤒</button>
+            </div>
+        </div>
+        <div class="right">
+            <select id="deckSelect" title="Choose deck path">
+                <option value="heart-moving.txt">Heart Moving</option>
+                <option value="kirari.txt">Kirari</option>
+                <option value="moonlight-densetsu.txt">Moonlight Densetsu</option>
+                <option value="princess-moon.txt">Princess Moon</option>
+                <option value="otome-no-policy.txt">Otome no Policy</option>
+                <option value="tuxedo-mirage.txt">Tuxedo Mirage</option>
+            </select>
+        </div>
+    </div>
+    <main class="stage">
+        <div class="card-wrap">
+            <div id="cardNext" class="card under" aria-hidden="true">
+                <section class="face front">
+                    <div id="nextPrompt" class="prompt">—</div>
+                </section>
+            </div>
+            <div id="card" class="card active" aria-label="Flashcard (tap/space to flip)">
+                <section class="face front">
+                    <div id="prompt" class="prompt">—</div>
+                    <div class="swipe-indicator good" id="swipeGood">✔</div>
+                    <div class="swipe-indicator bad" id="swipeBad">✘</div>
+                </section>
+                <section class="face back">
+                    <div id="answer" class="answer">—</div>
+                </section>
+            </div>
+        </div>
+        <div class="stats" aria-live="polite">
+            <div class="stat">✔ <span id="okCount">0</span></div>
+            <div class="stat">✘ <span id="missCount">0</span></div>
+            <div class="stat">◼ <span id="leftCount">0</span></div>
+        </div>
+    </main>
+    <div class="dock">
+        <div class="actions">
+            <button id="btnMiss" class="btn bad" aria-label="Missed">✘</button>
+            <button id="btnGot" class="btn good" aria-label="Got it">✔</button>
+        </div>
+    </div>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <script>
+        (function () {
+            // iOS Safari address bar hide helper
+            function hideAddressBar() {
+                if (!/iphone|ipad|ipod/i.test(navigator.userAgent)) return;
+                setTimeout(() => { window.scrollTo(0, 1); }, 50);
+            }
+            window.addEventListener('load', hideAddressBar);
+            window.addEventListener('orientationchange', hideAddressBar);
+            // dynamic viewport height CSS var (handles iOS 15+) if needed
+            function setVH() {
+                const vh = window.innerHeight * 0.01;
+                document.documentElement.style.setProperty('--vh', `${vh}px`);
+            }
+            setVH();
+            window.addEventListener('resize', setVH);
+
+            // Gentle sakura petals
+            function spawnPetals() {
+                const count = 10; // subtle amount
+                for (let i = 0; i < count; i++) {
+                    const p = document.createElement('div');
+                    p.className = 'petal';
+                    const startX = (Math.random() * 100).toFixed(2) + 'vw';
+                    const endX = (Math.random() * 100 - 50).toFixed(2) + 'vw';
+                    const duration = (10 + Math.random() * 14).toFixed(2) + 's';
+                    const delay = (Math.random() * 12).toFixed(2) + 's';
+                    p.style.setProperty('--x-start', startX);
+                    p.style.setProperty('--x-end', endX);
+                    p.style.animationDuration = duration;
+                    p.style.animationDelay = delay;
+                    p.setAttribute('aria-hidden', 'true');
+                    document.body.appendChild(p);
+                }
+            }
+            spawnPetals();
+
+            let deck = [], index = 0, flipped = false, round = 1, misses = [], ok = 0, miss = 0, currentPath = '', shuffleOn = false, reverseMode = false;
+            const els = {
+                card: document.getElementById('card'),
+                cardNext: document.getElementById('cardNext'),
+                prompt: document.getElementById('prompt'),
+                nextPrompt: document.getElementById('nextPrompt'),
+                answer: document.getElementById('answer'),
+                okCount: document.getElementById('okCount'),
+                missCount: document.getElementById('missCount'),
+                leftCount: document.getElementById('leftCount'),
+                select: document.getElementById('deckSelect'),
+                toast: document.getElementById('toast'),
+                btnGot: document.getElementById('btnGot'),
+                btnMiss: document.getElementById('btnMiss'),
+                btnRestart: document.getElementById('btnRestart'),
+                btnShuffle: document.getElementById('btnShuffle'),
+                btnReverse: document.getElementById('btnReverse'),
+                btnImport: document.getElementById('btnImport'),
+                stage: document.querySelector('.stage')
+            };
+            let modalBackdrop, modalTextarea, btnImportAppend, btnImportReplace, btnImportClear, btnImportClose;
+
+            let toastTimer;
+            function toast(msg, ttl = 3000) {
+                els.toast.textContent = msg;
+                els.toast.classList.add('visible');
+                clearTimeout(toastTimer);
+                toastTimer = setTimeout(() => {
+                    els.toast.classList.remove('visible');
+                }, ttl);
+            }
+
+            // Initialize shuffle preference (default ON if none stored)
+            (function initShufflePreference() {
+                const saved = localStorage.getItem('flashcards.shuffle');
+                if (saved === null) {
+                    shuffleOn = true;
+                    els.btnShuffle.classList.add('toggle-active');
+                    localStorage.setItem('flashcards.shuffle', '1');
+                } else {
+                    shuffleOn = saved === '1';
+                    els.btnShuffle.classList.toggle('toggle-active', shuffleOn);
+                }
+            })();
+
+            function init() {
+                index = 0;
+                ok = 0;
+                miss = 0;
+                misses = [];
+                round = 1;
+                flipped = false;
+                if (shuffleOn && deck.length) {
+                    shuffleArray(deck);
+                }
+                updateUI();
+            }
+
+            function updateUI() {
+                if (!deck.length) {
+                    els.prompt.textContent = '—';
+                    els.answer.textContent = '—';
+                    els.nextPrompt.textContent = '—';
+                } else {
+                    const cur = deck[index];
+                    if (cur) {
+                        if (!reverseMode) {
+                            els.prompt.textContent = cur.q;
+                            els.answer.textContent = cur.a;
+                        } else {
+                            els.prompt.textContent = cur.a;
+                            els.answer.textContent = cur.q;
+                        }
+                    } else {
+                        els.prompt.textContent = '—';
+                        els.answer.textContent = '—';
+                    }
+                    const nxt = deck[index + 1];
+                    if (nxt) {
+                        els.nextPrompt.textContent = reverseMode ? nxt.a : nxt.q;
+                    } else {
+                        els.nextPrompt.textContent = '—';
+                    }
+                }
+                els.okCount.textContent = ok;
+                els.missCount.textContent = miss;
+                els.leftCount.textContent = Math.max(0, deck.length - index);
+                els.card.classList.remove('flipped');
+                flipped = false;
+                els.card.style.transform = '';
+            }
+
+            function flip() {
+                // Remove inline transform so CSS class controls orientation
+                els.card.style.transform = '';
+                flipped = !flipped;
+                els.card.classList.toggle('flipped', flipped);
+            }
+
+            function finishAdvance(correct) {
+                if (correct) ok++; else { miss++; misses.push(deck[index]); }
+                index++; flipped = false;
+                if (index >= deck.length) {
+                    if (round === 1 && misses.length) { deck = [...misses]; index = 0; misses = []; round = 2; }
+                    else { updateUI(); return; }
+                }
+                updateUI();
+            }
+            function animateSwipe(correct) {
+                const cls = correct ? 'swipe-right' : 'swipe-left';
+                els.card.classList.add(cls);
+                const DURATION = 900; // must match CSS .9s
+                // Preload next card prompt already handled by updateUI; nothing extra here
+                setTimeout(() => {
+                    els.card.classList.add('resetting');
+                    els.card.classList.remove(cls, 'flipped');
+                    els.card.style.transform = '';
+                    finishAdvance(correct);
+                    // After advancing, ensure nextPrompt updated
+                    requestAnimationFrame(() => {
+                        els.card.classList.remove('resetting');
+                    });
+                }, DURATION + 30);
+            }
+            function grade(correct) {
+                animateSwipe(correct);
+            }
+            // Direct grading (used by swipe) without requiring flipped reveal first
+            function gradeDirect(correct) { if (deck.length === 0 || !deck[index]) return; animateSwipe(correct); }
+
+            // Manual touch drag (iPhone) to swipe card off
+            (function enableTouchDrag() {
+                if (!('ontouchstart' in window)) return; // only touch devices
+                let startX = null, startY = null, dragging = false;
+                const THRESH = 90; // px horizontal for commit
+                function tStart(e) { if (e.touches.length !== 1) return; startX = e.touches[0].clientX; startY = e.touches[0].clientY; dragging = true; els.card.classList.remove('swipe-left', 'swipe-right'); els.card.style.transition = 'none'; }
+                function tMove(e) { if (!dragging) return; const t = e.touches[0]; const dx = t.clientX - startX; const dy = t.clientY - startY; if (Math.abs(dx) < 4 && Math.abs(dy) < 4) return; const dampY = dy * 0.25; const rot = dx / 18; els.card.style.transform = `translateX(${dx}px) translateY(${dampY}px) rotate(${rot}deg) ${flipped ? 'rotateY(180deg)' : ''}`; }
+                function finalize(correct) { els.card.style.transition = ''; els.card.style.transform = ''; animateSwipe(correct); }
+                function tEnd(e) { if (!dragging) return; dragging = false; const endX = (e.changedTouches && e.changedTouches[0]) ? e.changedTouches[0].clientX : startX; const dx = endX - startX; if (Math.abs(dx) < THRESH) { els.card.style.transition = ''; els.card.style.transform = flipped ? 'rotateY(180deg)' : ''; return; } finalize(dx > 0); }
+                function tCancel() { if (!dragging) return; dragging = false; els.card.style.transition = ''; els.card.style.transform = flipped ? 'rotateY(180deg)' : ''; }
+                els.card.addEventListener('touchstart', tStart, { passive: true });
+                els.card.addEventListener('touchmove', tMove, { passive: true });
+                els.card.addEventListener('touchend', tEnd);
+                els.card.addEventListener('touchcancel', tCancel);
+            })();
+
+            // Deck path select: just capture value as a path for now
+            function parseDeck(text) {
+                return text.split(/\r?\n/)
+                    .map(l => l.trim())
+                    .filter(l => l && !l.startsWith('#'))
+                    .map(l => {
+                        const parts = l.split(',');
+                        if (parts.length < 2) return null;
+                        const jp = parts[0].trim();
+                        const en = parts.slice(1).join(',').trim();
+                        // in case comma appears in meaning in future
+                        if (!jp || !en) return null;
+                        return { q: jp, a: en };
+                    })
+                    .filter(Boolean);
+            }
+
+            function shuffleArray(arr) {
+                for (let i = arr.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [arr[i], arr[j]] = [arr[j], arr[i]];
+                }
+            }
+
+            function importFromTextarea(replace = false) {
+                const text = modalTextarea.value.trim();
+                if (!text) {
+                    toast('Nothing to import');
+                    return;
+                }
+                const cards = parseDeck(text);
+                if (!cards.length) {
+                    toast('No valid lines');
+                    return;
+                }
+                if (replace) {
+                    deck = cards;
+                    currentPath = '';
+                    localStorage.removeItem('flashcards.deckPath');
+                    toast('Deck replaced (' + cards.length + ')');
+                }
+                else {
+                    deck = deck.concat(cards);
+                    toast('Appended ' + cards.length);
+                }
+                init();
+            }
+
+            function buildImportModal() {
+                modalBackdrop = document.createElement('div');
+                modalBackdrop.className = 'modal-backdrop';
+                modalBackdrop.innerHTML = `<div class="modal" role="dialog" aria-modal="true" aria-labelledby="importTitle">
+                    <header><div id="importTitle">Import Cards</div><button type="button" id="btnImportClose" class="btn outline" aria-label="Close">✕</button></header>
+                    <div class="body">
+                        <label for="importArea"><strong>Cards (front,back per line)</strong></label>
+                        <textarea id="importArea" placeholder="昼,daytime\n夜,night"></textarea>
+                    </div>
+                    <footer>
+                        <button type="button" id="btnImportClear" class="btn outline" aria-label="Clear input">Clear</button>
+                        <button type="button" id="btnImportAppend" class="btn" aria-label="Append cards">Append</button>
+                        <button type="button" id="btnImportReplace" class="btn danger" aria-label="Replace deck">Replace</button>
+                    </footer>
+                </div>`;
+                document.body.appendChild(modalBackdrop);
+                modalTextarea = modalBackdrop.querySelector('#importArea');
+                btnImportAppend = modalBackdrop.querySelector('#btnImportAppend');
+                btnImportReplace = modalBackdrop.querySelector('#btnImportReplace');
+                btnImportClear = modalBackdrop.querySelector('#btnImportClear');
+                btnImportClose = modalBackdrop.querySelector('#btnImportClose');
+                btnImportAppend.onclick = () => {
+                    importFromTextarea(false);
+                    closeImportModal();
+                };
+                btnImportReplace.onclick = () => {
+                    importFromTextarea(true);
+                    closeImportModal();
+                };
+                btnImportClear.onclick = () => {
+                    modalTextarea.value = '';
+                    modalTextarea.focus();
+                };
+                btnImportClose.onclick = closeImportModal;
+                modalBackdrop.addEventListener('click', e => {
+                    if (e.target === modalBackdrop) {
+                        closeImportModal();
+                    }
+                });
+            }
+            function openImportModal() {
+                if (!modalBackdrop) {
+                    buildImportModal();
+                }
+                modalBackdrop.classList.add('show');
+                modalTextarea.focus();
+                document.addEventListener('keydown', escListener);
+            }
+            function closeImportModal() {
+                if (modalBackdrop) {
+                    modalBackdrop.classList.remove('show');
+                    document.removeEventListener('keydown', escListener);
+                }
+            }
+            function escListener(e) {
+                if (e.key === 'Escape') {
+                    closeImportModal();
+                }
+            }
+
+            async function loadDeck(path) {
+                console.log(path);
+                if (!path) {
+                    deck = [];
+                    currentPath = '';
+                    init();
+                    return;
+                }
+                try {
+                    els.prompt.textContent = 'Loading…';
+                    els.answer.textContent = '—';
+                    const res = await fetch(path + '?t=' + Date.now());
+                    if (!res.ok) throw new Error(res.status + ' ' + res.statusText);
+                    const txt = await res.text();
+                    const parsed = parseDeck(txt);
+                    if (!parsed.length) throw new Error('No cards parsed');
+                    deck = parsed;
+                    currentPath = path;
+                    localStorage.setItem('flashcards.deckPath', path);
+                    init();
+                    toast('Loaded ' + deck.length + ' cards');
+                }
+                catch (err) {
+                    deck = [];
+                    init();
+                    console.error('Deck load failed', err);
+                    toast('Load error');
+                }
+            }
+
+            els.select.addEventListener('change', (e) => {
+                const path = e.target.value.trim();
+                loadDeck(path);
+            });
+
+            els.btnShuffle.addEventListener('click', () => {
+                shuffleOn = !shuffleOn;
+                els.btnShuffle.classList.toggle('toggle-active', shuffleOn);
+                localStorage.setItem('flashcards.shuffle', shuffleOn ? '1' : '0');
+                if (deck.length) {
+                    shuffleArray(deck);
+                    index = 0;
+                    misses = [];
+                    round = 1;
+                    ok = 0;
+                    miss = 0;
+                    updateUI();
+                    toast(shuffleOn ? 'Shuffle on' : 'Shuffle off');
+                }
+            });
+
+            els.btnImport.addEventListener('click', openImportModal);
+
+            els.btnReverse.addEventListener('click', () => {
+                reverseMode = !reverseMode;
+                els.btnReverse.classList.toggle('toggle-active', reverseMode);
+                updateUI();
+                toast(reverseMode ? 'Reversed' : 'Normal');
+            });
+
+            // If no stored deck, randomly pick one (excluding placeholder empty option)
+            (function autoPickRandomDeck() {
+                const opts = Array.from(els.select.options).filter(o => o.value);
+                if (!opts.length) return;
+                const choice = opts[Math.floor(Math.random() * opts.length)];
+                choice.selected = true;
+                loadDeck(choice.value);
+            })();
+
+            els.btnGot.onclick = () => grade(true);
+            els.btnMiss.onclick = () => grade(false);
+            els.btnRestart.onclick = init;
+            els.card.onclick = flip;
+            window.addEventListener('keydown', (e) => {
+                const k = e.key;
+                if (k === ' ' || k === 'Enter') {
+                    e.preventDefault();
+                    flip();
+                }
+                else if (k === 'ArrowRight') {
+                    grade(true);
+                }
+                else if (k === 'ArrowLeft') {
+                    grade(false);
+                }
+            });
+
+            // Extra safety: prevent default touchmove to stop page drag bounce on some browsers
+            document.addEventListener('touchmove', (e) => {
+                // Allow pinch-zoom if multiple touches
+                if (e.touches.length === 1) {
+                    e.preventDefault();
+                }
+            }, { passive: false });
+        })();
+    </script>
+</body>
+
+</html>
