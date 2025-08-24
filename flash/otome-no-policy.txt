@@ -1,68 +1,98 @@
-どんな,whatever/any kind of,どんな
-ピンチ,crisis/pinch,ぴんち
-時,time/when,とき
-絶対,absolutely/definitely,ぜったい
-あきらめる,to give up,あきらめる
-そう,like that,そう
-それ,that,それ
-可憐,lovely/sweet,かれん
-乙女,maiden/young girl,おとめ
-ポリシー,policy,ぽりしー
-いつか,someday,いつか
-ホント,really/truth,ほんと
-出会う,to encounter/meet,であう
-大事,precious/important,だいじ
-人,person,ひと
-ため,for the sake of,ため
-顔,face,かお
-上げる,to raise,あげる
-飛び込む,to leap in,とびこむ
-ゆく,to go (variant of 行く),ゆく
-ツン,prickly,つん
-痛い,painful/hurts,いたい
-胸,chest/heart,むね
-奥,depths,おく
-恋,love,こい
-目覚める,to awaken,めざめる
-コワイ,scary (colloquial for 怖い),こわい
-もの,thing,もの
-なんか,such as,なんか
-ときめく,to swell,ときめく
-方,way/direction,ほう
-いい,good,いい
-大きな,large/big,おおきな
-夢,dream,ゆめ
-ある,to exist/to have (inanimate),ある
-だから,therefore/so,だから
-ピッ,sharp (sound)/quick,ぴっ
-凛々しい,gallant,りりしい
-もっと,more,もっと
-大変,difficult/tough/very,たいへん
-こと,thing/matter,こと
-いっぱい,a lot/full,いっぱい
-待ち受ける,to await/lie in wait,まちうける
-きっと,surely,きっと
-華麗,splendid/magnificent,かれい
-はばたく,to flap (wings)/to soar,はばたく
-チャンス,chance/opportunity,ちゃんす
-みんな,everyone,みんな
-本気,seriousness/earnestness,ほんき
-とき,time/when,とき
-とっても,very/extremely,とっても
-きれい,pretty/beautiful/clean,きれい
-自信,self-confidence,じしん
-持つ,to hold/to have,もつ
-クリア,clear/to clear,くりあ
-する,to do,する
-今,now,いま
-眠る,to sleep,ねむる
-未知,unknown,みち
-パワー,power,ぱわー
-あふれる,to overflow/brim,あふれる
-なりたい,want to become,なりたい
-もの,thing,もの
-になる,to become,になる
-がんばる,to do one's best,がんばる
-ひと,person,ひと
-涙,tears,なみだ
-たまに,occasionally,たまに
+どんな,whatever/any kind of
+ピンチ,crisis/pinch
+時,とき
+とき,time/when
+絶対,ぜったい
+ぜったい,absolutely/definitely
+あきらめる,to give up
+そう,like that
+それ,that
+可憐,かれん
+かれん,lovely/sweet
+乙女,おとめ
+おとめ,maiden/young girl
+ポリシー,policy
+いつか,someday
+ホント,really/truth
+出会う,であう
+であう,to encounter/meet
+大事,だいじ
+だいじ,precious/important
+人,ひと
+ひと,person
+ため,for the sake of
+顔,かお
+かお,face
+上げる,あげる
+あげる,to raise
+飛び込む,とびこむ
+とびこむ,to leap in
+ゆく,to go (variant of 行く)
+ツン,prickly
+痛い,いたい
+いたい,painful/hurts
+胸,むね
+むね,chest/heart
+奥,おく
+おく,depths
+恋,こい
+こい,love
+目覚める,めざめる
+めざめる,to awaken
+コワイ,scary (colloquial)
+もの,thing
+なんか,such as
+ときめく,to swell
+方,ほう
+ほう,way/direction
+いい,good
+大きな,おおきな
+おおきな,large/big
+夢,ゆめ
+ゆめ,dream
+ある,to exist/to have (inanimate)
+だから,therefore/so
+ピッ,sharp (sound)/quick
+凛々しい,りりしい
+りりしい,gallant
+もっと,more
+大変,たいへん
+たいへん,difficult/tough/very
+こと,thing/matter
+いっぱい,a lot/full
+待ち受ける,まちうける
+まちうける,to await/lie in wait
+きっと,surely
+華麗,かれい
+かれい,splendid/magnificent
+はばたく,to flap (wings)/to soar
+チャンス,chance/opportunity
+みんな,everyone
+本気,ほんき
+ほんき,seriousness/earnestness
+とき,とき
+とき,time/when
+とっても,very/extremely
+きれい,pretty/beautiful/clean
+自信,じしん
+じしん,self-confidence
+持つ,もつ
+もつ,to hold/to have
+クリア,clear/to clear
+する,to do
+今,いま
+いま,now
+眠る,ねむる
+ねむる,to sleep
+未知,みち
+みち,unknown
+パワー,power
+あふれる,to overflow/brim
+なりたい,want to become
+もの,thing
+になる,to become
+がんばる,to do one’s best
+ひと,person
+涙,なみだ
+なみだ,tears
+たまに,occasionally

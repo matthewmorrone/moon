@@ -1,41 +1,60 @@
-昼,daytime/noon,ひる
-花,flower,はな
-の,possessive/nominal linker,の
-香り,fragrance/scent,かおり
-夜,night,よる
-星,star,ほし
-瞬き,twinkling/blinking,またたき
-そこ,there,そこ
-誰,who,だれ
-知らない,unknown/don't know,しらない
-世界,world,せかい
-だ,copula,だ
-白い,white,しろい
-靴,shoes,くつ
-を,object marker,を
-鳴らす,to ring/make sound,ならす
-月,moon/month,つき
-橋,bridge,はし
-あたる,to hit,あたる
-甘い,sweet,あまい
-キス,kiss,きす
-夢,dream,ゆめ
-見る,to see,みる
-お姫様,princess,おひめさま
-住む,to live in,すむ
-いる,to be,いる
-祈り,prayer,いのり
-捧げる,to offer,ささげる
-きっと,surely,きっと
-幸せ,happiness,しあわせ
-する,to make,する
-くれる,to give (to me/speaker),くれる
-回る,to turn/revolve,まわる
-月,moon,つき
-涼しげ,cool-looking/refreshing (appearance),すずしげ
-ひるがえす,to flutter,ひるがえす
-いつ,when,いつ
-だって,even,だって
-見守る,to watch over,みまもる
-ムーン,moon,むーん
-プリンセス,princess,ぷりんせす
+昼,ひる
+ひる,daytime/noon
+花,はな
+はな,flower
+香り,かおり
+かおり,fragrance/scent
+夜,よる
+よる,night
+星,ほし
+ほし,star
+瞬き,またたき
+またたき,twinkling/blinking
+そこ,there
+誰,だれ
+だれ,who
+知らない,しらない
+しらない,unknown/don’t know
+世界,せかい
+せかい,world
+白い,しろい
+しろい,white
+靴,くつ
+くつ,shoes
+鳴らす,ならす
+ならす,to ring/make sound
+月,つき
+つき,moon/month
+橋,はし
+はし,bridge
+あたる,to hit
+甘い,あまい
+あまい,sweet
+夢,ゆめ
+ゆめ,dream
+見る,みる
+みる,to see
+お姫様,おひめさま
+おひめさま,princess
+住む,すむ
+すむ,to live in
+祈り,いのり
+いのり,prayer
+捧げる,ささげる
+ささげる,to offer
+きっと,surely
+幸せ,しあわせ
+しあわせ,happiness
+する,to make
+くれる,to give (to me/speaker)
+回る,まわる
+まわる,to turn/revolve
+月,つき
+つき,moon
+涼しげ,すずしげ
+すずしげ,cool-looking/refreshing (appearance)
+ひるがえす,to flutter
+いつ,when
+だって,even
+見守る,みまもる
+みまもる,to watch over

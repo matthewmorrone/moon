@@ -1,9 +1,9 @@
 三日月,crescent moon,みかづき
-シャーレ,dish/petri dish,しゃーれ
+シャーレ,dish/petri dish
 星,star,ほし
-ピアス,earring/piercing,ぴあす
+ピアス,earring/piercing
 外す,to remove/take off,はずす
-どうしよう,what shall I do/what to do,どうしよう
+どうしよう,what shall I do/what to do
 胸,chest/heart,むね
 いっぱい,full/a lot,いっぱい
 花火,fireworks,はなび
@@ -12,22 +12,21 @@
 闇,darkness,やみ
 消える,to disappear/fade,きえる
 お願い,please/request,おねがい
-キス,kiss,きす
+キス,kiss
 やめる,to stop/quit,やめる
 彩,coloring/tint,いろどり
 香り,fragrance/scent,かおり
 盗む,to steal,ぬすむ
-いい,good/fine/may,いい
-この,this,この
-ハート,heart,はーと
+いい,good/fine/may
+この,this
+ハート,heart
 銀河,galaxy,ぎんが
 出会う,to meet/encounter,であう
 夜更け,late at night,よふけ
-ワンコ,doggy,わんこ
+ワンコ,doggy
 広げる,to spread/unfold,ひろげる
 虹色,rainbow-colored,にじいろ
 もっと,more,もっと
 愛する,to love,あいする
-て,te-form connector,て
-タキシード,tuxedo,たきしーど
-ミラージュ,mirage,みらーじゅ
+タキシード,tuxedo
+ミラージュ,mirage
