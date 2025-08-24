@@ -1,38 +1,68 @@
-ごめん,sorry,ごめん
-素直,honest,すなお
-だ,copula,だ
-夢,dream,ゆめ
-中,inside,なか
-なら,if (it's),なら
-言う,to say,いう
-思考,thought,しこう
-回路,circuit,かいろ
-寸前,on the verge,すんぜん
-今,right away,いま
-会う,to meet,あう
-泣く,to cry,なく
-なる,to become,なる
-よう,manner,よう
-電話,call,でんわ
-できる,to be able,できる
-だって,because,だって
-純情,innocence,じゅんじょう
-仕様,way,しよう
-ハート,heart,はーと
-万華鏡,kaleidoscope,まんげきょう
-月,moon,つき
-光,light,ひかり
-導く,to guide,みちびく
-何度,many times,なんど
-巡る,to go around,めぐる
-会う,to meet,あう
-星座,constellation,せいざ
-瞬き,twinkling/blink,またたき
-数える,to count,かぞえる
-占う,to foretell,うらなう
-恋,love (romantic),こい
-行方,outcome,ゆくえ
-同じ,same,おなじ
-国,country,くに
-生まれる,to be born,うまれる
-信じる,to believe,しんじる
+ごめん,sorry
+素直,すなお
+すなお,honest
+だ,copula
+夢,ゆめ
+ゆめ,dream
+中,なか
+なか,inside
+なら,if (it’s)
+言う,いう
+いう,to say
+思考,しこう
+しこう,thought
+回路,かいろ
+かいろ,circuit
+寸前,すんぜん
+すんぜん,on the verge
+今,いま
+いま,right away
+会う,あう
+あう,to meet
+泣く,なく
+なく,to cry
+なる,to become
+よう,manner
+電話,でんわ
+でんわ,call
+できる,to be able
+だって,because
+純情,じゅんじょう
+じゅんじょう,innocence
+仕様,しよう
+しよう,way
+ハート,heart
+万華鏡,まんげきょう
+まんげきょう,kaleidoscope
+月,つき
+つき,moon
+光,ひかり
+ひかり,light
+導く,みちびく
+みちびく,to guide
+何度,なんど
+なんど,many times
+巡る,めぐる
+めぐる,to go around
+会う,あう
+あう,to meet
+星座,せいざ
+せいざ,constellation
+瞬き,またたき
+またたき,twinkling/blink
+数える,かぞえる
+かぞえる,to count
+占う,うらなう
+うらなう,to foretell
+恋,こい
+こい,love (romantic)
+行方,ゆくえ
+ゆくえ,outcome
+同じ,おなじ
+おなじ,same
+国,くに
+くに,country
+生まれる,うまれる
+うまれる,to be born
+信じる,しんじる
+しんじる,to believe

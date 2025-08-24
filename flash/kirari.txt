@@ -1,47 +1,57 @@
-瞳,eyes,ひとみ
-いつも,always,いつも
-ジュエル,jewel,じゅえる
-ボディ,body,ぼでぃ
-まとう,to be adorned,まとう
-ラメ,glitter,らめ
-チャーム,charm,ちゃーむ
-生きる,to live,いきる
-こと,thing,こと
-は,topic marker,は
-ここ,here,ここ
-ある,to be,ある
-から,from,から
-強い,strong,つよい
-夢,dream,ゆめ
-ガンガン,vigorously,がんがん
-けちらす,to drive away,けちらす
-こう,like this,こう
-ライバル,rival,らいばる
-だらけ,full of,だらけ
-真昼,midday,まひる
-笑顔,smile,えがお
-より,than,より
-くちびる,lips,くちびる
-アイビーム,eye beam,あいびーむ
-キメワザ,finisher,きめわざ
-私,I/me,わたし
-なる,to become,なる
-キラリ,sparkle,きらり
-夜明け,dawn,よあけ
-生まれる,to be born,うまれる
-ガーディアン,guardian,がーでぃあん
-だから,therefore,だから
-叶う,to come true,かなう
-よ,emphasis particle,よ
-スターライト,starlight,すたーらいと
-プレイヤーズ,players,ぷれいやーず
-メイクアップ,make up,めいくあっぷ
-する,to do,する
-しよう,let's do,しよう
-きらめき,sparkle,きらめき
-胸,chest/heart,むね
-セーラー,sailor,せーらー
-戦士,warrior,せんし
-それ,that,それ
-ムーンライト,moonlight,むーんらいと
-リアルガール,real girl,りあるがーる
+瞳,ひとみ
+ひとみ,eyes
+いつも,always
+ジュエル,jewel
+ボディ,body
+まとう,to be adorned
+ラメ,glitter
+チャーム,charm
+生きる,いきる
+いきる,to live
+こと,thing
+ここ,here
+ある,to be
+から,from
+強い,つよい
+つよい,strong
+夢,ゆめ
+ゆめ,dream
+ガンガン,vigorously
+けちらす,to drive away
+こう,like this
+ライバル,rival
+だらけ,full of
+真昼,まひる
+まひる,midday
+笑顔,えがお
+えがお,smile
+より,than
+くちびる,lips
+アイビーム,eye beam
+キメワザ,finisher
+私,わたし
+わたし,I/me
+なる,to become
+キラリ,sparkle
+夜明け,よあけ
+よあけ,dawn
+生まれる,うまれる
+うまれる,to be born
+ガーディアン,guardian
+だから,therefore
+叶う,かなう
+かなう,to come true
+スターライト,starlight
+プレイヤーズ,players
+メイクアップ,make up
+する,to do
+しよう,let’s do
+きらめき,sparkle
+胸,むね
+むね,chest/heart
+セーラー,sailor
+戦士,せんし
+せんし,warrior
+それ,that
+ムーンライト,moonlight
+リアルガール,real girl

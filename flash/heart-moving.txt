@@ -1,34 +1,55 @@
-夢,dream,ゆめ
-中,inside,なか
-ふたり,two people,ふたり
-いる,to be,いる
-星,star,ほし
-守る,protect,まもる
-友だち,friend,ともだち
-時,time/when,とき
-気にする,to mind ,きにする
-何気なく,casually,なにげなく
-話す,to speak,はなす
-けど,but,けど
-あなた,you,あなた
-だけ,only,だけ
-気になる,to be concerned,きになる
-瞬間,moment,しゅんかん
-ある,to be,ある
-もっと,more,もっと
-綺麗,beautiful,きれい
-今すぐ,right away,いますぐ
-なる,to become,なる
-恋する,to fall in love,こいする
-何か,something,なにか
-が,subject marker,が
-変わる,to change,かわる
-目,eye,め
-閉じる,to close,とじる
-確かめる,to confirm,たしかめる
-抱きしめる,to hug,だきしめる
-ときめき,heartbeat,ときめき
-そのまま,as it is,そのまま
-この,this,この
-想い,feelings,おもい
-伝える,to tell,つたえる
+夢,ゆめ
+ゆめ,dream
+中,なか
+なか,inside
+ふたり,two people
+いる,to be
+星,ほし
+ほし,star
+守る,まもる
+まもる,protect
+友だち,ともだち
+ともだち,friend
+時,とき
+とき,time/when
+気にする,きにする
+きにする,to mind
+何気なく,なにげなく
+なにげなく,casually
+話す,はなす
+はなす,to speak
+けど,but
+あなた,you
+だけ,only
+気になる,きになる
+きになる,to be concerned
+瞬間,しゅんかん
+しゅんかん,moment
+ある,to be
+もっと,more
+綺麗,きれい
+きれい,beautiful
+今すぐ,いますぐ
+いますぐ,right away
+なる,to become
+恋する,こいする
+こいする,to fall in love
+何か,なにか
+なにか,something
+変わる,かわる
+かわる,to change
+目,め
+め,eye
+閉じる,とじる
+とじる,to close
+確かめる,たしかめる
+たしかめる,to confirm
+抱きしめる,だきしめる
+だきしめる,to hug
+ときめき,heartbeat
+そのまま,as it is
+この,this
+想い,おもい
+おもい,feelings
+伝える,つたえる
+つたえる,to tell
