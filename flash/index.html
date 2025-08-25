@@ -74,18 +74,7 @@
             user-select: none;
         }
 
-        .app-title:after {
-            content: "";
-            position: absolute;
-            left: 4px;
-            right: 4px;
-            bottom: 3px;
-            height: 6px;
-            background: linear-gradient(90deg, #f9d5d8, #faecd1 55%, #e3f3ff);
-            opacity: .55;
-            border-radius: 4px;
-            pointer-events: none;
-        }
+        /* removed decorative underline */
 
         .left {
             display: flex;
@@ -277,24 +266,7 @@
             text-align: center;
         }
 
-        .prompt {
-            position: relative;
-            padding: 0 .4em;
-        }
-
-        .prompt:after {
-            content: "";
-            position: absolute;
-            left: -6%;
-            right: -6%;
-            top: 52%;
-            height: 46%;
-            background: linear-gradient(90deg, #ffe5e0, #ffeaf2 50%, #e5f4ff);
-            transform: skewX(-14deg);
-            z-index: -1;
-            border-radius: 16px;
-            filter: blur(1px);
-        }
+        /* .prompt simplified: no extra decoration */
 
         .answer {
             font-family: "Hiragino Kaku Gothic ProN", "Noto Sans JP", system-ui;
@@ -687,6 +659,39 @@
 
             let deck = [], index = 0, flipped = false, round = 1, misses = [], ok = 0, miss = 0, currentPath = '', shuffleOn = false, reverseMode = false;
             let vocabEntries = [], usingVocabMode = false;
+            const chapterTopics = {
+                6: 'Greetings & Introductions',
+                7: 'Animals & Objects',
+                8: 'Home & Household',
+                9: 'Numbers',
+                10: 'Time & Calendar',
+                12: 'Daily Expressions',
+                13: 'Days / Months',
+                14: 'Places & Nature',
+                15: 'People & Pronouns',
+                17: 'Food & Meals',
+                18: 'Demonstratives',
+                19: 'School & Countries',
+                20: 'People & Gender',
+                21: 'Core Verbs I',
+                24: 'Particles & Interjections',
+                25: 'Existence',
+                26: 'Family',
+                27: 'Hobbies & Leisure',
+                28: 'Location Words',
+                29: 'Core Verbs II',
+                30: 'Question Words',
+                32: 'Counters & Dates',
+                33: 'Conjunctions (but)',
+                34: 'Colors & Basic Adjectives',
+                35: 'Descriptive Adjectives',
+                36: 'Body & Health',
+                38: 'Clothing',
+                39: 'Transport & Movement',
+                40: 'Work & Professions',
+                43: 'Truth & Certainty',
+                44: 'Weather & Disasters'
+            };
             const els = {
                 card: document.getElementById('card'),
                 cardNext: document.getElementById('cardNext'),
@@ -888,7 +893,9 @@
                     chapters.forEach(ch => {
                         const opt = document.createElement('option');
                         opt.value = String(ch);
-                        opt.textContent = 'Ch. ' + ch;
+                        const topic = chapterTopics[ch] || '';
+                        opt.textContent = 'Ch. ' + ch + (topic ? ' – ' + topic : '');
+                        if (topic) opt.title = topic;
                         frag.appendChild(opt);
                     });
                     els.chapterSelect.appendChild(frag);
