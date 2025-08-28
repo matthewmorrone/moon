@@ -8,9 +8,6 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <title>Flashcards</title>
     <style>
-        /* Additional Japanese aesthetic elements */
-        /* Title and styling */
-
         :root {
             --bg: #f8f5f0;
             --bg-accent: #f0ebe4;
@@ -73,8 +70,6 @@
             position: relative;
             user-select: none;
         }
-
-        /* removed decorative underline */
 
         .left {
             display: flex;
@@ -658,6 +653,9 @@
             spawnPetals();
 
             let deck = [], index = 0, flipped = false, round = 1, misses = [], ok = 0, miss = 0, currentPath = '', shuffleOn = false, reverseMode = false;
+            let sessionMisses = []; // unique cards missed at least once this session (original objects)
+            // Persistent missed map: { key: { q, a, count, lastTs } }
+            let missedMap = loadMissedMap();
             let vocabEntries = [], usingVocabMode = false;
             const chapterTopics = {
                 6: 'Greetings & Introductions',
@@ -744,11 +742,31 @@
                 misses = [];
                 round = 1;
                 flipped = false;
+                sessionMisses = [];
                 if (shuffleOn && deck.length) {
                     shuffleArray(deck);
                 }
                 updateUI();
             }
+
+            function loadMissedMap() {
+                try { return JSON.parse(localStorage.getItem('flashcards.missedMap') || '{}'); } catch { return {}; }
+            }
+            function saveMissedMap() {
+                try { localStorage.setItem('flashcards.missedMap', JSON.stringify(missedMap)); } catch { }
+            }
+            function recordMiss(card) {
+                if (!card) return;
+                const key = card.q + '||' + card.a;
+                const entry = missedMap[key] || { q: card.q, a: card.a, count: 0, lastTs: 0 };
+                entry.count += 1;
+                entry.lastTs = Date.now();
+                missedMap[key] = entry;
+                saveMissedMap();
+                if (!sessionMisses.some(c => c.q === card.q && c.a === card.a)) sessionMisses.push(card);
+            }
+
+            // Removed remote logging; only local missed statistics retained.
 
             function updateUI() {
                 if (!deck.length) {
@@ -792,13 +810,74 @@
             }
 
             function finishAdvance(correct) {
-                if (correct) ok++; else { miss++; misses.push(deck[index]); }
+                if (correct) ok++; else { miss++; misses.push(deck[index]); recordMiss(deck[index]); }
                 index++; flipped = false;
                 if (index >= deck.length) {
                     if (round === 1 && misses.length) { deck = [...misses]; index = 0; misses = []; round = 2; }
-                    else { updateUI(); return; }
+                    else {
+                        updateUI();
+                        if (sessionMisses.length) {
+                            showMissesModal();
+                        } else {
+                            toast('Done – no misses');
+                        }
+                        return;
+                    }
                 }
                 updateUI();
+            }
+            // Build and show misses summary modal
+            let missesModalBackdrop;
+            function buildMissesModal() {
+                missesModalBackdrop = document.createElement('div');
+                missesModalBackdrop.className = 'modal-backdrop';
+                missesModalBackdrop.id = 'missesModalBackdrop';
+                missesModalBackdrop.innerHTML = `<div class="modal" role="dialog" aria-modal="true" aria-labelledby="missesTitle">
+  <header><div id="missesTitle">Missed Cards</div><button type="button" id="btnMissesClose" class="btn outline" aria-label="Close">✕</button></header>
+  <div class="body" id="missesBody"></div>
+  <footer>
+    <button type="button" id="btnMissesCopy" class="btn" aria-label="Copy list">Copy</button>
+    <button type="button" id="btnMissesDismiss" class="btn primary" aria-label="Done">Done</button>
+  </footer>
+</div>`;
+                document.body.appendChild(missesModalBackdrop);
+                const close = () => { missesModalBackdrop.classList.remove('show'); };
+                missesModalBackdrop.addEventListener('click', e => { if (e.target === missesModalBackdrop) close(); });
+                missesModalBackdrop.querySelector('#btnMissesClose').onclick = close;
+                missesModalBackdrop.querySelector('#btnMissesDismiss').onclick = close;
+                missesModalBackdrop.querySelector('#btnMissesCopy').onclick = () => {
+                    try {
+                        const lines = sessionMisses.map(c => c.q.replace(/\n/g, ' / ') + ' → ' + c.a).join('\n');
+                        navigator.clipboard.writeText(lines);
+                        toast('Copied');
+                    } catch { }
+                };
+            }
+            function showMissesModal() {
+                if (!missesModalBackdrop) buildMissesModal();
+                const body = missesModalBackdrop.querySelector('#missesBody');
+                body.innerHTML = '';
+                const sorted = [...sessionMisses].sort((a, b) => a.q.localeCompare(b.q));
+                if (!sorted.length) {
+                    body.textContent = 'No misses.';
+                } else {
+                    const list = document.createElement('div');
+                    list.style.display = 'grid';
+                    list.style.gap = '6px';
+                    sorted.forEach(c => {
+                        const div = document.createElement('div');
+                        div.style.padding = '8px 10px';
+                        div.style.border = '1px solid rgba(0,0,0,.08)';
+                        div.style.borderRadius = '10px';
+                        div.style.background = '#fff';
+                        div.style.boxShadow = '0 1px 2px rgba(0,0,0,.08)';
+                        const front = c.q.split('\n').join(' / ');
+                        div.innerHTML = `<strong>${front}</strong><br><span style="color:var(--muted)">${c.a}</span>`;
+                        list.appendChild(div);
+                    });
+                    body.appendChild(list);
+                }
+                missesModalBackdrop.classList.add('show');
             }
             function animateSwipe(correct) {
                 const cls = correct ? 'swipe-right' : 'swipe-left';
@@ -960,17 +1039,17 @@
                 modalBackdrop = document.createElement('div');
                 modalBackdrop.className = 'modal-backdrop';
                 modalBackdrop.innerHTML = `<div class="modal" role="dialog" aria-modal="true" aria-labelledby="importTitle">
-                    <header><div id="importTitle">Import Cards</div><button type="button" id="btnImportClose" class="btn outline" aria-label="Close">✕</button></header>
-                    <div class="body">
-                        <label for="importArea"><strong>Cards (front,back per line)</strong></label>
-                        <textarea id="importArea" placeholder="昼,daytime\n夜,night"></textarea>
-                    </div>
-                    <footer>
-                        <button type="button" id="btnImportClear" class="btn outline" aria-label="Clear input">Clear</button>
-                        <button type="button" id="btnImportAppend" class="btn" aria-label="Append cards">Append</button>
-                        <button type="button" id="btnImportReplace" class="btn danger" aria-label="Replace deck">Replace</button>
-                    </footer>
-                </div>`;
+            <header><div id="importTitle">Import Cards</div><button type="button" id="btnImportClose" class="btn outline" aria-label="Close">✕</button></header>
+            <div class="body">
+                <label for="importArea"><strong>Cards (front,back per line)</strong></label>
+                <textarea id="importArea" placeholder="昼,daytime\n夜,night"></textarea>
+            </div>
+            <footer>
+                <button type="button" id="btnImportClear" class="btn outline" aria-label="Clear input">Clear</button>
+                <button type="button" id="btnImportAppend" class="btn" aria-label="Append cards">Append</button>
+                <button type="button" id="btnImportReplace" class="btn danger" aria-label="Replace deck">Replace</button>
+            </footer>
+        </div>`;
                 document.body.appendChild(modalBackdrop);
                 modalTextarea = modalBackdrop.querySelector('#importArea');
                 btnImportAppend = modalBackdrop.querySelector('#btnImportAppend');
@@ -1099,7 +1178,7 @@
                     loadDeck(choice.value);
                 }, 150);
             })();
-             */
+                */
             loadVocabCsv();
 
             els.btnGot.onclick = () => grade(true);
@@ -1108,6 +1187,25 @@
             els.card.onclick = flip;
             window.addEventListener('keydown', (e) => {
                 const k = e.key;
+                const code = e.code || '';
+                // Fire TV / media remote support:
+                // Play/Pause -> flip, Rewind -> miss, FastForward -> got
+                // Include fallbacks for track prev/next and common keyCodes.
+                if (code === 'MediaPlayPause' || k === 'MediaPlayPause' || e.keyCode === 179) {
+                    e.preventDefault();
+                    flip();
+                    return;
+                }
+                if (code === 'MediaRewind' || code === 'MediaTrackPrevious' || k === 'MediaRewind' || e.keyCode === 227) {
+                    e.preventDefault();
+                    grade(false);
+                    return;
+                }
+                if (code === 'MediaFastForward' || code === 'MediaTrackNext' || k === 'MediaFastForward' || e.keyCode === 228) {
+                    e.preventDefault();
+                    grade(true);
+                    return;
+                }
                 if (k === ' ' || k === 'Enter') {
                     e.preventDefault();
                     flip();
