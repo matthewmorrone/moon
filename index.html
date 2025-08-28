@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,13 +17,15 @@
             flex-direction: column;
             align-items: center;
         }
+
         h1 {
             margin-top: 40px;
             margin-bottom: 30px;
             font-size: 2.5em;
             font-weight: 700;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
         }
+
         .song-list {
             display: flex;
             flex-wrap: wrap;
@@ -31,10 +34,11 @@
             width: 100%;
             max-width: 1200px;
         }
+
         .song-card {
-            background: rgba(26,32,44,0.85);
+            background: rgba(26, 32, 44, 0.85);
             border-radius: 12px;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
             padding: 0;
             width: 420px;
             height: 236px;
@@ -47,15 +51,19 @@
             cursor: pointer;
             outline: none;
         }
-        .song-card:hover, .song-card:focus {
+
+        .song-card:hover,
+        .song-card:focus {
             transform: translateY(-4px) scale(1.03);
-            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-            background: rgba(26,32,44,1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            background: rgba(26, 32, 44, 1);
             text-decoration: none;
         }
+
         .song-card:active {
             background: #2d3748;
         }
+
         .song-title {
             margin: 0;
             padding: 0;
@@ -73,6 +81,7 @@
             color: #fff;
             text-shadow: 0 2px 8px #000, 0 0 2px #000;
         }
+
         .song-preview {
             width: 100%;
             height: 236px;
@@ -81,15 +90,18 @@
             background: #2d3748;
             object-fit: cover;
         }
+
         @media (max-width: 600px) {
             .song-card {
                 width: 95vw;
                 height: 160px;
             }
+
             .song-preview {
                 height: 160px;
             }
         }
+
         .song-link {
             display: inline-block;
             margin-top: 8px;
@@ -101,80 +113,93 @@
             text-decoration: none;
             transition: background 0.15s;
         }
+
         .song-link:hover {
             background: #ffe066;
         }
     </style>
 </head>
+
 <body>
     <h1>ムーン</h1>
     <div class="song-list" id="song-list"></div>
     <script>
-        // Fetch song folders from PHP endpoint and parse as JSON
+        // Fetch song folders from JSON list
         function fetchSongFolders() {
             return fetch('songs.json')
-                .then(res => {
-                    if (!res.ok) throw new Error('Failed to load folder list');
-                    return res.json();
-                })
-                .then(folders => {
-                    console.log(folders);
-                    return folders;
-                });
+                .then(r => { if (!r.ok) throw new Error('Failed to load folder list'); return r.json(); });
         }
+
         const songListDiv = document.getElementById('song-list');
-        function generateVideoPreview(folder, img) {
-            // Create hidden video and canvas for extracting the first frame
+
+        // Generate a preview image from a later frame (not the first) to avoid black fades
+        function generateVideoPreview(folder, img, desiredSeconds = 5, fractionFallback = 0.3) {
             const video = document.createElement('video');
             video.src = `${folder}/${folder}.mp4`;
             video.crossOrigin = 'anonymous';
             video.muted = true;
             video.playsInline = true;
-            video.preload = 'auto';
-            video.style.display = 'none';
-            const canvas = document.createElement('canvas');
-            canvas.width = 280;
-            canvas.height = 158;
-            canvas.style.display = 'none';
+            video.preload = 'metadata';
+            video.style.position = 'fixed';
+            video.style.left = '-9999px';
+            video.style.top = '-9999px';
             document.body.appendChild(video);
-            document.body.appendChild(canvas);
 
-            video.addEventListener('loadeddata', function onLoadedData() {
-                // Seek to a small time to avoid black frame
-                video.currentTime = 0.1;
+            const canvas = document.createElement('canvas');
+            const cleanup = () => {
+                if (video.parentNode) video.parentNode.removeChild(video);
+            };
+
+            video.addEventListener('loadedmetadata', () => {
+                const target = Math.min(Math.max(0.15, video.duration * fractionFallback), desiredSeconds);
+                // Ensure canvas matches aspect ratio of card (420x236) while preserving crop
+                const cardW = 420, cardH = 236;
+                canvas.width = cardW; canvas.height = cardH;
+                // Seek to target frame
+                try { video.currentTime = target; } catch { video.currentTime = 0.2; }
             }, { once: true });
-            video.addEventListener('seeked', function onSeeked() {
-                const ctx = canvas.getContext('2d');
-                ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-                img.src = canvas.toDataURL('image/jpeg', 0.85);
-                // Clean up
-                document.body.removeChild(video);
-                document.body.removeChild(canvas);
+
+            video.addEventListener('seeked', () => {
+                try {
+                    const ctx = canvas.getContext('2d');
+                    // Draw covering while maintaining aspect ratio
+                    const vw = video.videoWidth, vh = video.videoHeight;
+                    if (vw && vh) {
+                        const scale = Math.max(canvas.width / vw, canvas.height / vh);
+                        const dw = vw * scale;
+                        const dh = vh * scale;
+                        const dx = (canvas.width - dw) / 2;
+                        const dy = (canvas.height - dh) / 2;
+                        ctx.drawImage(video, dx, dy, dw, dh);
+                        img.src = canvas.toDataURL('image/jpeg', 0.82);
+                        img.setAttribute('data-preview-second', video.currentTime.toFixed(2));
+                    }
+                } finally { cleanup(); }
             }, { once: true });
+
+            video.addEventListener('error', () => {
+                cleanup();
+                img.style.background = '#2d3748';
+            }, { once: true });
+
             video.load();
         }
 
-        fetchSongFolders().then(songFolders => {
-            songFolders.forEach(folder => {
+        fetchSongFolders().then(folders => {
+            folders.forEach(folder => {
                 const link = document.createElement('a');
                 link.className = 'song-card';
                 link.href = `${folder}/index.html`;
                 link.setAttribute('tabindex', '0');
                 link.setAttribute('aria-label', folder.replace(/-/g, ' '));
 
-                // Video preview (not playing, no controls)
-                const video = document.createElement('video');
-                video.className = 'song-preview';
-                video.src = `${folder}/${folder}.mp4`;
-                video.muted = true;
-                video.playsInline = true;
-                video.preload = 'metadata';
-                video.setAttribute('tabindex', '-1');
-                video.setAttribute('aria-label', folder.replace(/-/g, ' '));
-                video.controls = false;
-                video.setAttribute('controls', '');
-                video.controls = false;
-                link.appendChild(video);
+                // Image placeholder that will receive captured mid-frame
+                const img = document.createElement('img');
+                img.className = 'song-preview';
+                img.alt = `${folder.replace(/-/g, ' ')} preview frame`;
+                img.decoding = 'async';
+                img.loading = 'lazy';
+                link.appendChild(img);
 
                 // Title overlay
                 const title = document.createElement('div');
@@ -183,8 +208,12 @@
                 link.appendChild(title);
 
                 songListDiv.appendChild(link);
+
+                // Generate preview after element is in DOM (for potential lazy heuristics)
+                generateVideoPreview(folder, img, 5, 0.35);
             });
-        });
+        }).catch(err => console.error(err));
     </script>
 </body>
+
 </html>

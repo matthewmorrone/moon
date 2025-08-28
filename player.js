@@ -133,7 +133,8 @@
     let tooltipEl=null; let tooltipTarget=null;
     function showTooltip(target){
       hideTooltip();
-      const div=document.createElement('div'); div.className='tooltip visible';
+      // Use both legacy and new class names for broad styling support
+      const div=document.createElement('div'); div.className='tooltip-box tooltip visible';
       const { meaning, grammar, kana, romaji, kanji, lyricNote } = target.dataset;
       let h4 = kanji ? `<span class="kanji-color">${kanji}</span>` : target.textContent.trim();
       let html = `<h4>${h4}</h4>`;
