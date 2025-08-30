@@ -561,6 +561,7 @@
         <div class="app-title" aria-hidden="true">単語カード</div>
         <div class="left">
             <div class="top-buttons">
+                <button id="btnExit" class="btn" aria-label="Exit">✕</button>
                 <button id="btnRestart" class="btn" aria-label="Restart">↺</button>
                 <button id="btnShuffle" class="btn" aria-label="Shuffle">🔀</button>
                 <button id="btnReverse" class="btn" aria-label="Reverse Front/Back">⇄</button>
@@ -708,6 +709,7 @@
                 btnShuffle: document.getElementById('btnShuffle'),
                 btnReverse: document.getElementById('btnReverse'),
                 btnImport: document.getElementById('btnImport'),
+                btnExit: document.getElementById('btnExit'),
                 stage: document.querySelector('.stage')
             };
             let modalBackdrop, modalTextarea, btnImportAppend, btnImportReplace, btnImportClear, btnImportClose;
@@ -1193,6 +1195,12 @@
             els.btnGot.onclick = () => grade(true);
             els.btnMiss.onclick = () => grade(false);
             els.btnRestart.onclick = init;
+            els.btnExit.onclick = () => {
+                    window.parent.postMessage('flash-exit', window.parent.location.origin);
+                } else {
+                    window.location.href = '../index.html';
+                }
+            };
             els.card.onclick = flip;
             window.addEventListener('keydown', (e) => {
                 const k = e.key;
