@@ -566,6 +566,7 @@
                 <button id="btnShuffle" class="btn" aria-label="Shuffle">🔀</button>
                 <button id="btnReverse" class="btn" aria-label="Reverse Front/Back">⇄</button>
                 <button id="btnImport" class="btn" aria-label="Import Cards">⤒</button>
+                <button id="btnCloseOverlay" class="btn" aria-label="Close Flashcards">✕</button>
             </div>
         </div>
         <div class="right">
@@ -711,6 +712,7 @@
                 btnImport: document.getElementById('btnImport'),
                 btnExit: document.getElementById('btnExit'),
                 stage: document.querySelector('.stage')
+                , btnCloseOverlay: document.getElementById('btnCloseOverlay')
             };
             let modalBackdrop, modalTextarea, btnImportAppend, btnImportReplace, btnImportClear, btnImportClose;
 
@@ -1195,28 +1197,24 @@
             els.btnGot.onclick = () => grade(true);
             els.btnMiss.onclick = () => grade(false);
             els.btnRestart.onclick = init;
-            els.btnExit.onclick = () => {
-                // If this page is embedded, inform the parent to exit.
+            function exitFlashcards() {
                 if (window.parent && window.parent !== window) {
-                    try {
-                        window.parent.postMessage('flash-exit', '*');
-                        return;
-                    }
-                    catch (e) {
-                        console.error('Error posting flash-exit message to parent window:', e);
-                        // fall through to redirect on error
-                    }
-                    window.parent.postMessage('flash-exit', '*');
-                } else {
-                    window.location.href = '../index.html';
+                    try { window.parent.postMessage('flash-exit', '*'); return; }
+                    catch (e) { console.error('Error posting flash-exit message to parent window:', e); }
                 }
-                // Otherwise navigate back to the song list.
                 window.location.href = '../index.html';
-            };
+            }
+            els.btnExit.onclick = exitFlashcards;
+            if (els.btnCloseOverlay) els.btnCloseOverlay.onclick = exitFlashcards;
             els.card.onclick = flip;
             window.addEventListener('keydown', (e) => {
                 const k = e.key;
                 const code = e.code || '';
+                if (k === 'Escape') {
+                    // If any modal open, let their own handlers manage. Otherwise exit.
+                    const modalOpen = (modalBackdrop && modalBackdrop.classList.contains('show')) || (typeof missesModalBackdrop !== 'undefined' && missesModalBackdrop && missesModalBackdrop.classList.contains('show'));
+                    if (!modalOpen) { exitFlashcards(); return; }
+                }
                 // Fire TV / media remote support:
                 // Play/Pause -> flip, Rewind -> miss, FastForward -> got
                 // Include fallbacks for track prev/next and common keyCodes.
