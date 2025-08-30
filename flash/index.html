@@ -1179,7 +1179,16 @@
                 }, 150);
             })();
                 */
-            loadVocabCsv();
+            loadVocabCsv().finally(() => {
+                const params = new URLSearchParams(window.location.search);
+                const deckParam = params.get("deck");
+                if (deckParam) {
+                    const opt = Array.from(els.select.options).find(o => o.value === deckParam);
+                    if (opt) opt.selected = true;
+                    loadDeck(deckParam);
+                }
+            });
+
 
             els.btnGot.onclick = () => grade(true);
             els.btnMiss.onclick = () => grade(false);
