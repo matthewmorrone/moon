@@ -1203,6 +1203,7 @@
                         return;
                     }
                     catch (e) {
+                        console.error('Error posting flash-exit message to parent window:', e);
                         // fall through to redirect on error
                     }
                 }
