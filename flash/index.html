@@ -1196,10 +1196,18 @@
             els.btnMiss.onclick = () => grade(false);
             els.btnRestart.onclick = init;
             els.btnExit.onclick = () => {
-                    window.parent.postMessage('flash-exit', window.parent.location.origin);
-                } else {
-                    window.location.href = '../index.html';
+                // If this page is embedded, inform the parent to exit.
+                if (window.parent && window.parent !== window) {
+                    try {
+                        window.parent.postMessage('flash-exit', '*');
+                        return;
+                    }
+                    catch (e) {
+                        // fall through to redirect on error
+                    }
                 }
+                // Otherwise navigate back to the song list.
+                window.location.href = '../index.html';
             };
             els.card.onclick = flip;
             window.addEventListener('keydown', (e) => {
