@@ -117,11 +117,28 @@
         .song-link:hover {
             background: #ffe066;
         }
+
+        .flash-btn {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 8px 18px;
+            background: #f6e05e;
+            color: #1a202c;
+            border-radius: 6px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background 0.15s;
+        }
+
+        .flash-btn:hover {
+            background: #ffe066;
+        }
     </style>
 </head>
 
 <body>
     <h1>ムーン</h1>
+    <a class="flash-btn" href="flash/index.html">Flashcards</a>
     <div class="song-list" id="song-list"></div>
     <script>
         // Fetch song folders from JSON list
