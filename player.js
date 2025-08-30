@@ -46,7 +46,15 @@
     // Clear existing to avoid duplicates
     controls.innerHTML='';
     const hasRuby = !!lyricsBody.querySelector('ruby');
-    const folder = location.pathname.split('/').slice(-2,-1)[0];
+    // Expected path format: /folder/song.html
+    // Extract folder name safely; if not present, set to null and warn.
+    const pathParts = location.pathname.split('/').filter(Boolean);
+    let folder = null;
+    if (pathParts.length >= 2) {
+      folder = pathParts[pathParts.length - 2];
+    } else {
+      console.warn('Lyric player: Unable to extract folder name from URL path. Expected format: /folder/song.html');
+    }
     const flashDeck = cfg.flashDeck || (folder ? `${folder}.txt` : null);
     const backHref = cfg.backHref || '../index.html';
     const buttonsSpec = [
