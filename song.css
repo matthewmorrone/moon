@@ -133,13 +133,13 @@ body {
     background-color: var(--controls-active);
     color: var(--text-dark);
 }
-
+/* 
 .control-btn:focus {
     outline: 3px solid var(--controls-active);
     outline-offset: 2px;
     background-color: var(--controls-hover);
 }
-
+ */
 .control-btn svg {
     width: 24px;
     height: 24px;
