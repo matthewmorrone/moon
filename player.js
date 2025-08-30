@@ -102,9 +102,9 @@
       if(!flashOverlay){
         flashOverlay=document.createElement('div');
         flashOverlay.id='flash-overlay';
-        flashOverlay.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,0.7);display:flex;align-items:center;justify-content:center;z-index:1000;';
+        flashOverlay.className='flash-overlay';
         const iframe=document.createElement('iframe');
-        iframe.style.cssText='width:100%;height:100%;border:0;';
+        iframe.className='flash-iframe';
         flashOverlay.appendChild(iframe);
         document.body.appendChild(flashOverlay);
       }
