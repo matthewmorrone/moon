@@ -1196,6 +1196,9 @@
             els.btnMiss.onclick = () => grade(false);
             els.btnRestart.onclick = init;
             els.btnExit.onclick = () => {
+                // If this page is embedded, inform the parent to exit;
+                // otherwise navigate back to the song list.
+                if (window.parent && window.parent !== window) {
                     window.parent.postMessage('flash-exit', window.parent.location.origin);
                 } else {
                     window.location.href = '../index.html';
