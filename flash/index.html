@@ -1196,8 +1196,7 @@
             els.btnMiss.onclick = () => grade(false);
             els.btnRestart.onclick = init;
             els.btnExit.onclick = () => {
-                if (window.parent !== window) {
-                    window.parent.postMessage('flash-exit', '*');
+                    window.parent.postMessage('flash-exit', window.parent.location.origin);
                 } else {
                     window.location.href = '../index.html';
                 }
