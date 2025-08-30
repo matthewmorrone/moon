@@ -55,6 +55,8 @@
       pointerCoarse: window.matchMedia('(pointer: coarse)').matches,
       currentRowIndex:-1
     };
+    let isAutoScrolling = false;
+    let autoScrollTimer = null;
     const btnMap = {};
     buttonsSpec.forEach(spec=>{
       const btn = buildButton(spec.action, spec.label);
@@ -92,7 +94,10 @@
         else { row.classList.remove('highlight-line'); }
       });
       if(active && state.scrollFollow){
+        isAutoScrolling = true;
+        clearTimeout(autoScrollTimer);
         active.scrollIntoView({behavior: state.pointerCoarse?'auto':'smooth', block:'center'});
+        autoScrollTimer = setTimeout(()=>{ isAutoScrolling = false; }, 200);
       }
     }
     let lastTU=0; function throttled(){ const now=Date.now(); if(now-lastTU> (state.pointerCoarse?200:100)){ lastTU=now; updateTime(); } }
@@ -111,9 +116,51 @@
       }
     });
 
-    // Lyric row click
+    container.addEventListener('scroll', () => {
+      if(state.scrollFollow && !isAutoScrolling){
+        state.scrollFollow = false;
+        updateScroll();
+      }
+    }, { passive: true });
+
+    // Lyric interactions and row click
     lyricsBody.addEventListener('click', e=>{
-      const row = e.target.closest('.lyric-row'); if(!row) return; if(!state.jumpOnClick) return; const start=parseFloat(row.dataset.startTime); if(!isNaN(start)){ video.currentTime = start; if(video.paused) video.play(); }
+      const tooltip = e.target.closest('.word-tooltip');
+      const group = e.target.closest('.word-group');
+      const phrase = e.target.closest('.translation-phrase');
+      if(tooltip){
+        e.stopPropagation();
+        clearHighlights();
+        if(group){
+          group.classList.add('highlight-jp-group');
+          const id = group.dataset.groupId;
+          if(id){ const en = lyricsBody.querySelector(`.translation-phrase[data-group-id="${id}"]`); if(en) en.classList.add('highlight-en-phrase'); }
+        }
+        showTooltip(tooltip);
+        return;
+      }
+      if(phrase){
+        e.stopPropagation();
+        clearHighlights();
+        phrase.classList.add('highlight-en-phrase');
+        const id = phrase.dataset.groupId;
+        if(id){
+          const jp = lyricsBody.querySelector(`.word-group[data-group-id="${id}"]`);
+          if(jp){
+            jp.classList.add('highlight-jp-group');
+            const tt = jp.querySelector('.word-tooltip');
+            if(tt) showTooltip(tt);
+          }
+        }
+        return;
+      }
+      hideTooltip();
+      clearHighlights();
+      const row = e.target.closest('.lyric-row');
+      if(!row) return;
+      if(!state.jumpOnClick) return;
+      const start = parseFloat(row.dataset.startTime);
+      if(!isNaN(start)){ video.currentTime = start; if(video.paused) video.play(); }
     });
 
     // Keyboard shortcuts
@@ -150,8 +197,13 @@
       div.style.position='absolute'; div.style.left = `${left+window.scrollX}px`; div.style.top = `${top+window.scrollY}px`;
     }
     function hideTooltip(){ if(tooltipEl){ tooltipEl.remove(); tooltipEl=null; tooltipTarget=null; } }
+    function clearHighlights(){
+      qsa('.highlight-jp-group', lyricsBody).forEach(el=>el.classList.remove('highlight-jp-group'));
+      qsa('.highlight-en-phrase', lyricsBody).forEach(el=>el.classList.remove('highlight-en-phrase'));
+    }
     document.addEventListener('mousemove', e=>{ if(tooltipTarget && !e.target.closest('.word-tooltip')) hideTooltip(); });
     document.addEventListener('mouseover', e=>{ const w = e.target.closest('.word-tooltip'); if(w) showTooltip(w); });
+    document.addEventListener('click', e=>{ if(!e.target.closest('.word-tooltip') && !e.target.closest('.translation-phrase') && !e.target.closest('.tooltip-box')){ hideTooltip(); clearHighlights(); } });
     document.addEventListener('scroll', ()=>{ if(tooltipEl) hideTooltip(); }, true);
 
     // Cross-highlighting between Japanese word groups and translation phrases
