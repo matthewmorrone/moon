@@ -343,21 +343,6 @@ h1 rt {
     border-color: rgba(255, 255, 255, 0.3);
 }
 
-.flashcard-btn {
-    display: inline-block;
-    margin: 10px 0 20px;
-    padding: 10px 16px;
-    background-color: var(--controls-bg);
-    color: var(--text-light);
-    text-decoration: none;
-    border-radius: 8px;
-    font-weight: 600;
-}
-
-.flashcard-btn:hover {
-    background-color: var(--controls-hover);
-}
-
 @media (max-width: 768px) {
     body {
         padding: 10px;
