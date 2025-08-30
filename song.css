@@ -7,7 +7,7 @@
     --text-muted: #a0aec0;
     --bg-dark-translucent: rgba(26, 32, 44, 0.50);
     --border-color: #4a5568;
-    --body-font: 'Lora', serif;
+    --body-font: 'Lora', 'Prata', 'Crimson Text', 'Cinzel', 'Cormorant Garamond', 'Playfair Display', serif;
     --display-font: 'Prata', serif;
     --display-weight: 400;
     --display-spacing: 0.5px;
