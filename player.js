@@ -13,6 +13,8 @@
     scrollLocked: '<svg viewBox="0 0 24 24" width="20" height="20"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>',
     jump: '<svg viewBox="0 0 24 24" width="20" height="20" fill="none"><path d="M4 16c4-8 12-8 16 0" stroke="currentColor" stroke-width="2" fill="none"/><polygon points="18,16 22,16 20,20" fill="currentColor"/></svg>',
     furigana: '<svg width="20" height="20" viewBox="0 0 225 225"><g id="#000000ff"><path d=" M 75.22 19.24 C 81.08 18.14 87.40 19.30 92.39 22.61 C 100.91 27.97 105.12 39.30 102.07 48.90 C 99.33 58.40 89.97 65.64 80.01 65.48 C 72.15 65.72 64.26 61.61 60.10 54.91 C 55.60 48.11 55.11 38.89 58.82 31.65 C 62.01 25.29 68.24 20.60 75.22 19.24 Z"/><path d=" M 139.54 19.58 C 152.69 15.69 167.51 26.05 168.44 39.71 C 170.43 52.76 159.09 65.58 145.95 65.49 C 133.49 66.28 122.15 55.37 121.92 43.00 C 121.37 32.34 129.13 22.01 139.54 19.58 Z"/><path d=" M 103.17 75.01 C 109.39 75.00 115.61 74.99 121.84 75.01 C 121.82 81.27 121.84 87.54 121.83 93.81 C 140.58 93.81 159.32 93.82 178.07 93.80 C 178.08 99.99 178.07 106.18 178.08 112.37 C 172.08 112.31 166.07 112.41 160.07 112.31 C 155.95 131.30 142.43 146.25 128.64 159.12 C 143.83 171.15 158.85 183.40 174.14 195.30 C 170.35 200.29 166.23 205.02 162.53 210.08 C 146.48 197.02 130.16 184.28 114.11 171.21 C 97.97 184.21 81.84 197.21 65.57 210.04 C 61.78 205.12 58.01 200.15 53.96 195.44 C 69.34 183.49 84.41 171.12 99.66 159.00 C 87.92 148.43 77.26 136.24 70.39 121.90 C 77.58 121.90 84.77 121.91 91.97 121.90 C 98.15 131.21 105.68 139.58 114.00 147.04 C 124.67 137.24 135.03 126.12 140.17 112.34 C 109.09 112.38 78.01 112.32 46.92 112.37 C 46.93 106.18 46.92 99.99 46.93 93.80 C 65.67 93.82 84.42 93.81 103.17 93.81 C 103.17 87.54 103.17 81.27 103.17 75.01 Z"/></g></svg>',
+    flash: '<svg viewBox="0 0 24 24" width="20" height="20"><rect x="2" y="6" width="14" height="10" rx="2" ry="2" stroke="currentColor" fill="none" stroke-width="2"/><rect x="8" y="8" width="14" height="10" rx="2" ry="2" stroke="currentColor" fill="none" stroke-width="2"/></svg>',
+    back: '<svg viewBox="0 0 24 24" width="20" height="20"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>'
   };
 
   function qs(sel, root=document){ return root.querySelector(sel); }
@@ -44,13 +46,18 @@
     // Clear existing to avoid duplicates
     controls.innerHTML='';
     const hasRuby = !!lyricsBody.querySelector('ruby');
+    const folder = location.pathname.split('/').slice(-2,-1)[0];
+    const flashDeck = cfg.flashDeck || (folder ? `${folder}.txt` : null);
+    const backHref = cfg.backHref || '../index.html';
     const buttonsSpec = [
+      {action:'back', label:'Back to index'},
       {action:'play', label:'Play/Pause'},
       {action:'loop', label:'Toggle Loop'},
       {action:'mute', label:'Mute/Unmute'},
       {action:'scroll', label:'Toggle Scroll Follow', active:true},
       {action:'jump', label:'Toggle Lyric Jump', active:true},
       hasRuby ? {action:'furigana', label:'Toggle Furigana', active:true} : null,
+      flashDeck ? {action:'flash', label:'Flashcards'} : null,
     ].filter(Boolean);
     const state = {
       scrollFollow:true,
@@ -80,6 +87,25 @@
     function toggleScroll(){ state.scrollFollow = !state.scrollFollow; updateScroll(); }
     function toggleJump(){ state.jumpOnClick = !state.jumpOnClick; updateJump(); }
     function toggleFurigana(){ document.body.classList.toggle('hide-furigana'); updateFurigana(); }
+
+    let flashOverlay=null;
+    function openFlashcards(){
+      if(!flashDeck) return;
+      if(!flashOverlay){
+        flashOverlay=document.createElement('div');
+        flashOverlay.id='flash-overlay';
+        flashOverlay.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,0.7);display:flex;align-items:center;justify-content:center;z-index:1000;';
+        const iframe=document.createElement('iframe');
+        iframe.style.cssText='width:100%;height:100%;border:0;';
+        flashOverlay.appendChild(iframe);
+        document.body.appendChild(flashOverlay);
+      }
+      flashOverlay.querySelector('iframe').src=`../flash/index.html?deck=${encodeURIComponent(flashDeck)}`;
+      flashOverlay.style.display='flex';
+    }
+    function closeFlashcards(){ if(flashOverlay){ flashOverlay.style.display='none'; } }
+    window.addEventListener('message', e=>{ if(e.data==='flash-exit'){ closeFlashcards(); } });
+    function goBack(){ window.location.href = backHref; }
 
     Object.assign(window, { lyricPlayer:{ video, state } });
 
@@ -116,6 +142,8 @@
         case 'scroll': toggleScroll(); break;
         case 'jump': toggleJump(); break;
         case 'furigana': toggleFurigana(); break;
+        case 'flash': openFlashcards(); break;
+        case 'back': goBack(); break;
       }
     });
 
