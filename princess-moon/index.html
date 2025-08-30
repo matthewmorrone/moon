@@ -81,6 +81,15 @@
             scrollbar-width: none;
         }
 
+        .sticky-header {
+            position: sticky;
+            top: 0;
+            background-color: var(--bg-dark-translucent);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+        }
+
         .controls {
             display: flex;
             justify-content: center;
@@ -321,6 +330,10 @@
             color: #2d3748;
         }
 
+        .hide-furigana ruby rt {
+            display: none;
+        }
+
         @media (max-width: 768px) {
             body {
                 padding: 10px;
@@ -461,8 +474,10 @@
     <div class="video-overlay"></div>
 
     <div class="container">
-        <h1>プリンセス ムーン</h1>
-        <div class="controls main-controls"><!-- buttons injected by player.js --></div>
+        <div class="sticky-header">
+            <h1>プリンセス ムーン</h1>
+            <div class="controls main-controls"><!-- buttons injected by player.js --></div>
+        </div>
 
         <div id="lyrics-body" class="lyrics-grid">
             <div class="lyric-row" data-start-time="6" data-end-time="9.5">
