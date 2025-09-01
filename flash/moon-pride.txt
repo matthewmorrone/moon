@@ -1,0 +1,101 @@
+夢,ゆめ
+ゆめ,dream
+頬,ほお
+ほお,cheek
+紅い,あかい
+あかい,crimson/red
+瞳,ひとみ
+ひとみ,eye (pupil)
+稲妻,いなずま
+いなずま,lightning
+激しく,はげしく
+はげしく,fiercely/intensely
+誰か,だれか
+だれか,someone
+愛,あい
+あい,love
+叫ぶ,さけぶ
+さけぶ,to shout/cry out
+例え,たとえ
+たとえ,even if (conjunction)
+暗闇,くらやみ
+くらやみ,darkness
+一人,ひとり
+ひとり,alone (one person)
+私達,わたしたち
+わたしたち,we/us
+照らす,てらす
+てらす,to illuminate
+女の子,おんなのこ
+おんなのこ,girl
+譲れぬ,ゆずれぬ
+ゆずれぬ,unyielding (cannot concede)
+矜持,きょうじ
+きょうじ,pride/dignity
+王子様,おうじさま
+おうじさま,prince
+運命,うんめい
+うんめい,fate/destiny
+自ら,みずから
+みずから,oneself
+戦う,たたかう
+たたかう,to fight
+意志,いし
+いし,will/volition
+輝く,かがやく
+かがやく,to shine
+星空,ほしぞら
+ほしぞら,starry sky
+集めて,あつめて
+あつめて,gathering (te-form)
+護られる,まもられる
+まもられる,to be protected (passive)
+存在,そんざい
+そんざい,existence/being
+だから,therefore/so
+新しい,あたらしい
+あたらしい,new
+伝説,でんせつ
+でんせつ,legend
+今,いま
+いま,now
+始まる,はじまる
+はじまる,to begin/start
+誓い,ちかい
+ちかい,oath/vow
+銀河,ぎんが
+ぎんが,galaxy
+絶対,ぜったい
+ぜったい,absolutely
+捕まえる,つかまえる
+つかまえる,to capture/catch
+続ける,つづける
+つづける,to continue
+翼,つばさ
+つばさ,wings
+天使,てんし
+てんし,angel
+秘密,ひみつ
+ひみつ,secret
+胸,むね
+むね,chest/heart
+瞬間,しゅんかん
+しゅんかん,moment
+もっと,more
+気になる,きになる
+きになる,to be on one's mind
+恋,こい
+こい,romantic love
+変わる,かわる
+かわる,to change
+目,め
+め,eye
+閉じて,とじて
+とじて,close (te-form)
+抱きしめる,だきしめる
+だきしめる,to embrace
+そのまま,just as is
+思い,おもい
+おもい,feelings/thoughts
+伝えたい,つたえたい
+つたえたい,want to convey

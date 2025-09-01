@@ -2,13 +2,14 @@
 ゆめ,dream
 中,なか
 なか,inside
+二人,ふたり
 ふたり,two people
 いる,to be
 星,ほし
 ほし,star
 守る,まもる
 まもる,protect
-友だち,ともだち
+友達,ともだち
 ともだち,friend
 時,とき
 とき,time/when
