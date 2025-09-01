@@ -1,32 +1,50 @@
-三日月,crescent moon,みかづき
+三日月,みかづき
+みかづき,crescent moon
 シャーレ,dish/petri dish
-星,star,ほし
+星,ほし
+ほし,star
 ピアス,earring/piercing
-外す,to remove/take off,はずす
+外す,はずす
+はずす,to remove/take off
 どうしよう,what shall I do/what to do
-胸,chest/heart,むね
-いっぱい,full/a lot,いっぱい
-花火,fireworks,はなび
-なる,to become,なる
-恋,love,こい
-闇,darkness,やみ
-消える,to disappear/fade,きえる
-お願い,please/request,おねがい
+胸,むね
+むね,chest/heart
+いっぱい,full/a lot
+花火,はなび
+はなび,fireworks
+なる,to become
+恋,こい
+こい,love
+闇,やみ
+やみ,darkness
+消える,きえる
+きえる,to disappear/fade
+お願い,おねがい
+おねがい,please/request
 キス,kiss
-やめる,to stop/quit,やめる
-彩,coloring/tint,いろどり
-香り,fragrance/scent,かおり
-盗む,to steal,ぬすむ
+やめる,to stop/quit
+彩,いろどり
+いろどり,coloring/tint
+香り,かおり
+かおり,fragrance/scent
+盗む,ぬすむ
+ぬすむ,to steal
 いい,good/fine/may
 この,this
 ハート,heart
-銀河,galaxy,ぎんが
-出会う,to meet/encounter,であう
-夜更け,late at night,よふけ
+銀河,ぎんが
+ぎんが,galaxy
+出会う,であう
+であう,to meet/encounter
+夜更け,よふけ
+よふけ,late at night
 ワンコ,doggy
-広げる,to spread/unfold,ひろげる
-虹色,rainbow-colored,にじいろ
-もっと,more,もっと
-愛する,to love,あいする
+広げる,ひろげる
+ひろげる,to spread/unfold
+虹色,にじいろ
+にじいろ,rainbow-colored
+もっと,more
+愛する,あいする
+あいする,to love
 タキシード,tuxedo
 ミラージュ,mirage

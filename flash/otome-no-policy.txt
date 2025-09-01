@@ -46,8 +46,7 @@
 方,ほう
 ほう,way/direction
 いい,good
-大きな,おおきな
-おおきな,large/big
+大きな,large/big
 夢,ゆめ
 ゆめ,dream
 ある,to exist/to have (inanimate)
@@ -70,7 +69,6 @@
 みんな,everyone
 本気,ほんき
 ほんき,seriousness/earnestness
-とき,とき
 とき,time/when
 とっても,very/extremely
 きれい,pretty/beautiful/clean
