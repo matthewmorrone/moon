@@ -71,6 +71,18 @@
             user-select: none;
         }
 
+        /* Hide title on narrow mobile to free vertical space */
+        @media (max-width: 640px) {
+            .app-title {
+                display: none;
+            }
+
+            .topbar {
+                padding-top: 6px;
+                padding-bottom: 8px;
+            }
+        }
+
         .left {
             display: flex;
             align-items: center;
