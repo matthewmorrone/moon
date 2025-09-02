@@ -1,14 +1,14 @@
 chapter,kana,meaning
-6,おはようございます,good morning.
-6,こんにちは,good afternoon.
-6,こんばんは,good evening.
-6,おやすみなさい,goodnight.
-6,どうもありがとうございます,thank you very much.
-6,ありがとう,thank you.
-6,どうも,thanks.
-6,どういたしまして,you&rsquo;re welcome.
-6,はじめまして,nice to meet you.
-6,どうぞよろしく,nice to meet you.
+6,おはようございます,good morning
+6,こんにちは,good afternoon
+6,こんばんは,good evening
+6,おやすみなさい,goodnight
+6,どうもありがとうございます,thank you very much
+6,ありがとう,thank you
+6,どうも,thanks
+6,どういたしまして,you're welcome
+6,はじめまして,nice to meet you
+6,どうぞよろしく,nice to meet you
 6,おじぎ,bow
 6,おなまえ,(your) name
 6,はい,yes
@@ -26,12 +26,12 @@ chapter,kana,meaning
 6,なに,what?
 6,まりこ,Mariko
 6,ジョン,John
-6,ありがとうございます,thank you very much.
+6,ありがとうございます,thank you very much
 6,あ,oh!
 7,ねこ,cat
 7,えんぴつ,pencil
 7,ペン,pen
-7,でしょう,conjecture form of です. similar to &ldquo;it will probably be&rdquo; or &ldquo;it might be.&rdquo;
+7,でしょう,conjecture form of です
 7,りんご,apple
 7,みず,water
 7,いぬ,dog
@@ -45,7 +45,7 @@ chapter,kana,meaning
 8,トイレ,bathroom
 8,ながしだい,sink
 8,おふろ,bath
-8,おふろば,bath-room, e.g., room that has the bath in it
+8,おふろば,bath-room; e.g.; room that has the bath in it
 8,やね,roof
 8,てんじょう,ceiling
 8,かべ,wall
@@ -59,7 +59,7 @@ chapter,kana,meaning
 8,ふとん,futon
 8,テレビ,tv
 8,ラジオ,radio
-8,とけい,clock, watch
+8,とけい,clock; watch
 8,エアコン,air conditioning
 8,さら,plate
 8,ちゃわん,bowl
@@ -136,7 +136,7 @@ chapter,kana,meaning
 10,きょねん,last year
 10,おととし,the year before last
 10,さらいねん,the year after next
-10,まい～,prefix meaning &ldquo;every.&rdquo;
+10,まい～,prefix meaning 'every'
 10,まいしゅう,every week
 10,まいつき,every month
 10,まいとし,every year
@@ -167,18 +167,18 @@ chapter,kana,meaning
 10,ろくがつ,June
 10,はちがつ,August
 10,じゅうがつ,October
-12,いってきます,i&rsquo;m leaving!
+12,いってきます,i'm leaving!
 12,いってらっしゃい,see you when you get home!
-12,ただいま,i&rsquo;m home!
+12,ただいま,i'm home!
 12,おかえりなさい,welcome back!
-12,すみません,excuse me / i&rsquo;m sorry
-12,しつれいします,excuse me.
-12,さよなら,goodbye.
-12,では,well then...
-12,じゃ、また,see you later.
+12,すみません,excuse me / i'm sorry
+12,しつれいします,excuse me
+12,さよなら,goodbye
+12,では,well then..
+12,じゃ、また,see you later
 12,またね,later!
 12,じゃあね,see ya!
-13,そう,that way, so
+13,そう,that way; so
 13,なんようび,which day of the week?
 13,なんがつ,what month?
 14,スーパーマーケット,supermarket
@@ -196,13 +196,13 @@ chapter,kana,meaning
 14,みずうみ,lake
 14,たいよう,sun
 14,バイク,motorized cycle
-14,オートバイ,&ldquo;automatic bicycle,&rdquo; motorcycle
+14,オートバイ,'automatic bicycle;'; motorcycle
 14,タクシー,taxi
 14,バス,bus
 14,バスてい,bus stop
 14,はな,flower
-14,みせ,store, shop
-14,き,tree, wood
+14,みせ,store; shop
+14,き,tree; wood
 14,でんしゃ,train
 14,やま,mountain
 14,かわ,river
@@ -215,7 +215,7 @@ chapter,kana,meaning
 14,じてんしゃ,bicycle
 14,くさ,grass
 14,ちかてつ,subway
-14,みち,road, way
+14,みち,road; way
 15,あなた,you
 15,ともだち,friend
 15,～たち,pluralizer for human-related words
@@ -251,7 +251,7 @@ chapter,kana,meaning
 17,ハンバーグ,hamburg steak
 17,ハンバーガー,hamburger (the sandwich)
 17,フライポテト,french fries
-17,マクドナルド,McDonald&rsquo;s
+17,マクドナルド,McDonald's
 17,モスバーガー,Mos Burger
 17,のみもの,beverage
 17,ミルクセーキ,milkshake
@@ -274,7 +274,7 @@ chapter,kana,meaning
 17,ぎゅうにゅう,milk
 17,さかな,fish
 17,しょくじ,meal
-17,ごはん,rice, food
+17,ごはん,rice; food
 17,すし,sushi
 17,さしみ,unadorned raw fish
 17,わさび,Japanese horseradish
@@ -332,7 +332,7 @@ chapter,kana,meaning
 19,せんせい,teacher
 19,すうがく,Mathematics
 19,ちゅうごく,China
-19,こくご,the national language, e.g., Japanese
+19,こくご,the national language; e.g.; Japanese
 19,こくばん,blackboard
 20,おんなのひと,woman
 20,おとこのこ,boy
@@ -352,10 +352,10 @@ chapter,kana,meaning
 24,よ,new information marking particle
 24,を,object marker
 24,なにか,something
-25,や,a conjunction used to create lists of items, with the implication that there are other similar things included but not named
+25,や,a conjunction used to create lists of items; with the implication that there are other similar things included but not named
 25,あります,to exist (inanimate)
 25,います,to exist (animate)
-25,と,and, with
+25,と,and; with
 26,おとうさん,father
 26,ちち,(my) dad
 26,はは,(my) mom
@@ -363,8 +363,8 @@ chapter,kana,meaning
 26,おねえさん,older sister
 26,あに,(my) older brother
 26,あね,(my) older sister
-26,おとうとさん,(someone else&rsquo;s) younger brother
-26,いもうとさん,(someone else&rsquo;s) younger sister
+26,おとうとさん,(someone else's) younger brother
+26,いもうとさん,(someone else's) younger sister
 26,おとうと,(my) younger brother
 26,いもうと,(my) younger sister
 26,～ちゃん,a suffix that attaches to the end of a name as a diminuitive version of <i>san</i>
@@ -376,18 +376,18 @@ chapter,kana,meaning
 26,おばさん,aunt
 26,いとこ,cousin
 26,しゅじん,(my) husband
-26,ごしゅじん,(someone else&rsquo;s) husband
+26,ごしゅじん,(someone else's) husband
 26,だんな,(my) husband
-26,だんなさん,(someone else&rsquo;s) husband
+26,だんなさん,(someone else's) husband
 26,つま,my wife
-26,おくさん,(someone else&rsquo;s) wife
+26,おくさん,(someone else's) wife
 26,かれ,he/boyfriend
 26,かのじょ,her/girlfriend
 26,おかあさん,mother
 27,しゅみ,hobby
 27,きょうみ,interest
 27,いなか,the countryside
-27,ところ,location, place
+27,ところ,location; place
 27,やまのぼり,mountain climbing
 27,ドライブ,a drive
 27,ハイキング,hiking
@@ -415,20 +415,20 @@ chapter,kana,meaning
 27,テニス,tennis
 27,やきゅう,baseball
 27,おんがく,music
-28,～がわ,a suffix meaning &ldquo;side&rdquo;
-28,うしろ,back, behind
+28,～がわ,a suffix meaning 'side';
+28,うしろ,back; behind
 28,ひだり,left
 28,ひだりがわ,left side
 28,みぎ,right
 28,みぎがわ,right side
-28,うえ,up, top, above, on
-28,した,down, bottom, below, under
-28,なか,middle, center, in
+28,うえ,up; top; above; on
+28,した,down; bottom; below; under
+28,なか,middle; center; in
 28,そと,outside
-28,まえ,before, front
+28,まえ,before; front
 28,あと,after
 29,します,to do
-29,ききます,to hear, to ask
+29,ききます,to hear; to ask
 29,かいます,to buy
 29,たちます,to stand
 29,すわります,to sit
@@ -436,8 +436,8 @@ chapter,kana,meaning
 29,れんしゅう,practice
 29,そうじ,cleaning
 29,もしもし,hello? (phone greeting)
-29,も,also, even
-29,わかります,to understand (lit., to break down)
+29,も,also; even
+29,わかります,to understand (lit.; to break down)
 29,りょうり,cooking
 29,はなします,to speak
 29,でんわ,phone
@@ -448,7 +448,7 @@ chapter,kana,meaning
 30,どうして,why? / how?
 30,なんで,why? / how?
 30,どうやって,how?
-32,～まい,counter for sheets (of paper, etc.)
+32,～まい,counter for sheets (of paper; etc.)
 32,ひとつ,one thing
 32,ふたつ,two things
 32,みっつ,three things
@@ -467,13 +467,13 @@ chapter,kana,meaning
 32,～にん,person counter
 32,なんまい,how many sheets?
 32,きって,postal stamp
-32,～こ,counter for small, roundish things
-32,いっこ,one small, roundish thing
-32,ろっこ,six small, roundish things
-32,はっこ,eight small, roundish things
-32,じゅっこ,ten small, roundish things
-32,なんこ,how many small, roundish things?
-32,～ほん,counter for long, cylindrical things
+32,～こ,counter for small; roundish things
+32,いっこ,one small; roundish thing
+32,ろっこ,six small; roundish things
+32,はっこ,eight small; roundish things
+32,じゅっこ,ten small; roundish things
+32,なんこ,how many small; roundish things?
+32,～ほん,counter for long; cylindrical things
 32,いっぽん,one long or cylindrical object
 32,さんぼん,three long or cylindrical objects
 32,ろっぽん,six long or cylindrical objects
@@ -488,7 +488,7 @@ chapter,kana,meaning
 32,じゅっぴき,ten animals
 32,なんびき,how many animals?
 32,～じ,suffix for counting the hours of the day
-32,～はん,suffix to mean &ldquo;half past&rdquo;
+32,～はん,suffix to mean 'half past';
 32,～ふん,counter for minutes
 32,なんじ,what time?
 32,いっぷん,one minute
@@ -518,7 +518,7 @@ chapter,kana,meaning
 32,じゅうよっか,the fourteenth of the month
 32,はつか,the twentieth of the month
 32,にじゅうよっか,the twentyfourth of the month
-32,～にち,counter for days, days of month
+32,～にち,counter for days; days of month
 32,なんにち,what day of the month?
 32,～ねん,counter for years
 32,なんねん,what year?
@@ -536,9 +536,9 @@ chapter,kana,meaning
 32,～だま,suffix for a coin of such-and-such value
 32,いま,now
 32,かみ,paper
-32,てがみ,letter, correspondence
-33,でも,but...
-33,しかし,however...
+32,てがみ,letter; correspondence
+33,でも,but..
+33,しかし,however..
 33,が,...but
 33,けれども,...but
 33,けれど,...but
@@ -550,8 +550,8 @@ chapter,kana,meaning
 34,オレンジいろ,orange
 34,ねずみいろ,grey
 34,へた,bad (unskilled)
-34,へん,strange, weird
-34,きれい,clean, pretty
+34,へん,strange; weird
+34,きれい,clean; pretty
 34,かんたん,simple
 34,あつい,hot
 34,むしあつい,hot and humid
@@ -560,22 +560,22 @@ chapter,kana,meaning
 34,あたたかい,warm
 34,すずしい,cool
 34,ない,non-existent (functional opposite of <i>arimasu</i>)
-34,じょうず,skilled, good
+34,じょうず,skilled; good
 34,あかい,red
-34,あおい,blue, green
+34,あおい,blue; green
 34,しろい,white
 34,くろい,black
 34,いろ,color
-35,たかい,tall, expensive
-35,ひくい,low, short (in height)
+35,たかい,tall; expensive
+35,ひくい,low; short (in height)
 35,やすい,cheap
-35,ひろい,wide, spacious
-35,せまい,narrow, cramped
+35,ひろい,wide; spacious
+35,せまい,narrow; cramped
 35,わるい,bad
 35,よい,good (ancient form)
 35,みじかい,short (in length)
 35,おいしい,delicious
-35,まずい,bland, gross, unappetizing
+35,まずい,bland; gross; unappetizing
 35,うつくしい,beautiful
 35,みにくい,ugly
 35,しずか,quiet
@@ -586,15 +586,15 @@ chapter,kana,meaning
 35,かなしい,sad
 35,たのしい,fun
 35,つまらない,boring
-35,すごい,cool, awesome, incredible
+35,すごい,cool; awesome; incredible
 35,きたない,dirty
 35,むずかしい,difficult
 35,やさしい,friendly
-35,きびしい,stern, strict
-35,はやい,fast, quick
-35,おそい,slow, late
-35,いっぱい,a lot, full
-35,おおきい,big, large
+35,きびしい,stern; strict
+35,はやい,fast; quick
+35,おそい,slow; late
+35,いっぱい,a lot; full
+35,おおきい,big; large
 35,ちいさい,small
 35,ながい,long
 36,あたま,head
@@ -612,7 +612,7 @@ chapter,kana,meaning
 36,ひじ,elbow
 36,てくび,wrist
 36,ゆび,finger
-36,つめ,fingernail, toenail
+36,つめ,fingernail; toenail
 36,ふとい,fat
 36,ほそい,slender
 36,ウエスト,waist
@@ -621,14 +621,14 @@ chapter,kana,meaning
 36,け,hair
 36,かみのけ,head-hair
 36,せなか,back
-36,せ,stature, one&rsquo;s height
+36,せ,stature; one's height
 36,いたい,painful
 36,すてき,charming
-36,びょうき,sick, sickness
+36,びょうき,sick; sickness
 36,ぐあい,condition
 36,どう,how?
 36,かぜ,a cold
-36,ひきます,to pull, to catch (a cold)
+36,ひきます,to pull; to catch (a cold)
 36,インフルエンザ,the flu
 36,ちょっと,a little
 36,とても,very
@@ -636,25 +636,25 @@ chapter,kana,meaning
 36,あがります,to rise
 36,せき,cough
 36,げり,diarrhea
-36,はなみず,runny nose, snot
-36,かみます,to blow (one&rsquo;s nose)
+36,はなみず,runny nose; snot
+36,かみます,to blow (one's nose)
 36,びょうにん,sick person
 36,びょういん,hospital
 36,おいしゃ,doctor
 36,かんごふ,nurse
 36,くすり,medicine
-36,ちゅうしゃ,shot, injection
+36,ちゅうしゃ,shot; injection
 36,うけます,to receive
 36,～ど,suffix that attaches to a number to indicate a number of times
-36,そして,then, after that
+36,そして,then; after that
 36,たくさん,a lot
 36,さがります,to go down
 36,め,eye
 36,みみ,ear
 36,て,hand
-36,あし,foot, leg
+36,あし,foot; leg
 36,でます,to go out
-36,げんき,healthy, vigorous
+36,げんき,healthy; vigorous
 38,しります,to come to know
 38,きます,to wear (upper body)
 38,わふく,Japanese clothing
@@ -675,13 +675,13 @@ chapter,kana,meaning
 38,ハイヒール,high heels
 38,イヤリング,earring
 38,ネクタイ,necktie
-38,マフラー,muffler, scarf
+38,マフラー,muffler; scarf
 38,ベルト,belt
 38,てぶくろ,glove
 38,ぼうし,hat
 38,かぶります,to wear on the head
-38,はめます,to fasten around (waist, hands)
-39,で,by-means-of particle, or location marker for active verbs
+38,はめます,to fasten around (waist; hands)
+39,で,by-means-of particle; or location marker for active verbs
 39,ふね,boat
 39,しんかんせん,bullet train
 39,ロサンゼルス,Los Angeles
@@ -701,7 +701,7 @@ chapter,kana,meaning
 40,こうじょう,factory
 40,じむしょ,office
 40,かいしゃ,company
-40,きゅうりょう,wages, pay
+40,きゅうりょう,wages; pay
 40,はたらきます,to work
 40,きょうじゅ,professor
 40,べんごし,lawyer
@@ -717,16 +717,16 @@ chapter,kana,meaning
 40,～ぶ,suffix for departments
 40,ぶもん,department
 40,かちょう,section head
-40,まちます,to await (something), to wait
-40,かいけい,the total, the bill
+40,まちます,to await (something); to wait
+40,かいけい,the total; the bill
 40,しゃちょう,president (of a company)
 43,ほんとう,real
 43,たしか,certain
 43,ぜったい,definite
-43,じつ,true, actual
+43,じつ,true; actual
 43,じっさい,actual
 44,ひょう,hail
-44,ふります,to fall (rain, etc.)
+44,ふります,to fall (rain; etc.)
 44,はれます,to clear up
 44,くもります,to cloud up
 44,あらし,storm
