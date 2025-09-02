@@ -534,7 +534,7 @@
             }
 
             .stage {
-                padding-bottom: 110px;
+                padding-bottom: 16px;
             }
 
             .stats {
@@ -823,24 +823,20 @@
                     if (round === 1 && misses.length) { deck = [...misses]; index = 0; misses = []; round = 2; }
                     else {
                         updateUI();
-                        if (sessionMisses.length) {
-                            showMissesModal();
-                        } else {
-                            toast('Done – no misses');
-                        }
+                        showMissesModal();
                         return;
                     }
                 }
                 updateUI();
             }
-            // Build and show misses summary modal
+            // Build and show session summary modal
             let missesModalBackdrop;
             function buildMissesModal() {
                 missesModalBackdrop = document.createElement('div');
                 missesModalBackdrop.className = 'modal-backdrop';
                 missesModalBackdrop.id = 'missesModalBackdrop';
                 missesModalBackdrop.innerHTML = `<div class="modal" role="dialog" aria-modal="true" aria-labelledby="missesTitle">
-  <header><div id="missesTitle">Missed Cards</div><button type="button" id="btnMissesClose" class="btn outline" aria-label="Close">✕</button></header>
+  <header><div id="missesTitle"></div><button type="button" id="btnMissesClose" class="btn outline" aria-label="Close">✕</button></header>
   <div class="body" id="missesBody"></div>
   <footer>
     <button type="button" id="btnMissesCopy" class="btn" aria-label="Copy list">Copy</button>
@@ -863,10 +859,18 @@
             function showMissesModal() {
                 if (!missesModalBackdrop) buildMissesModal();
                 const body = missesModalBackdrop.querySelector('#missesBody');
+                const titleEl = missesModalBackdrop.querySelector('#missesTitle');
                 body.innerHTML = '';
+                titleEl.textContent = sessionMisses.length ? 'Missed Cards' : 'Results';
+                const summary = document.createElement('div');
+                summary.style.marginBottom = '12px';
+                summary.textContent = `✔ ${ok}   ✘ ${miss}`;
+                body.appendChild(summary);
                 const sorted = [...sessionMisses].sort((a, b) => a.q.localeCompare(b.q));
                 if (!sorted.length) {
-                    body.textContent = 'No misses.';
+                    const div = document.createElement('div');
+                    div.textContent = 'No misses.';
+                    body.appendChild(div);
                 } else {
                     const list = document.createElement('div');
                     list.style.display = 'grid';
