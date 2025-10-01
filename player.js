@@ -17,6 +17,18 @@
     back: '<svg viewBox="0 0 24 24" width="20" height="20"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>'
   };
 
+    // State-aware title/tooltip text (includes shortcut hints where applicable)
+    const TITLE_HINTS = {
+      play:    { on: 'Pause video (Space / Enter)', off: 'Play video (Space / Enter)' },
+      loop:    { on: 'Loop is ON – click to turn off (ArrowDown)', off: 'Loop is OFF – click to turn on (ArrowDown)' },
+      mute:    { on: 'Audio ON – click to mute (ArrowUp)', off: 'Audio MUTED – click to unmute (ArrowUp)' },
+      scroll:  { on: 'Scroll follow ON – click to stop (S)', off: 'Scroll follow OFF – click to enable (S)' },
+      jump:    { on: 'Lyric click jump ENABLED (J to disable)', off: 'Lyric click jump DISABLED (J to enable)' },
+      furigana:{ on: 'Furigana visible – hide (F)', off: 'Furigana hidden – show (F)' },
+      flash:   { on: 'Open flashcards deck', off: 'Open flashcards deck' },
+      back:    { on: 'Back to index', off: 'Back to index' }
+    };
+
   function qs(sel, root=document){ return root.querySelector(sel); }
   function qsa(sel, root=document){ return Array.from(root.querySelectorAll(sel)); }
 
@@ -30,6 +42,9 @@
     btn.setAttribute('aria-label', label);
     btn.setAttribute('aria-pressed','false');
     btn.innerHTML = ICONS[action] || '';
+      // Initial generic title (will be refined by update* functions)
+      const hints = TITLE_HINTS[action];
+      if(hints){ btn.title = hints.off || label; }
     return btn;
   }
 
@@ -83,11 +98,11 @@
       if(spec.active){ btn.classList.add('active'); btn.setAttribute('aria-pressed','true'); }
     });
     function updatePlay(){ const playing=!video.paused; const b=btnMap.play; if(b){ b.innerHTML = playing?ICONS.pause:ICONS.play; b.classList.toggle('active', playing); b.setAttribute('aria-pressed', playing);} }
-    function updateLoop(){ const b=btnMap.loop; if(b){ b.classList.toggle('active', video.loop); b.setAttribute('aria-pressed', video.loop);} }
-    function updateMute(){ const b=btnMap.mute; if(b){ b.innerHTML = video.muted?ICONS.volumeOff:ICONS.volumeOn; b.classList.toggle('active', !video.muted); b.setAttribute('aria-pressed', !video.muted);} }
-    function updateScroll(){ const b=btnMap.scroll; if(b){ b.innerHTML = state.scrollFollow?ICONS.scrollFollow:ICONS.scrollLocked; b.classList.toggle('active', state.scrollFollow); b.setAttribute('aria-pressed', state.scrollFollow);} }
-    function updateJump(){ const b=btnMap.jump; if(b){ b.classList.toggle('active', state.jumpOnClick); b.setAttribute('aria-pressed', state.jumpOnClick);} }
-    function updateFurigana(){ const b=btnMap.furigana; if(b){ const visible = !document.body.classList.contains('hide-furigana'); b.classList.toggle('active', visible); b.setAttribute('aria-pressed', visible);} }
+    function updateLoop(){ const b=btnMap.loop; if(b){ b.classList.toggle('active', video.loop); b.setAttribute('aria-pressed', video.loop); const h=TITLE_HINTS.loop; if(h) b.title = video.loop? h.on : h.off; } }
+    function updateMute(){ const b=btnMap.mute; if(b){ b.innerHTML = video.muted?ICONS.volumeOff:ICONS.volumeOn; b.classList.toggle('active', !video.muted); b.setAttribute('aria-pressed', !video.muted); const h=TITLE_HINTS.mute; if(h) b.title = video.muted? h.off : h.on; } }
+    function updateScroll(){ const b=btnMap.scroll; if(b){ b.innerHTML = state.scrollFollow?ICONS.scrollFollow:ICONS.scrollLocked; b.classList.toggle('active', state.scrollFollow); b.setAttribute('aria-pressed', state.scrollFollow); const h=TITLE_HINTS.scroll; if(h) b.title = state.scrollFollow? h.on : h.off; } }
+    function updateJump(){ const b=btnMap.jump; if(b){ b.classList.toggle('active', state.jumpOnClick); b.setAttribute('aria-pressed', state.jumpOnClick); const h=TITLE_HINTS.jump; if(h) b.title = state.jumpOnClick? h.on : h.off; } }
+    function updateFurigana(){ const b=btnMap.furigana; if(b){ const visible = !document.body.classList.contains('hide-furigana'); b.classList.toggle('active', visible); b.setAttribute('aria-pressed', visible); const h=TITLE_HINTS.furigana; if(h) b.title = visible? h.on : h.off; } }
 
     function togglePlay(){ if(video.paused){ video.play(); } else { video.pause(); } }
     function toggleLoop(){ video.loop = !video.loop; updateLoop(); }
@@ -107,6 +122,12 @@
         iframe.className='flash-iframe';
         flashOverlay.appendChild(iframe);
         document.body.appendChild(flashOverlay);
+        // Clicking the dimmed overlay (but not the iframe) closes the deck
+        flashOverlay.addEventListener('click', (e)=>{
+          if(e.target === flashOverlay){
+            closeFlashcards();
+          }
+        });
       }
       flashOverlay.querySelector('iframe').src=`../flash/index.html?deck=${encodeURIComponent(flashDeck)}`;
       flashOverlay.style.display='flex';
@@ -213,6 +234,13 @@
       else if(e.code==='KeyS'){ e.preventDefault(); toggleScroll(); }
       else if(e.code==='KeyF'){ e.preventDefault(); if(btnMap.furigana) toggleFurigana(); }
       else if(e.code==='KeyJ'){ e.preventDefault(); toggleJump(); }
+      else if(e.code==='Escape'){
+        // Close flash overlay if visible
+        if(flashOverlay && flashOverlay.style.display !== 'none'){
+          e.preventDefault();
+          closeFlashcards();
+        }
+      }
     });
 
     // Tooltip (delegated)
