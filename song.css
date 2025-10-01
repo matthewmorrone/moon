@@ -306,6 +306,11 @@ h1 {
     font-size: 0.85em;
 }
 
+/* Furigana (ruby rt) visibility toggle — player.js toggles body.hide-furigana */
+body.hide-furigana rt {
+    display: none !important;
+}
+
 .kanji-color {
     color: #f6e05e;
     font-weight: bold;

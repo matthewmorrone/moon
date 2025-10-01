@@ -1,5 +1,5 @@
 {
-    "editor.formatOnSave": true,
+    "editor.formatOnSave": false,
     "css.format.newlineBetweenRules": false,
     "less.format.newlineBetweenRules": false,
     "scss.format.newlineBetweenRules": false
