@@ -1,6 +1,8 @@
 /* Central lyric/video player shared across song pages.
  * Features: play/pause, loop, mute, scroll follow, furigana toggle, jump-on-click toggle, keyboard shortcuts, tooltips.
+ * The background video is a YouTube embed (IFrame Player API). The song's video id, time offset and aspect ratio live in ../songs.json.
  * Usage: include <script src="../player.js"></script> then call initLyricPlayer({ title:"...", video:"#bg-video", lyrics:"#lyrics-body" });
+ *   where #bg-video is an empty element inside .video-background that the YouTube iframe replaces.
  */
 (function(){
   const ICONS = {
@@ -48,10 +50,120 @@
     return btn;
   }
 
-  function initLyricPlayer(cfg){
-    const video = typeof cfg.video === 'string' ? qs(cfg.video) : cfg.video;
+  // ---- YouTube-backed stand-in for the <video> element ----
+  // Exposes just the slice of HTMLMediaElement the player uses (paused, currentTime, loop, muted, play(), pause(),
+  // and play / pause / timeupdate events), so the UI code below doesn't care where the media comes from.
+  // `offset` is how many seconds later the YouTube upload runs than the clip the .srt was timed against:
+  // currentTime (SRT time) = YouTube time - offset.
+  const YT_STATE = { ENDED:0, PLAYING:1, PAUSED:2 };
+  const POLL_MS = 100;
+  let ytApi = null;
+  function loadYouTubeApi(){
+    if(ytApi) return ytApi;
+    ytApi = new Promise((resolve, reject)=>{
+      if(window.YT && window.YT.Player){ resolve(window.YT); return; }
+      const prev = window.onYouTubeIframeAPIReady;
+      window.onYouTubeIframeAPIReady = ()=>{ if(prev) prev(); resolve(window.YT); };
+      const s = document.createElement('script');
+      s.src = 'https://www.youtube.com/iframe_api';
+      s.onerror = ()=>reject(new Error('YouTube IFrame API failed to load'));
+      document.head.appendChild(s);
+    });
+    return ytApi;
+  }
+
+  class YouTubeVideo extends EventTarget {
+    constructor(host, song){
+      super();
+      const { id, offset=0, aspect=16/9 } = song || {};
+      this.offset = offset;
+      this._paused = true; this._loop = false; this._muted = false;
+      this._time = 0; this._started = false; this._timer = null; this._player = null;
+      this._note = document.createElement('p');
+      this._note.className = 'video-note';
+      host.parentNode.appendChild(this._note);
+      host.parentNode.style.setProperty('--video-aspect', aspect);
+      if(!id){
+        this._note.textContent = 'No video linked for this song yet.';
+        this._ready = new Promise(()=>{});   // commands queue forever; the lyrics page still works
+        return;
+      }
+      this._ready = loadYouTubeApi().then(YT => new Promise(resolve=>{
+        this._player = new YT.Player(host, {
+          videoId: id,
+          playerVars: {
+            controls:0, disablekb:1, fs:0, rel:0, iv_load_policy:3, modestbranding:1, playsinline:1,
+            origin: location.origin.startsWith('http') ? location.origin : undefined
+          },
+          events: {
+            onReady: ()=>resolve(),
+            onStateChange: e=>this._onState(e.data),
+            onError: e=>{ this._note.textContent = `YouTube could not play this video (error ${e.data}).`; }
+          }
+        });
+      })).catch(err=>{ this._note.textContent = 'Could not load the YouTube player.'; console.warn(err); return new Promise(()=>{}); });
+    }
+    _run(fn){ this._ready.then(()=>fn(this._player)); }
+    _yt(t){ return Math.max(0, t + this.offset); }
+    _tick(){
+      if(!this._player || !this._player.getCurrentTime) return;
+      this._time = this._player.getCurrentTime() - this.offset;
+      this.dispatchEvent(new Event('timeupdate'));
+    }
+    _onState(state){
+      if(state === YT_STATE.PLAYING){
+        if(this._paused){ this._paused = false; this.dispatchEvent(new Event('play')); }
+        clearInterval(this._timer); this._timer = setInterval(()=>this._tick(), POLL_MS);
+      } else if(state === YT_STATE.PAUSED || state === YT_STATE.ENDED){
+        clearInterval(this._timer); this._timer = null;
+        if(state === YT_STATE.ENDED && this._loop){ this.currentTime = 0; this._player.playVideo(); return; }
+        if(!this._paused){ this._paused = true; this.dispatchEvent(new Event('pause')); }
+        this._tick();
+      }
+    }
+    get paused(){ return this._paused; }
+    get currentTime(){ return this._time; }
+    set currentTime(t){
+      this._time = t; this._started = true;
+      this._run(p=>p.seekTo(this._yt(t), true));
+      this.dispatchEvent(new Event('timeupdate'));
+    }
+    get loop(){ return this._loop; }
+    set loop(v){ this._loop = !!v; }
+    get muted(){ return this._muted; }
+    set muted(v){ this._muted = !!v; this._run(p=>this._muted ? p.mute() : p.unMute()); }
+    play(){
+      this._run(p=>{
+        if(!this._started){ this._started = true; if(this.offset > 0) p.seekTo(this.offset, true); }
+        p.playVideo();
+      });
+    }
+    pause(){ this._run(p=>p.pauseVideo()); }
+  }
+
+  // Look up this song's video entry in ../songs.json (entries are { slug, youtube, offset?, aspect? })
+  async function lookupSong(slug){
+    try {
+      const res = await fetch(new URL('../songs.json', location.href));
+      if(!res.ok) throw new Error(`songs.json: HTTP ${res.status}`);
+      const songs = await res.json();
+      const entry = songs.find(s=>s.slug === slug);
+      if(!entry) console.warn(`Lyric player: no songs.json entry for "${slug}"`);
+      return entry ? { id: entry.youtube, offset: entry.offset, aspect: entry.aspect } : null;
+    } catch(err){
+      console.warn('Lyric player: could not read songs.json', err);
+      return null;
+    }
+  }
+
+  async function initLyricPlayer(cfg){
+    const videoHost = typeof cfg.video === 'string' ? qs(cfg.video) : cfg.video;
     const lyricsBody = typeof cfg.lyrics === 'string' ? qs(cfg.lyrics) : cfg.lyrics;
-    if(!video || !lyricsBody) { console.warn('Lyric player: missing video or lyrics container'); return; }
+    if(!videoHost || !lyricsBody) { console.warn('Lyric player: missing video or lyrics container'); return; }
+    // Page folder doubles as the song slug: /moon/<slug>/ or /moon/<slug>/index.html
+    const folder = location.pathname.replace(/[^/]*$/, '').split('/').filter(Boolean).pop() || null;
+    if(!folder) console.warn('Lyric player: Unable to extract folder name from URL path. Expected format: /folder/index.html');
+    const video = new YouTubeVideo(videoHost, cfg.youtube || await lookupSong(folder));
     const container = lyricsBody.closest('.container') || document.body;
     let controls = container.querySelector('.main-controls, .controls');
     if(!controls){ controls = document.createElement('div'); 
@@ -61,15 +173,6 @@
     // Clear existing to avoid duplicates
     controls.innerHTML='';
     const hasRuby = !!lyricsBody.querySelector('ruby');
-    // Expected path format: /folder/song.html
-    // Extract folder name safely; if not present, set to null and warn.
-    const pathParts = location.pathname.split('/').filter(Boolean);
-    let folder = null;
-    if (pathParts.length >= 2) {
-      folder = pathParts[pathParts.length - 2];
-    } else {
-      console.warn('Lyric player: Unable to extract folder name from URL path. Expected format: /folder/song.html');
-    }
     const flashDeck = cfg.flashDeck || (folder ? `${folder}.txt` : null);
     const backHref = cfg.backHref || '../index.html';
     const buttonsSpec = [
@@ -107,7 +210,7 @@
     function togglePlay(){ if(video.paused){ video.play(); } else { video.pause(); } }
     function toggleLoop(){ video.loop = !video.loop; updateLoop(); }
     function toggleMute(){ video.muted = !video.muted; updateMute(); }
-    function toggleScroll(){ state.scrollFollow = !state.scrollFollow; updateScroll(); }
+    function toggleScroll(){ state.scrollFollow = !state.scrollFollow; lastScrolled = null; updateScroll(); }
     function toggleJump(){ state.jumpOnClick = !state.jumpOnClick; updateJump(); }
     function toggleFurigana(){ document.body.classList.toggle('hide-furigana'); updateFurigana(); }
 
@@ -139,6 +242,7 @@
     Object.assign(window, { lyricPlayer:{ video, state } });
 
     // Highlighting logic
+    let lastScrolled = null;   // the YouTube poll ticks faster than native timeupdate, so only re-centre when the line changes
     function updateTime(){
       const t = video.currentTime;
       document.title = `(${formatTime(t)}) - ${cfg.title || document.title}`;
@@ -151,7 +255,8 @@
         if(inside){ active = row; state.currentRowIndex = i; row.classList.add('highlight-line'); }
         else { row.classList.remove('highlight-line'); }
       });
-      if(active && state.scrollFollow){
+      if(active !== lastScrolled && active && state.scrollFollow){
+        lastScrolled = active;
         isAutoScrolling = true;
         clearTimeout(autoScrollTimer);
         active.scrollIntoView({behavior: state.pointerCoarse?'auto':'smooth', block:'center'});

@@ -154,7 +154,7 @@
     <div class="song-list" id="song-list"></div>
     <a class="flash-btn" href="flash/index.html">Flashcards</a>
     <script>
-        // Fetch song folders from JSON list
+        // Fetch the song list (slug + YouTube id) from songs.json
         function fetchSongFolders() {
             return fetch('songs.json')
                 .then(r => { if (!r.ok) throw new Error('Failed to load folder list'); return r.json(); });
@@ -162,68 +162,21 @@
 
         const songListDiv = document.getElementById('song-list');
 
-        // Generate a preview image from a later frame (not the first) to avoid black fades
-        function generateVideoPreview(folder, img, desiredSeconds = 5, fractionFallback = 0.3) {
-            const video = document.createElement('video');
-            video.src = `${folder}/${folder}.mp4`;
-            video.crossOrigin = 'anonymous';
-            video.muted = true;
-            video.playsInline = true;
-            video.preload = 'metadata';
-            video.style.position = 'fixed';
-            video.style.left = '-9999px';
-            video.style.top = '-9999px';
-            document.body.appendChild(video);
-
-            const canvas = document.createElement('canvas');
-            const cleanup = () => {
-                if (video.parentNode) video.parentNode.removeChild(video);
-            };
-
-            video.addEventListener('loadedmetadata', () => {
-                const target = Math.min(Math.max(0.15, video.duration * fractionFallback), desiredSeconds);
-                // Ensure canvas matches aspect ratio of card (420x236) while preserving crop
-                const cardW = 420, cardH = 236;
-                canvas.width = cardW; canvas.height = cardH;
-                // Seek to target frame
-                try { video.currentTime = target; } catch { video.currentTime = 0.2; }
-            }, { once: true });
-
-            video.addEventListener('seeked', () => {
-                try {
-                    const ctx = canvas.getContext('2d');
-                    // Draw covering while maintaining aspect ratio
-                    const vw = video.videoWidth, vh = video.videoHeight;
-                    if (vw && vh) {
-                        const scale = Math.max(canvas.width / vw, canvas.height / vh);
-                        const dw = vw * scale;
-                        const dh = vh * scale;
-                        const dx = (canvas.width - dw) / 2;
-                        const dy = (canvas.height - dh) / 2;
-                        ctx.drawImage(video, dx, dy, dw, dh);
-                        img.src = canvas.toDataURL('image/jpeg', 0.82);
-                        img.setAttribute('data-preview-second', video.currentTime.toFixed(2));
-                    }
-                } finally { cleanup(); }
-            }, { once: true });
-
-            video.addEventListener('error', () => {
-                cleanup();
-                img.style.background = '#2d3748';
-            }, { once: true });
-
-            video.load();
+        // Preview image: the video's YouTube thumbnail (no thumbnail until a video is linked)
+        function setPreview(img, youtubeId) {
+            if (youtubeId) img.src = `https://i.ytimg.com/vi/${youtubeId}/hqdefault.jpg`;
+            else img.style.background = '#2d3748';
         }
 
-        fetchSongFolders().then(folders => {
-            folders.forEach(folder => {
+        fetchSongFolders().then(songs => {
+            songs.forEach(({ slug: folder, youtube }) => {
                 const link = document.createElement('a');
                 link.className = 'song-card';
                 link.href = `${folder}/index.html`;
                 link.setAttribute('tabindex', '0');
                 link.setAttribute('aria-label', folder.replace(/-/g, ' '));
 
-                // Image placeholder that will receive captured mid-frame
+                // Thumbnail
                 const img = document.createElement('img');
                 img.className = 'song-preview';
                 img.alt = `${folder.replace(/-/g, ' ')} preview frame`;
@@ -239,8 +192,7 @@
 
                 songListDiv.appendChild(link);
 
-                // Generate preview after element is in DOM (for potential lazy heuristics)
-                generateVideoPreview(folder, img, 5, 0.35);
+                setPreview(img, youtube);
             });
         }).catch(err => console.error(err));
     </script>

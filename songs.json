@@ -1,10 +1,50 @@
 [
-  "heart-moving",
-  "kirari",
-  "moonlight-densetsu",
-  "princess-moon",
-  "otome-no-policy",
-  "tuxedo-mirage",
-  "moon-pride",
-  "makenai"
+  {
+    "slug": "heart-moving",
+    "youtube": "QASTNLO_4fA",
+    "offset": 0.972,
+    "aspect": 1.3333
+  },
+  {
+    "slug": "kirari",
+    "youtube": "tqP-CE4uUxk",
+    "offset": -0.121,
+    "aspect": 1.7778
+  },
+  {
+    "slug": "moonlight-densetsu",
+    "youtube": "XLHD7DjneKQ",
+    "offset": -0.284,
+    "aspect": 1.5
+  },
+  {
+    "slug": "princess-moon",
+    "youtube": "8VUPx8DxCYM",
+    "offset": -0.036,
+    "aspect": 1.3333
+  },
+  {
+    "slug": "otome-no-policy",
+    "youtube": "-f6CQc6dkAU",
+    "offset": -0.401,
+    "aspect": 1.3333
+  },
+  {
+    "slug": "tuxedo-mirage",
+    "youtube": "ASH268wOTVA",
+    "offset": -0.036,
+    "aspect": 1.3333
+  },
+  {
+    "slug": "moon-pride",
+    "youtube": "UPmD7sn2E4A",
+    "offset": -0.049,
+    "aspect": 1.7778
+  },
+  {
+    "slug": "makenai",
+    "youtube": "UlkN58iORYE",
+    "offset": -0.074,
+    "aspect": 1.3333
+  }
 ]

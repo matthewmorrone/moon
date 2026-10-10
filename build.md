@@ -9,7 +9,7 @@
 - Failure policy: if any normative check fails (e.g., zero cues or zero rows), the model must not emit `index.html` and must answer exactly `I dont know`.
 
 **Exactly follow these rules. No interpretation. If uncertain, respond exactly `I dont know`.**  
-**Inputs available to the LLM:** a video file (`video_src`), an SRT file (`srt`), an optional SRT path (`srt_path`), and optionally a translation SRT (`translation_srt`) and `annotations`.
+**Inputs available to the LLM:** a YouTube video (`youtube_id`, with an optional `offset` and `aspect`, recorded in `songs.json`), an SRT file (`srt`), an optional SRT path (`srt_path`), and optionally a translation SRT (`translation_srt`) and `annotations`.
 
 ---
 
@@ -44,7 +44,9 @@
 
 ### Schema
 ```
-video_src: string              # Path/URL to MP4 (H.264/AAC).
+youtube_id: string             # YouTube video id of an upload matching the cut the SRT was timed against. Embedded; no video file is bundled.
+offset: number                 # Optional, default 0. Seconds the upload runs later than the SRT's cut (YouTube time = SRT time + offset).
+aspect: number                 # Optional, default 16/9. Upload width / height, so the iframe can cover the viewport.
 srt: string                    # UTF-8 SRT (source language).
 srt_path (optional): string    # Filesystem-style path to SRT (e.g., tuxedo-mirage/tuxedo-mirage.srt)
 translation_srt (optional): string    # UTF-8 SRT, 1:1 aligned by cue index.
@@ -85,7 +87,7 @@ When both a video and an SRT are provided by name/path (e.g., `tuxedo-mirage/tux
 2.2 No Node.js, require(), or server APIs allowed. No file reads, no fetch from disk.
      - Inline all SRT and translation content as string constants in <script>.
 2.3 DOM skeleton (ids/classes are normative):
-     - .video-background → <video id="bg-video" src="{{VIDEO_SRC}}" autoplay muted playsinline preload="metadata">
+     - .video-background → <div id="bg-video"></div> (shared `player.js` replaces it with the YouTube iframe, using the id/offset/aspect from `songs.json`)
      - .video-overlay
      - .container → <h1>, .controls, #lyrics-body
      - #lyrics-body contains multiple .lyric-row
@@ -234,7 +236,7 @@ Constraint: len(source_groups) == len(translation_phrases) for every line.
 ### Layout & micro-rules
 ```
 6.1 Background video:
-     - .video-background is fixed; <video id="bg-video"> uses object-fit: cover; width/height: 100vw/100vh.
+     - .video-background is fixed and clips overflow; the YouTube iframe is centred and sized `max(100vw, 100vh * aspect)` by `max(100vh, 100vw / aspect)` (the equivalent of object-fit: cover), with pointer-events disabled so keyboard shortcuts stay on the page.
 
 6.2 Overlay:
      - .video-overlay sits above video; semi-opaque dark to improve text contrast.
@@ -295,7 +297,7 @@ Constraint: len(source_groups) == len(translation_phrases) for every line.
        - `scrollLockBtn.innerHTML = isScrollFollowing ? icons.scrollFollow : icons.scrollLocked`
        - `furiganaBtn.innerHTML = icons.furigana`
      - Ensure each control button has `aria-pressed` reflecting its state after icon initialization.
-     - If no explicit title is provided, set `<h1>` and `document.title` base to the video file name (strip extension); still apply §3.10 ticking.
+     - If no explicit title is provided, set `<h1>` and `document.title` base to the song's folder name; still apply §3.10 ticking.
 7.1.1 Playback bootstrap: Implement ensurePlayback() and attach one-time listeners for click, keydown, and touchstart on document to trigger ensurePlayback() if needsUserGesture is true. Remove these listeners once playback succeeds.
 ```
 
@@ -459,7 +461,7 @@ Constraint: len(source_groups) == len(translation_phrases) for every line.
 </head>
 <body>
   <div class="video-background">
-    <video id="bg-video" src="{{VIDEO_SRC}}" autoplay muted playsinline preload="metadata"></video>
+    <div id="bg-video"></div>
   </div>
   <div class="video-overlay"></div>
 
@@ -498,8 +500,8 @@ Constraint: len(source_groups) == len(translation_phrases) for every line.
      c) Assign group_id sequentially in source order: "{line_idx}-{k}".
      d) Build row DOM HTML per §11 with required data-* attributes and tooltips (fallbacks per §3.7 and §9.5).
 12.5 Concatenate all rows and insert into #lyrics-body.
-12.6 Render <h1> from title (ruby allowed); set video src.
-12.6.a If `title` is empty or missing, derive a base title from the video file name (strip extension) and use that for `<h1>` and initial `document.title`.
+12.6 Render <h1> from title (ruby allowed); the YouTube id comes from `songs.json`, not the page.
+12.6.a If `title` is empty or missing, derive a base title from the song's folder name and use that for `<h1>` and initial `document.title`.
 12.7 Attach CSS from §6 and JS behaviors from §7 (controls, timeupdate, keyboard, cross-highlighting, tooltips, furigana toggle).
 12.8 Run acceptance tests in §10; if any fail, fix and re-emit index.html.
 12.9 Validate output: ensure `document.querySelectorAll('#lyrics-body .lyric-row').length >= 1`. If zero, the build is invalid; do not emit the file.
@@ -618,4 +620,4 @@ Before emitting `index.html`, verify each item. If any item fails, do not emit t
 - [ ] No `TODO` strings or unimplemented stubs remain (§7.5.2, §10.17).
 - [ ] No Node.js/server APIs; no external JS; only the fonts URL in §2.5 is used (§2.1–§2.5, §13.5).
 - [ ] Accessibility attributes present: `aria-label` on controls; `aria-pressed` reflects state (§3.8, §7.1).
-- [ ] Document title updates to `(M:SS) - <title>` while playing; base title set from `title` or video filename (§3.10, §7.1, §12.6.a).
+- [ ] Document title updates to `(M:SS) - <title>` while playing; base title set from `title` or folder name (§3.10, §7.1, §12.6.a).
